@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif text-forest-700;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-white shadow-card border border-cream-200/60 p-6;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-forest-700 px-5 py-2.5
+           text-sm font-medium text-cream-50 transition hover:bg-forest-800
+           focus:outline-none focus:ring-2 focus:ring-forest-600/40
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full border border-forest-700/20
+           px-5 py-2.5 text-sm font-medium text-forest-700 transition hover:bg-forest-50
+           disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent;
+  }
+  .input {
+    @apply w-full rounded-xl border border-sage-200 bg-white px-4 py-2.5 text-sm
+           text-ink placeholder:text-sage-600 focus:border-forest-600
+           focus:outline-none focus:ring-2 focus:ring-forest-600/20;
+  }
+}
