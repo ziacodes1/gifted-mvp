@@ -1,0 +1,87 @@
+gifted_ui_named
+├── assets
+│   ├── branding
+│   │   ├── gifted_logo_dark_mode.png
+│   │   ├── gifted_logo_icon_only.png
+│   │   └── gifted_logo_light_mode.png
+│   ├── hero_and_backgrounds
+│   │   ├── community_students_city_view_hero.png
+│   │   ├── dark_emerald_wave_banner_v1.png
+│   │   ├── dark_emerald_wave_banner_v2.png
+│   │   ├── full_poster_curiosity_takes_you_further.png
+│   │   ├── generic_light_sunrise_mountains_brand_waves.png
+│   │   ├── light_cream_green_gold_wave_banner_v1.png
+│   │   ├── light_cream_green_gold_wave_banner_v2.png
+│   │   ├── opportunity_stem_student_microscope_lab.png
+│   │   ├── parent_child_sunrise_landscape_hero.png
+│   │   ├── parent_insights_mother_child_sunrise.png
+│   │   ├── parent_support_home_mother_child_livingroom.png
+│   │   ├── student_city_path_backpack_hero_left_fade_v1.png
+│   │   ├── student_city_path_backpack_hero_left_fade_v2.png
+│   │   ├── student_city_path_backpack_hero_left_fade_v3.png
+│   │   ├── student_city_path_backpack_portrait.png
+│   │   └── student_mountain_sunrise_backpack_hero.png
+│   ├── passport
+│   │   └── gifted_passport_book_cover_3d.png
+│   └── passport_ui
+│       ├── passport_ui_evidence_achievements_growth_report.png
+│       ├── passport_ui_journey_milestones.png
+│       ├── passport_ui_opportunities_recommendations.png
+│       ├── passport_ui_overview_strengths_recommended_paths.png
+│       ├── passport_ui_profile_interests_learning_journey.png
+│       └── passport_ui_strengths_profile_radar_chart.png
+├── screens
+│   ├── parent
+│   │   ├── dashboard
+│   │   │   ├── parent_dashboard_growth_overview.png
+│   │   │   └── parent_dashboard_support_curiosity.png
+│   │   ├── insights
+│   │   │   └── parent_insights_dashboard.png
+│   │   └── support
+│   │       └── parent_support_at_home_dashboard.png
+│   ├── public
+│   │   ├── auth_login_student_parent_split.png
+│   │   ├── auth_login_welcome_back_poster_split.png
+│   │   └── public_landing_home.png
+│   └── student
+│       ├── assessment
+│       │   ├── student_assessment_activity_choice.png
+│       │   ├── student_assessment_emerging_profile_results.png
+│       │   ├── student_assessment_session_insights_results.png
+│       │   ├── student_assessments_overview.png
+│       │   ├── student_assessments_overview_variant.png
+│       │   ├── student_discovery_assessment_question_choice.png
+│       │   └── student_interests_assessment_question.png
+│       ├── community
+│       │   └── student_community_overview.png
+│       ├── dashboard
+│       │   ├── student_dashboard_career_explorer.png
+│       │   ├── student_dashboard_first_session_good_morning.png
+│       │   └── student_dashboard_overview_returning.png
+│       ├── journey
+│       │   ├── student_journey_brighter_tomorrow_overview.png
+│       │   ├── student_journey_progress_overview.png
+│       │   └── student_my_journey_overview.png
+│       ├── mentorship
+│       │   └── student_mentorship_overview.png
+│       ├── missions
+│       │   ├── student_explore_missions_virtual_labs.png
+│       │   └── student_mission_detail_design_greener_school.png
+│       ├── onboarding
+│       │   └── student_onboarding_interest_selection.png
+│       ├── opportunities
+│       │   ├── student_opportunities_catalog.png
+│       │   ├── student_opportunities_explore_listing.png
+│       │   └── student_opportunity_detail_young_innovators_fellowship.png
+│       ├── passport
+│       │   ├── student_gifted_passport_dashboard.png
+│       │   ├── student_passport_profile_overview.png
+│       │   └── student_passport_story_of_potential.png
+│       ├── resources
+│       │   └── student_resources_library.png
+│       ├── session
+│       │   └── student_session_complete_summary.png
+│       └── settings
+│           └── student_settings_page.png
+├── ASSET_MANIFEST.csv
+└── README_ASSET_MAP.md
