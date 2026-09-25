@@ -1,0 +1,46 @@
+"""Persisted AI-generated insights.
+
+One row per (session, generation_type, input_version). AI rows are final; a
+FALLBACK row may be upgraded in place to AI once the provider is reachable.
+"""
+from django.conf import settings
+from django.db import models
+
+
+class GenerationType(models.TextChoices):
+    PROFILE_SYNTHESIS = "PROFILE_SYNTHESIS", "Profile synthesis + next step"
+    PARENT_INSIGHT = "PARENT_INSIGHT", "Parent insight"
+
+
+class InsightSource(models.TextChoices):
+    AI = "AI", "AI"
+    FALLBACK = "FALLBACK", "Deterministic fallback"
+
+
+class AIInsight(models.Model):
+    learner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="ai_insights"
+    )
+    session = models.ForeignKey(
+        "assessments.AssessmentSession", on_delete=models.CASCADE, related_name="ai_insights"
+    )
+    generation_type = models.CharField(max_length=32, choices=GenerationType.choices)
+    input_version = models.CharField(max_length=32)
+    source = models.CharField(max_length=8, choices=InsightSource.choices)
+    provider = models.CharField(max_length=32, blank=True)
+    model = models.CharField(max_length=64, blank=True)
+    result = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "ai_insight"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["session", "generation_type", "input_version"],
+                name="uniq_ai_insight_per_session_type_version",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.learner_id}:{self.session_id}:{self.generation_type}:{self.source}"
