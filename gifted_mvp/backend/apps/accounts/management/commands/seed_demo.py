@@ -42,3 +42,4 @@ class Command(BaseCommand):
         call_command("seed_demo_mission")
         call_command("seed_demo_family")
         call_command("seed_demo_engagement")
+        call_command("seed_demo_ecosystem")  # after engagement: demo peers author community posts

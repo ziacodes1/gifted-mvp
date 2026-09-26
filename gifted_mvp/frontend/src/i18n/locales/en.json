@@ -27,6 +27,9 @@
     "assessments": "Assessments",
     "passport": "My Passport",
     "missions": "Missions",
+    "opportunities": "Opportunities",
+    "resources": "Resources",
+    "community": "Community",
     "companion": "AI Companion",
     "diary": "My Diary",
     "rewards": "Streak & Rewards",
@@ -1106,6 +1109,333 @@
       "diary_milestone": "Your diary reached {{count}} pages",
       "reward_one": "{{count}} reward is within reach",
       "reward_other": "{{count}} rewards are within reach"
+    }
+  },
+  "eco": {
+    "loadError": "We couldn't load this right now.",
+    "actionError": "That didn't work. Please try again.",
+    "providedBy": "Provided by {{name}}",
+    "verified": "verified",
+    "save": "Save {{title}}",
+    "unsave": "Remove {{title}} from saved",
+    "hours_one": "{{count}} hour",
+    "hours_other": "{{count}} hours",
+    "demo": {
+      "pill": "Demo",
+      "orgNote": "Fictional organization used for the Gifted demo.",
+      "curated": "Gifted-curated demo content: written by the Gifted team for this demo; the organization named here is fictional.",
+      "listing": "Demo listing: this organization is fictional and the link opens an example page."
+    },
+    "category": {
+      "STEM": "STEM",
+      "AI_TECH": "AI & Technology",
+      "ARTS": "Arts & Creativity",
+      "LEADERSHIP": "Leadership",
+      "ENTREPRENEURSHIP": "Entrepreneurship",
+      "SOCIAL_IMPACT": "Social Impact",
+      "ENVIRONMENT": "Environment",
+      "LANGUAGES": "Languages",
+      "PERSONAL_DEVELOPMENT": "Personal Development"
+    },
+    "difficulty": {
+      "BEGINNER": "Beginner-friendly",
+      "INTERMEDIATE": "Intermediate",
+      "ADVANCED": "Advanced"
+    },
+    "mode": {
+      "ONLINE": "Online",
+      "IN_PERSON": "In person",
+      "HYBRID": "Hybrid"
+    },
+    "match": {
+      "STRONG_FIT": "Strong fit",
+      "WORTH_EXPLORING": "Worth exploring",
+      "NEW_AREA": "New area to try",
+      "EXPLORE": "Suggested exploration"
+    },
+    "reason": {
+      "interest": "Connects with your interest in {{label}}",
+      "work_style": "Fits how you like to work: {{label}}",
+      "value": "Matches something you value: {{label}}",
+      "aptitude": "Uses an early strength signal: {{label}}",
+      "evidence": "Your missions or resources also showed {{label}}",
+      "exposure_gap": "A first-hand try at {{label}} — something you haven't done much yet",
+      "emerging": "Builds on an emerging interest: {{label}}",
+      "new_area": "Different from your current signals — a low-pressure way to explore something new"
+    },
+    "why": {
+      "title": "Why this matches you",
+      "suggested": "Suggested exploration",
+      "noSignals": "Your Passport doesn't have enough signals yet to explain a match. Take the discovery assessment and Gifted will show how things connect to you.",
+      "takeAssessment": "Take the discovery assessment",
+      "note": "Based on your Passport signals — reasons you can check, not a score.",
+      "noScore": "Gifted explains fit with reasons from your Passport. There is no percentage or ranking."
+    },
+    "filters": {
+      "quick": "Quick filters",
+      "category": "Category",
+      "allCategories": "All categories",
+      "type": "Type",
+      "allTypes": "All types",
+      "age": "Age",
+      "anyAge": "Any age",
+      "ageValue": "I'm {{age}}",
+      "country": "Country",
+      "anyCountry": "Any country",
+      "deadline": "Deadline",
+      "openNow": "Open now",
+      "closingSoon": "Closing soon",
+      "includeClosed": "Include closed"
+    },
+    "resources": {
+      "eyebrow": "Resources",
+      "title": "Resources",
+      "subtitle": "Learn, explore and get inspired. Short articles, videos, toolkits and courses matched to what your Passport shows.",
+      "hand": "Curious minds. Brighter tomorrows.",
+      "typesLabel": "Resource types",
+      "tabs": {
+        "ALL": "All resources",
+        "ARTICLE": "Articles",
+        "VIDEO": "Videos",
+        "TOOLKIT": "Toolkits",
+        "COURSE": "Courses",
+        "SAVED": "Saved"
+      },
+      "type": {
+        "ARTICLE": "Article",
+        "VIDEO": "Video",
+        "TOOLKIT": "Toolkit",
+        "COURSE": "Course"
+      },
+      "cta": {
+        "ARTICLE": "Read now",
+        "VIDEO": "Watch now",
+        "TOOLKIT": "Use toolkit",
+        "COURSE": "View course",
+        "continue": "Continue"
+      },
+      "status": {
+        "IN_PROGRESS": "In progress",
+        "COMPLETED": "Completed",
+        "NOT_STARTED": "Not started"
+      },
+      "search": "Search resources, topics or skills…",
+      "sortBy": "Sort by",
+      "sort": {
+        "relevant": "Most relevant",
+        "shortest": "Shortest first",
+        "newest": "Newest"
+      },
+      "recommended": "Recommended for you",
+      "recommendedNote": "Strong fits with your Passport signals.",
+      "all": "All resources",
+      "savedTitle": "Saved resources",
+      "orderNote": "Ordered by how well each one fits your Passport.",
+      "noSignalsNote": "Take the discovery assessment to see why each resource fits you.",
+      "empty": "No resources match these filters.",
+      "noSaved": "Nothing saved yet — tap the bookmark on any resource.",
+      "back": "Back to resources",
+      "externalNote": "This resource lives on {{name}}'s website.",
+      "openResource": "Open resource",
+      "visitProvider": "Visit provider",
+      "inGifted": "Shown inside Gifted.",
+      "keyIdeas": "Key ideas",
+      "lessons": "Lessons",
+      "tryThis": "Try this",
+      "markComplete": "Mark as completed",
+      "undo": "Mark as not completed",
+      "startCourse": "Start course",
+      "evidenceNote": "Finishing this adds a small exposure note to your Passport (not a score).",
+      "evidenceRecorded": "Added to your Passport as exposure evidence.",
+      "partOfPath": "Part of the learning path",
+      "path": {
+        "featured": "Featured learning path",
+        "label": "Learning path",
+        "count_one": "{{count}} resource",
+        "count_other": "{{count}} resources",
+        "start": "Start learning path",
+        "continue": "Continue learning path",
+        "progress": "{{done}} of {{total}} done",
+        "done": "You finished this learning path. 🌱"
+      }
+    },
+    "opportunities": {
+      "eyebrow": "Opportunities for your tomorrow",
+      "title": "Explore your possibilities",
+      "subtitle": "Programs, competitions, camps and more — matched to your Passport with reasons, not scores.",
+      "search": "Search opportunities, programs or topics…",
+      "quick": {
+        "all": "All",
+        "STEM": "STEM",
+        "ARTS": "Arts",
+        "LEADERSHIP": "Leadership",
+        "ONLINE": "Online",
+        "IN_PERSON": "In person",
+        "saved": "Saved"
+      },
+      "type": {
+        "COMPETITION": "Competition",
+        "HACKATHON": "Hackathon",
+        "FELLOWSHIP": "Fellowship",
+        "CAMP": "Camp",
+        "SCHOLARSHIP": "Scholarship",
+        "EVENT": "Event",
+        "INTERNSHIP": "Internship",
+        "VOLUNTEERING": "Volunteering",
+        "PROGRAM": "Program",
+        "WORKSHOP": "Workshop"
+      },
+      "ages": "Ages {{min}}–{{max}}",
+      "agesFrom": "Ages {{min}}+",
+      "agesUpTo": "Up to age {{max}}",
+      "anyAge": "Any age",
+      "onlineGlobal": "Online · open worldwide",
+      "onlineIn": "Online · {{country}}",
+      "hybridIn": "Hybrid · {{place}}",
+      "deadline": {
+        "applyBy": "Apply by {{date}}",
+        "closesIn_one": "Closes in {{count}} day",
+        "closesIn_other": "Closes in {{count}} days",
+        "today": "Closes today",
+        "closed": "Applications closed",
+        "rolling": "Rolling applications",
+        "opens": "Opens {{date}}"
+      },
+      "viewDetails": "View details",
+      "all": "All opportunities",
+      "savedTitle": "Saved opportunities",
+      "orderNote": "Ordered by how well each one fits your Passport. Closed ones are hidden unless you include them.",
+      "noSignalsNote": "Take the discovery assessment to see why an opportunity fits you.",
+      "empty": "No opportunities match these filters.",
+      "noSaved": "Nothing saved yet — tap the bookmark on any opportunity.",
+      "featured": "Featured opportunity",
+      "forYou": "Recommended for you",
+      "disclaimer": "Gifted lists opportunities from organizations; applications happen on their own websites.",
+      "back": "Back to opportunities",
+      "apply": "Apply now",
+      "notOpen": "Applications aren't open",
+      "save": "Save opportunity",
+      "saved": "Saved",
+      "applyNote": "“Apply now” opens {{org}}'s application page in a new tab. Gifted doesn't submit applications for you.",
+      "linkOpened": "You opened the application page. Finish your application on {{org}}'s site — Gifted can't see whether you applied.",
+      "tabs": {
+        "overview": "Overview",
+        "details": "Details",
+        "eligibility": "Eligibility",
+        "faqs": "FAQ"
+      },
+      "overview": "Program overview",
+      "yourFit": "Your opportunity fit",
+      "skills": "Skills you will build",
+      "nextSteps": {
+        "title": "Next steps",
+        "review": "Review the details and eligibility",
+        "open": "Open {{org}}'s application page",
+        "deadline": "Apply on their site by {{date}}",
+        "rolling": "Apply on their site whenever you're ready",
+        "updates": "Look out for updates from {{org}}"
+      },
+      "detail": {
+        "type": "Type",
+        "provider": "Organization",
+        "format": "Format",
+        "opens": "Applications open",
+        "deadline": "Deadline",
+        "starts": "Starts",
+        "ends": "Ends"
+      },
+      "elig": {
+        "age": "Open to {{range}} — check that this fits you.",
+        "anyAge": "No age limit is listed.",
+        "location": {
+          "ANYWHERE": "Online and open to learners anywhere.",
+          "ONLINE_REGION": "Online, for learners in {{country}}.",
+          "ON_SITE": "Takes place in {{place}} — check that you can attend."
+        },
+        "requirements": "Requirements from the organization",
+        "note": "Gifted doesn't know your exact age or location, so it never decides eligibility for you. {{org}} makes the final decision."
+      },
+      "noFaqs": "No FAQs yet."
+    },
+    "community": {
+      "eyebrow": "Connect. Share. Grow together.",
+      "title": "Community",
+      "tagline": "Find your people. Grow together.",
+      "subtitle": "Small circles for curious learners. Every post is reviewed before others see it.",
+      "suggested": "Suggested circles for you",
+      "suggestedNote": "Picked from the interests in your Passport.",
+      "suggestedNoSignals": "A few good places to start. Take the discovery assessment for personal suggestions.",
+      "reason": {
+        "interest": "Because of your interest in {{label}}",
+        "emerging": "Builds on your emerging interest in {{label}}"
+      },
+      "members_one": "{{count}} member",
+      "members_other": "{{count}} members",
+      "join": "Join",
+      "joined": "Joined",
+      "leave": "Leave",
+      "myCircles": "My circles",
+      "noCircles": "You haven't joined a circle yet. Join one to share ideas and ask questions.",
+      "moreCircles": "More circles",
+      "feed": "Community feed",
+      "feedNote": "Ideas, questions and wins from Gifted learners. Posts appear after a quick review.",
+      "emptyFeed": "No posts yet. Be the first to share something!",
+      "joinToPost": "Join a circle to share a post in it.",
+      "placeholder": "Share an idea, a question or something you made…",
+      "circle": "Circle",
+      "postType": "Post type",
+      "type": {
+        "SHARE": "Share",
+        "QUESTION": "Question",
+        "IDEA": "Idea",
+        "ACHIEVEMENT": "Achievement"
+      },
+      "share": "Share",
+      "guidelines": "Be kind. Don't share phone numbers, addresses, social media handles or other personal details.",
+      "submitted": "Thanks! Your post will appear for others after a quick review.",
+      "tooMany": "You've posted a lot recently. Please try again later.",
+      "pending": "Waiting for review",
+      "rejected": "Not approved",
+      "you": "You",
+      "anonymous": "Gifted learner",
+      "report": "Report",
+      "reportReason": "Reason",
+      "reasons": {
+        "UNKIND": "Unkind or bullying",
+        "UNSAFE": "Unsafe or personal information",
+        "SPAM": "Spam or advertising",
+        "OTHER": "Something else"
+      },
+      "sendReport": "Send report",
+      "cancel": "Cancel",
+      "reported": "Thanks — the Gifted team will take a look. You won't see this post anymore.",
+      "events": "Upcoming events",
+      "eventsNote": "Workshops, talks and showcases.",
+      "noEvents": "No upcoming events right now.",
+      "eventDetails": "Event details"
+    },
+    "home": {
+      "title": "Explore beyond Gifted",
+      "subtitle": "Picked from your Passport signals.",
+      "subtitleNoSignals": "A few places to start — your picks get personal after the discovery assessment.",
+      "resource": "Recommended resource",
+      "opportunity": "Opportunity for you",
+      "circle": "Suggested community"
+    },
+    "passport": {
+      "title": "Explore next",
+      "note": "Ways to add real experience to your Passport.",
+      "more": "More opportunities",
+      "mission": "Mission"
+    },
+    "time": {
+      "now": "just now",
+      "minutes_one": "{{count}} min ago",
+      "minutes_other": "{{count}} min ago",
+      "hours_one": "{{count}}h ago",
+      "hours_other": "{{count}}h ago",
+      "days_one": "{{count}} day ago",
+      "days_other": "{{count}} days ago"
     }
   }
 }

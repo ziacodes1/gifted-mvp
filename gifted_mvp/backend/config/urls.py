@@ -21,6 +21,7 @@ api_v1 = [
     path("", include("apps.diary.urls")),
     path("", include("apps.engagement.urls")),
     path("", include("apps.today.urls")),
+    path("", include("apps.ecosystem.urls")),
 ]
 
 if settings.API_DOCS_ENABLED:

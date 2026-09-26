@@ -16,6 +16,7 @@ class EvidenceSource(models.TextChoices):
     VIRTUAL_LAB = "VIRTUAL_LAB", "Virtual lab"
     OPPORTUNITY = "OPPORTUNITY", "Opportunity"
     REAL_WORLD = "REAL_WORLD", "Real-world activity"
+    RESOURCE = "RESOURCE", "Learning resource"
 
 
 class EvidenceKind(models.TextChoices):

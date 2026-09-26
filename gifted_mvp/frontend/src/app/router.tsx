@@ -18,6 +18,12 @@ import {
   StudentDiary,
   StudentDiaryEntry,
   StudentRewards,
+  StudentResources,
+  StudentResource,
+  StudentLearningPath,
+  StudentOpportunities,
+  StudentOpportunity,
+  StudentCommunity,
 } from "../pages/student";
 import { ParentHome, ParentInsights } from "../pages/parent";
 
@@ -48,6 +54,12 @@ export const router = createBrowserRouter([
           { path: "diary/new", element: <StudentDiaryEntry /> },
           { path: "diary/:id", element: <StudentDiaryEntry /> },
           { path: "rewards", element: <StudentRewards /> },
+          { path: "resources", element: <StudentResources /> },
+          { path: "resources/paths/:slug", element: <StudentLearningPath /> },
+          { path: "resources/:slug", element: <StudentResource /> },
+          { path: "opportunities", element: <StudentOpportunities /> },
+          { path: "opportunities/:slug", element: <StudentOpportunity /> },
+          { path: "community", element: <StudentCommunity /> },
         ],
       },
     ],

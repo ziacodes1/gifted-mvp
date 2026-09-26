@@ -16,6 +16,7 @@ vi.mock("../../api/diary", () => ({
 vi.mock("../../api/engagement", () => ({ engagementApi: { overview: vi.fn(), redeem: vi.fn() } }));
 vi.mock("../../api/assessments", () => ({ assessmentsApi: { list: vi.fn() } }));
 vi.mock("../../api/passport", () => ({ passportApi: { mine: vi.fn() } }));
+vi.mock("../../api/ecosystem", () => ({ ecosystemApi: { forYou: vi.fn().mockRejectedValue(new Error("not under test")) } }));
 vi.mock("../auth/AuthContext", () => ({ useAuth: () => ({ user: { full_name: "Ada Lovelace", email: "a@t.dev", role: "STUDENT" } }) }));
 
 import { aiApi } from "../../api/ai";

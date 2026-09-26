@@ -62,7 +62,9 @@ Free tier ≈ 8k tokens/min — leave ~30 s between full rehearsals, then `reset
 7. **AI Companion** — share a proud moment, e.g. *"Today I presented my project and felt proud"* → live answer → **Add to My Diary**.
 8. **My Diary** — the draft holds only your words → pick a mood / sticker → **Save entry** → back to My Diary.
 9. **Streak & Rewards** — points (40 + 60 + 10 + 15), streak, badges, leaderboard; redeem the Sticker Pack.
-10. **Home** — Today's Spark + the updates bell (badges, Passport, reward).
+10. **Home** — Today's Spark + the updates bell (badges, Passport, reward) + "Explore beyond Gifted".
+10a. **Opportunities** → the personal pick → detail ("Why this matches you", no score) → **Apply now** opens the (demo) provider page; Gifted only records that the link was opened.
+10b. **Resources** → featured learning path → mark a toolkit completed (evidence note) · **Community** → join a suggested circle → post (waits for review).
 11. Sign out → **Parent** tab → **Parent Dashboard** → **Parent Insights** (progress + guidance only; no diary, chat or mood).
 
 ## Emergency AI fallback

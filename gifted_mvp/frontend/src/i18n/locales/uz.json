@@ -18,6 +18,9 @@
     "assessments": "Testlar",
     "passport": "Mening pasportim",
     "missions": "Missiyalar",
+    "opportunities": "Imkoniyatlar",
+    "resources": "Materiallar",
+    "community": "Hamjamiyat",
     "companion": "AI hamroh",
     "diary": "Mening kundaligim",
     "rewards": "Seriya va mukofotlar",
@@ -1010,6 +1013,333 @@
       "diary_milestone": "Kundaligingiz {{count}} sahifaga yetdi",
       "reward_one": "{{count}} ta mukofot olish mumkin",
       "reward_other": "{{count}} ta mukofot olish mumkin"
+    }
+  },
+  "eco": {
+    "loadError": "Hozircha buni yuklab bo‘lmadi.",
+    "actionError": "Amalga oshmadi. Qaytadan urinib ko‘ring.",
+    "providedBy": "Taqdim etuvchi: {{name}}",
+    "verified": "tasdiqlangan",
+    "save": "{{title}} — saqlash",
+    "unsave": "{{title}} — saqlanganlardan olib tashlash",
+    "hours_one": "{{count}} soat",
+    "hours_other": "{{count}} soat",
+    "demo": {
+      "pill": "Demo",
+      "orgNote": "Gifted demosi uchun to‘qima tashkilot.",
+      "curated": "Gifted tanlagan demo material: Gifted jamoasi ushbu demo uchun yozgan; bu yerda ko‘rsatilgan tashkilot to‘qima.",
+      "listing": "Demo e’lon: bu tashkilot to‘qima, havola namuna sahifani ochadi."
+    },
+    "category": {
+      "STEM": "STEM",
+      "AI_TECH": "SI va texnologiya",
+      "ARTS": "San’at va ijod",
+      "LEADERSHIP": "Yetakchilik",
+      "ENTREPRENEURSHIP": "Tadbirkorlik",
+      "SOCIAL_IMPACT": "Ijtimoiy ta’sir",
+      "ENVIRONMENT": "Atrof-muhit",
+      "LANGUAGES": "Tillar",
+      "PERSONAL_DEVELOPMENT": "Shaxsiy rivojlanish"
+    },
+    "difficulty": {
+      "BEGINNER": "Yangi boshlovchilar uchun",
+      "INTERMEDIATE": "O‘rta daraja",
+      "ADVANCED": "Yuqori daraja"
+    },
+    "mode": {
+      "ONLINE": "Onlayn",
+      "IN_PERSON": "Yuzma-yuz",
+      "HYBRID": "Aralash"
+    },
+    "match": {
+      "STRONG_FIT": "Sizga juda mos",
+      "WORTH_EXPLORING": "Sinab ko‘rishga arziydi",
+      "NEW_AREA": "Yangi yo‘nalish",
+      "EXPLORE": "Taklif etilgan izlanish"
+    },
+    "reason": {
+      "interest": "{{label}} sohasiga qiziqishingiz bilan bog‘liq",
+      "work_style": "Ishlash uslubingizga mos: {{label}}",
+      "value": "Siz qadrlaydigan narsaga mos: {{label}}",
+      "aptitude": "Dastlabki kuchli tomoningizdan foydalanadi: {{label}}",
+      "evidence": "Missiya yoki materiallaringiz ham {{label}} belgisini ko‘rsatdi",
+      "exposure_gap": "{{label}} — hali kam sinab ko‘rgan narsangizni amalda sinash imkoni",
+      "emerging": "Shakllanayotgan qiziqishingizga tayanadi: {{label}}",
+      "new_area": "Hozirgi belgilaringizdan farq qiladi — yangi narsani bosimsiz sinab ko‘rish imkoni"
+    },
+    "why": {
+      "title": "Nega bu sizga mos",
+      "suggested": "Taklif etilgan izlanish",
+      "noSignals": "Pasportingizda moslikni tushuntirish uchun hali yetarli belgi yo‘q. Kashfiyot testini topshiring — Gifted nimalar sizga qanday bog‘lanishini ko‘rsatadi.",
+      "takeAssessment": "Kashfiyot testini topshirish",
+      "note": "Pasport belgilaringizga asoslangan — ball emas, tekshirsa bo‘ladigan sabablar.",
+      "noScore": "Gifted moslikni pasportingizdagi sabablar bilan tushuntiradi. Foiz yoki reyting yo‘q."
+    },
+    "filters": {
+      "quick": "Tezkor filtrlar",
+      "category": "Yo‘nalish",
+      "allCategories": "Barcha yo‘nalishlar",
+      "type": "Turi",
+      "allTypes": "Barcha turlar",
+      "age": "Yosh",
+      "anyAge": "Istalgan yosh",
+      "ageValue": "Men {{age}} yoshdaman",
+      "country": "Mamlakat",
+      "anyCountry": "Istalgan mamlakat",
+      "deadline": "Muddat",
+      "openNow": "Hozir ochiq",
+      "closingSoon": "Tez orada yopiladi",
+      "includeClosed": "Yopilganlar bilan"
+    },
+    "resources": {
+      "eyebrow": "Materiallar",
+      "title": "Materiallar",
+      "subtitle": "O‘rganing, izlaning va ilhomlaning. Pasportingizga mos qisqa maqolalar, videolar, qo‘llanmalar va kurslar.",
+      "hand": "Qiziquvchan aql — yorug‘ ertangi kun.",
+      "typesLabel": "Material turlari",
+      "tabs": {
+        "ALL": "Barchasi",
+        "ARTICLE": "Maqolalar",
+        "VIDEO": "Videolar",
+        "TOOLKIT": "Qo‘llanmalar",
+        "COURSE": "Kurslar",
+        "SAVED": "Saqlanganlar"
+      },
+      "type": {
+        "ARTICLE": "Maqola",
+        "VIDEO": "Video",
+        "TOOLKIT": "Qo‘llanma",
+        "COURSE": "Kurs"
+      },
+      "cta": {
+        "ARTICLE": "O‘qish",
+        "VIDEO": "Ko‘rish",
+        "TOOLKIT": "Qo‘llanmani ochish",
+        "COURSE": "Kursni ko‘rish",
+        "continue": "Davom etish"
+      },
+      "status": {
+        "IN_PROGRESS": "Jarayonda",
+        "COMPLETED": "Tugallangan",
+        "NOT_STARTED": "Boshlanmagan"
+      },
+      "search": "Material, mavzu yoki ko‘nikma qidiring…",
+      "sortBy": "Saralash",
+      "sort": {
+        "relevant": "Eng mos",
+        "shortest": "Avval qisqalari",
+        "newest": "Eng yangi"
+      },
+      "recommended": "Siz uchun tavsiya",
+      "recommendedNote": "Pasport belgilaringizga juda mos.",
+      "all": "Barcha materiallar",
+      "savedTitle": "Saqlangan materiallar",
+      "orderNote": "Pasportingizga qanchalik mosligi bo‘yicha tartiblangan.",
+      "noSignalsNote": "Har bir material nega mosligini ko‘rish uchun kashfiyot testini topshiring.",
+      "empty": "Bu filtrlarga mos material yo‘q.",
+      "noSaved": "Hali hech narsa saqlanmagan — istalgan materialdagi xatcho‘p belgisini bosing.",
+      "back": "Materiallarga qaytish",
+      "externalNote": "Bu material {{name}} saytida joylashgan.",
+      "openResource": "Materialni ochish",
+      "visitProvider": "Taqdim etuvchi sayti",
+      "inGifted": "Gifted ichida ko‘rsatiladi.",
+      "keyIdeas": "Asosiy g‘oyalar",
+      "lessons": "Darslar",
+      "tryThis": "Sinab ko‘ring",
+      "markComplete": "Tugallandi deb belgilash",
+      "undo": "Tugallanmagan deb belgilash",
+      "startCourse": "Kursni boshlash",
+      "evidenceNote": "Buni tugatsangiz, pasportingizga kichik tajriba qaydi qo‘shiladi (ball emas).",
+      "evidenceRecorded": "Pasportingizga tajriba dalili sifatida qo‘shildi.",
+      "partOfPath": "O‘quv yo‘lining bir qismi",
+      "path": {
+        "featured": "Tanlangan o‘quv yo‘li",
+        "label": "O‘quv yo‘li",
+        "count_one": "{{count}} ta material",
+        "count_other": "{{count}} ta material",
+        "start": "O‘quv yo‘lini boshlash",
+        "continue": "O‘quv yo‘lini davom ettirish",
+        "progress": "{{total}} tadan {{done}} tasi bajarildi",
+        "done": "Bu o‘quv yo‘lini tugatdingiz. 🌱"
+      }
+    },
+    "opportunities": {
+      "eyebrow": "Ertangi kuningiz uchun imkoniyatlar",
+      "title": "Imkoniyatlaringizni kashf eting",
+      "subtitle": "Dasturlar, tanlovlar, lagerlar va boshqalar — pasportingizga ball emas, sabablar bilan moslangan.",
+      "search": "Imkoniyat, dastur yoki mavzu qidiring…",
+      "quick": {
+        "all": "Barchasi",
+        "STEM": "STEM",
+        "ARTS": "San’at",
+        "LEADERSHIP": "Yetakchilik",
+        "ONLINE": "Onlayn",
+        "IN_PERSON": "Yuzma-yuz",
+        "saved": "Saqlanganlar"
+      },
+      "type": {
+        "COMPETITION": "Tanlov",
+        "HACKATHON": "Xakaton",
+        "FELLOWSHIP": "Stipendiya dasturi",
+        "CAMP": "Lager",
+        "SCHOLARSHIP": "Grant",
+        "EVENT": "Tadbir",
+        "INTERNSHIP": "Amaliyot",
+        "VOLUNTEERING": "Ko‘ngillilik",
+        "PROGRAM": "Dastur",
+        "WORKSHOP": "Mahorat darsi"
+      },
+      "ages": "{{min}}–{{max}} yosh",
+      "agesFrom": "{{min}} yoshdan",
+      "agesUpTo": "{{max}} yoshgacha",
+      "anyAge": "Istalgan yosh",
+      "onlineGlobal": "Onlayn · butun dunyo uchun",
+      "onlineIn": "Onlayn · {{country}}",
+      "hybridIn": "Aralash · {{place}}",
+      "deadline": {
+        "applyBy": "{{date}} gacha ariza bering",
+        "closesIn_one": "{{count}} kundan keyin yopiladi",
+        "closesIn_other": "{{count}} kundan keyin yopiladi",
+        "today": "Bugun yopiladi",
+        "closed": "Qabul yopilgan",
+        "rolling": "Qabul doimiy ochiq",
+        "opens": "{{date}} da ochiladi"
+      },
+      "viewDetails": "Batafsil",
+      "all": "Barcha imkoniyatlar",
+      "savedTitle": "Saqlangan imkoniyatlar",
+      "orderNote": "Pasportingizga mosligi bo‘yicha tartiblangan. Yopilganlari filtrda tanlanmasa ko‘rinmaydi.",
+      "noSignalsNote": "Imkoniyat nega mosligini ko‘rish uchun kashfiyot testini topshiring.",
+      "empty": "Bu filtrlarga mos imkoniyat yo‘q.",
+      "noSaved": "Hali hech narsa saqlanmagan — istalgan imkoniyatdagi xatcho‘pni bosing.",
+      "featured": "Tanlangan imkoniyat",
+      "forYou": "Siz uchun tavsiya",
+      "disclaimer": "Gifted tashkilotlarning imkoniyatlarini ko‘rsatadi; arizalar ularning o‘z saytlarida topshiriladi.",
+      "back": "Imkoniyatlarga qaytish",
+      "apply": "Ariza berish",
+      "notOpen": "Qabul ochiq emas",
+      "save": "Imkoniyatni saqlash",
+      "saved": "Saqlangan",
+      "applyNote": "«Ariza berish» {{org}} ariza sahifasini yangi oynada ochadi. Gifted siz uchun ariza topshirmaydi.",
+      "linkOpened": "Ariza sahifasini ochdingiz. Arizani {{org}} saytida yakunlang — Gifted ariza topshirganingizni ko‘rmaydi.",
+      "tabs": {
+        "overview": "Umumiy",
+        "details": "Tafsilotlar",
+        "eligibility": "Talablar",
+        "faqs": "FAQ"
+      },
+      "overview": "Dastur haqida",
+      "yourFit": "Sizga mosligi",
+      "skills": "Rivojlanadigan ko‘nikmalar",
+      "nextSteps": {
+        "title": "Keyingi qadamlar",
+        "review": "Tafsilotlar va talablarni ko‘rib chiqing",
+        "open": "{{org}} ariza sahifasini oching",
+        "deadline": "Ularning saytida {{date}} gacha ariza bering",
+        "rolling": "Tayyor bo‘lganingizda ularning saytida ariza bering",
+        "updates": "{{org}} xabarlarini kuzatib boring"
+      },
+      "detail": {
+        "type": "Turi",
+        "provider": "Tashkilot",
+        "format": "Format",
+        "opens": "Qabul boshlanishi",
+        "deadline": "Oxirgi muddat",
+        "starts": "Boshlanishi",
+        "ends": "Tugashi"
+      },
+      "elig": {
+        "age": "{{range}} uchun ochiq — sizga mosligini tekshiring.",
+        "anyAge": "Yosh cheklovi ko‘rsatilmagan.",
+        "location": {
+          "ANYWHERE": "Onlayn va istalgan joydagi o‘quvchilar uchun ochiq.",
+          "ONLINE_REGION": "Onlayn, {{country}}dagi o‘quvchilar uchun.",
+          "ON_SITE": "{{place}}da o‘tadi — qatnasha olishingizni tekshiring."
+        },
+        "requirements": "Tashkilot talablari",
+        "note": "Gifted aniq yoshingiz yoki manzilingizni bilmaydi, shuning uchun siz uchun qaror qilmaydi. Yakuniy qarorni {{org}} qabul qiladi."
+      },
+      "noFaqs": "Hozircha savol-javoblar yo‘q."
+    },
+    "community": {
+      "eyebrow": "Bog‘laning. Bo‘lishing. Birga o‘sing.",
+      "title": "Hamjamiyat",
+      "tagline": "O‘zingizga yaqinlarni toping. Birga o‘sing.",
+      "subtitle": "Qiziquvchan o‘quvchilar uchun kichik to‘garaklar. Har bir post boshqalar ko‘rishidan oldin tekshiriladi.",
+      "suggested": "Siz uchun tavsiya etilgan to‘garaklar",
+      "suggestedNote": "Pasportingizdagi qiziqishlar asosida tanlangan.",
+      "suggestedNoSignals": "Boshlash uchun yaxshi joylar. Shaxsiy tavsiyalar uchun kashfiyot testini topshiring.",
+      "reason": {
+        "interest": "{{label}} sohasiga qiziqishingiz sababli",
+        "emerging": "{{label}} sohasidagi shakllanayotgan qiziqishingizga tayanadi"
+      },
+      "members_one": "{{count}} a’zo",
+      "members_other": "{{count}} a’zo",
+      "join": "Qo‘shilish",
+      "joined": "A’zosiz",
+      "leave": "Chiqish",
+      "myCircles": "Mening to‘garaklarim",
+      "noCircles": "Hali birorta to‘garakka qo‘shilmagansiz. G‘oyalar bilan bo‘lishish va savol berish uchun qo‘shiling.",
+      "moreCircles": "Boshqa to‘garaklar",
+      "feed": "Hamjamiyat lentasi",
+      "feedNote": "Gifted o‘quvchilarining g‘oyalari, savollari va yutuqlari. Postlar qisqa tekshiruvdan so‘ng chiqadi.",
+      "emptyFeed": "Hali postlar yo‘q. Birinchi bo‘lib bo‘lishing!",
+      "joinToPost": "Post yozish uchun to‘garakka qo‘shiling.",
+      "placeholder": "G‘oya, savol yoki yasagan narsangiz bilan bo‘lishing…",
+      "circle": "To‘garak",
+      "postType": "Post turi",
+      "type": {
+        "SHARE": "Bo‘lishish",
+        "QUESTION": "Savol",
+        "IDEA": "G‘oya",
+        "ACHIEVEMENT": "Yutuq"
+      },
+      "share": "Joylash",
+      "guidelines": "Mehribon bo‘ling. Telefon raqami, manzil, ijtimoiy tarmoq nomi va boshqa shaxsiy ma’lumotlarni yozmang.",
+      "submitted": "Rahmat! Postingiz qisqa tekshiruvdan so‘ng boshqalarga ko‘rinadi.",
+      "tooMany": "Yaqinda ko‘p post joyladingiz. Keyinroq urinib ko‘ring.",
+      "pending": "Tekshiruv kutilmoqda",
+      "rejected": "Tasdiqlanmadi",
+      "you": "Siz",
+      "anonymous": "Gifted o‘quvchisi",
+      "report": "Shikoyat qilish",
+      "reportReason": "Sabab",
+      "reasons": {
+        "UNKIND": "Qo‘pol yoki haqoratli",
+        "UNSAFE": "Xavfli yoki shaxsiy ma’lumot",
+        "SPAM": "Spam yoki reklama",
+        "OTHER": "Boshqa sabab"
+      },
+      "sendReport": "Yuborish",
+      "cancel": "Bekor qilish",
+      "reported": "Rahmat — Gifted jamoasi ko‘rib chiqadi. Bu post sizga boshqa ko‘rinmaydi.",
+      "events": "Yaqinlashayotgan tadbirlar",
+      "eventsNote": "Mahorat darslari, suhbatlar va ko‘rgazmalar.",
+      "noEvents": "Hozircha yaqin tadbirlar yo‘q.",
+      "eventDetails": "Tadbir haqida"
+    },
+    "home": {
+      "title": "Gifted’dan tashqarida izlaning",
+      "subtitle": "Pasport belgilaringiz asosida tanlandi.",
+      "subtitleNoSignals": "Boshlash uchun bir necha joy — kashfiyot testidan so‘ng tavsiyalar shaxsiylashadi.",
+      "resource": "Tavsiya etilgan material",
+      "opportunity": "Siz uchun imkoniyat",
+      "circle": "Tavsiya etilgan to‘garak"
+    },
+    "passport": {
+      "title": "Keyingi izlanish",
+      "note": "Pasportingizga haqiqiy tajriba qo‘shish yo‘llari.",
+      "more": "Boshqa imkoniyatlar",
+      "mission": "Missiya"
+    },
+    "time": {
+      "now": "hozirgina",
+      "minutes_one": "{{count}} daqiqa oldin",
+      "minutes_other": "{{count}} daqiqa oldin",
+      "hours_one": "{{count}} soat oldin",
+      "hours_other": "{{count}} soat oldin",
+      "days_one": "{{count}} kun oldin",
+      "days_other": "{{count}} kun oldin"
     }
   }
 }

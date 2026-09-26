@@ -1,7 +1,8 @@
 # Gifted
 
 Youth potential discovery platform: **Assessment → deterministic signals → AI interpretation →
-Gifted Passport → missions & evidence → AI Companion, diary and daily guidance.**
+Gifted Passport → missions & evidence → AI Companion, diary and daily guidance → resources,
+opportunities and community from partner organizations.**
 AI interprets; it never scores.
 
 Stage: controlled-pilot **POC foundation** (not production) — see `POC_READINESS.md`.

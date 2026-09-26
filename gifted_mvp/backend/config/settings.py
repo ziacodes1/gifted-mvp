@@ -68,6 +68,7 @@ LOCAL_APPS = [
     "apps.diary",
     "apps.engagement",
     "apps.today",
+    "apps.ecosystem",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -159,6 +160,8 @@ REST_FRAMEWORK = {
         "companion": env("THROTTLE_COMPANION", "40/hour"),
         "redeem": env("THROTTLE_REDEEM", "20/hour"),
         "account_delete": env("THROTTLE_ACCOUNT_DELETE", "5/hour"),
+        "community_post": env("THROTTLE_COMMUNITY_POST", "10/hour"),
+        "community_report": env("THROTTLE_COMMUNITY_REPORT", "30/hour"),
     },
 }
 

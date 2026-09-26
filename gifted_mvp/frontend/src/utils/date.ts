@@ -17,3 +17,16 @@ export function formatWeekday(date: Date, language?: string) {
   if (isUzbek(language)) return UZ_WEEKDAYS[date.getDay()];
   return date.toLocaleDateString(language, { weekday: "short" });
 }
+
+/** Month abbreviation + day for date badges ({ month: "Oct", day: "2" }). */
+export function formatMonthDay(date: Date, language?: string) {
+  const month = isUzbek(language)
+    ? UZ_MONTHS[date.getMonth()]
+    : date.toLocaleDateString(language, { month: "short" }).replace(".", "");
+  return { month, day: String(date.getDate()) };
+}
+
+/** 24-hour "16:00" in the viewer's time zone (numeric, so every language reads it). */
+export function formatTime(date: Date) {
+  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}

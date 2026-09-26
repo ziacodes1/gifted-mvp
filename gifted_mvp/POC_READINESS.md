@@ -23,6 +23,9 @@ Gifted is **not production-ready**. This report lists what is real, what was har
 - My Diary (text, mood, tags, stickers, photos), Companion → Diary opt-in.
 - Streaks, points, badges, weekly leaderboard, rewards + redemption, Today's Spark, in-app nudges.
 - EN/UZ/RU UI, localized server content and AI output.
+- Ecosystem: partner organizations, resources + learning paths (bookmark, progress, opt-in
+  evidence), opportunities (filters, eligibility, save / view / application-link-opened), moderated
+  community circles, posts, reports and events — all matched to the Passport deterministically.
 
 ## 3. What is still configured in code (and why) — hardcoding audit
 
@@ -47,6 +50,10 @@ Class: **A** should be admin-managed · **B** should stay versioned code/config 
 | AI prompts, banned phrases, schemas | `ai/prompts`, `ai/services`, `ai/schemas` | safety-critical; must be reviewed | versioned (`PROMPT_VERSION`, schema versions) and stored per insight | B | ✅ versioned |
 | UI copy (EN/UZ/RU) | `frontend/src/i18n/locales` | standard i18n | translators edit JSON | B | ✅ |
 | Demo accounts, demo leaderboard peers | `seed_demo*` commands | demo only | never run seeds against a pilot DB | C | ✅ isolated |
+| Organizations, resources, learning paths, opportunities, circles, events | DB (demo catalog seeded from `seed_demo_ecosystem`, fictional orgs `is_demo=True`) | partner content | Django admin (activate, feature, order, deadlines, translations) | A | ✅ done |
+| Community moderation | DB + Django admin (approve / reject / delete, reports) | safety operations | admin queue; 3 open reports auto-return a post to review | A | ✅ done |
+| Matching thresholds & reason rules | `ecosystem/services/matching.py` | product logic; must stay explainable | versioned code, tested | B | ✅ |
+| Resource / opportunity / circle images | frontend assets by `cover_key` | bundled images | upload via admin later | B→A | ⏳ later |
 | Demo login prefill | frontend, `VITE_DEMO_MODE` | demo convenience | off in pilot builds (`VITE_DEMO_MODE=false`) | C | ✅ done |
 | API URL, hosts, CORS, secrets, time zone, rates, TTLs | environment | per deployment | `.env.example`, `.env.docker.example` | D | ✅ |
 | AI provider / model / timeouts | environment | per deployment | env; `groq_check`/`ai_check` commands | D | ✅ |
@@ -66,7 +73,7 @@ Class: **A** should be admin-managed · **B** should stay versioned code/config 
 | AI traceability | provider/model/language/input version | + `prompt_version`, `schema_version`, `latency_ms`, `failure_reason` per insight; Companion replies record provider/model/prompt version |
 | Observability | print-style logs | request ids (`X-Request-ID`), JSON logs option, access log without content, `/health/live/` + `/health/ready/` (DB only), optional Sentry (`SENTRY_DSN`, no PII) |
 | API docs | none | OpenAPI schema `/api/v1/schema/` + Swagger `/api/v1/docs/` (off in production unless enabled); each endpoint states its role and rate-limit scope |
-| Placeholder routes | My Journey / Opportunities / Profile / Admin placeholders reachable | removed; admin accounts are pointed to Django admin |
+| Placeholder routes | My Journey / Opportunities / Profile / Admin placeholders reachable | removed; admin accounts are pointed to Django admin (Opportunities is now a real feature — ecosystem milestone) |
 | Private storage | local only | `PRIVATE_STORAGE_BACKEND=filesystem|s3` (optional `django-storages`), still streamed through owner checks |
 
 ## 5. Security / privacy
@@ -93,8 +100,8 @@ health probes, security headers, JSON logs. Docker images/compose are written an
 
 ## 9. Testing / CI
 
-Backend: 147 tests (unit + API + privacy boundaries + hardening), `check`, `check --deploy`,
-`makemigrations --check`. Frontend: 47 Vitest tests, typecheck, lint, build. The same commands run in
+Backend: 176 tests (unit + API + privacy boundaries + hardening + ecosystem), `check`, `check --deploy`,
+`makemigrations --check`. Frontend: 60 Vitest tests, typecheck, lint, build. The same commands run in
 `.github/workflows/ci.yml` (CI itself has not run yet — it starts on the next push).
 
 ## 10. Known limitations
@@ -108,6 +115,9 @@ Backend: 147 tests (unit + API + privacy boundaries + hardening), `check`, `chec
 - Redemptions are reserved and fulfilled manually by staff in Django admin.
 - Missions: only one; mission content is not version-locked (evidence is frozen at completion, so
   past results are safe, but in-progress attempts could see edited steps).
+- Ecosystem: demo catalog only (fictional organizations, example.org links); no partner self-service,
+  no notifications for new opportunities, no age/location on the learner (eligibility is "check"),
+  community is text-only with manual moderation (no auto-filtering of personal details yet).
 - AI provider free tier limits (Groq ~8k tokens/min); gpt-oss-20b occasionally returns malformed JSON (retried once, then fallback).
 
 ## 11. Required before production

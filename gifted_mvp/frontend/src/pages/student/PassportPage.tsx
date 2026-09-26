@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { passportApi } from "../../api/passport";
+import { ExploreNext } from "../../features/ecosystem/ForYouCards";
 import { ChartIcon, DocIcon, LeafIcon, SparkIcon } from "../../features/passport/icons";
 import { PassportBook, PassportHero, WaveSurface } from "../../features/passport/PassportHero";
 import {
@@ -162,6 +163,8 @@ function EmergingPassport({ passport }: { passport: Passport }) {
       {passport.next_step && (
         <NextStepCard step={passport.next_step} source={passport.insight_source} mission={passport.recommended_mission} />
       )}
+
+      <ExploreNext mission={passport.recommended_mission} />
 
       <EvolvingMessage message={passport.message} />
     </div>

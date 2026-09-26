@@ -13,6 +13,7 @@ import { ArrowIcon, ChartIcon, CheckIcon, ClockIcon, CompassIcon, DocIcon, LeafI
 import { JourneyProgress } from "../../features/passport/PassportSections";
 import type { Passport } from "../../types/passport";
 import { DiaryHomeCard } from "../../features/diary/DiaryHomeCard";
+import { EcosystemHomeCard } from "../../features/ecosystem/ForYouCards";
 import { EngagementHomeCard } from "../../features/rewards/EngagementHomeCard";
 import { TodaySpark } from "../../features/today/TodaySpark";
 
@@ -198,6 +199,8 @@ function WelcomeDashboard({
       <TodaySpark />
 
       <SessionToday items={session} />
+
+      <EcosystemHomeCard />
 
       <DiaryHomeCard />
 
@@ -398,6 +401,8 @@ function ReturningDashboard({ name, passport }: { name: string; passport: Passpo
       </div>
 
       <JourneyProgress title={t("dashboard.yourJourney")} stages={passport.journey} />
+
+      <EcosystemHomeCard />
 
       <DiaryHomeCard />
 

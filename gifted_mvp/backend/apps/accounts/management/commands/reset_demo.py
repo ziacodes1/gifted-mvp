@@ -1,9 +1,11 @@
 """Restore the demo to a clean presentation state (idempotent).
 
 Removes only the demo student's *activity* (sessions, responses, learner signals,
-evidence, mission attempts, AI insights, diary entries + photos, engagement (activity, badges, redemptions), Companion conversations, Passport). Seeded content — assessment,
-questions, signals, mappings, the flagship mission — is kept and re-synced, and
-the demo accounts + parent link are re-ensured via `seed_demo`.
+evidence, mission attempts, AI insights, diary entries + photos, engagement (activity, badges,
+redemptions), Companion conversations, ecosystem interactions (saved resources, progress,
+saved/opened opportunities, circle memberships, posts, reports), Passport). Seeded content —
+assessment, questions, signals, mappings, the flagship mission, the ecosystem catalog — is kept
+and re-synced, and the demo accounts + parent link are re-ensured via `seed_demo`.
 """
 import io
 from contextlib import redirect_stdout
@@ -17,6 +19,13 @@ from apps.ai.models import AIInsight
 from apps.assessments.models import AssessmentSession
 from apps.companion.models import CompanionConversation
 from apps.diary.models import DiaryEntry
+from apps.ecosystem.models import (
+    CommunityMembership,
+    CommunityPost,
+    CommunityReport,
+    LearnerOpportunity,
+    LearnerResource,
+)
 from apps.engagement.models import ActivityEvent, RewardRedemption, StudentBadge
 from apps.today.models import DailySpark, NudgeState
 from apps.evidence.models import Evidence
@@ -48,6 +57,11 @@ class Command(BaseCommand):
                 ("daily sparks", DailySpark.objects.filter(learner=student)),
                 ("nudge state", NudgeState.objects.filter(learner=student)),
                 ("companion conversations", CompanionConversation.objects.filter(learner=student)),
+                ("saved/progressed resources", LearnerResource.objects.filter(learner=student)),
+                ("saved/opened opportunities", LearnerOpportunity.objects.filter(learner=student)),
+                ("community reports", CommunityReport.objects.filter(reporter=student)),
+                ("community posts", CommunityPost.objects.filter(author=student)),
+                ("circle memberships", CommunityMembership.objects.filter(learner=student)),
                 ("evidence", Evidence.objects.filter(learner=student)),
                 ("mission attempts", MissionAttempt.objects.filter(learner=student)),
                 ("learner signals", LearnerSignal.objects.filter(learner=student)),

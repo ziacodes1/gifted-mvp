@@ -83,9 +83,9 @@ LABELS: dict[str, dict[str, dict[str, str]]] = {
         "ru": {"INTEREST": "Интерес", "EXPOSURE": "Опыт", "ENGAGEMENT": "Вовлечённость", "DECISION": "Принятие решений", "REASONING": "Рассуждение", "REFLECTION": "Рефлексия"},
     },
     "evidence_source": {
-        "en": {"ASSESSMENT": "Assessment", "MISSION": "Mission", "VIRTUAL_LAB": "Virtual lab", "OPPORTUNITY": "Opportunity", "REAL_WORLD": "Real-world experience"},
-        "uz": {"ASSESSMENT": "Test", "MISSION": "Missiya", "VIRTUAL_LAB": "Virtual laboratoriya", "OPPORTUNITY": "Imkoniyat", "REAL_WORLD": "Hayotiy tajriba"},
-        "ru": {"ASSESSMENT": "Тест", "MISSION": "Миссия", "VIRTUAL_LAB": "Виртуальная лаборатория", "OPPORTUNITY": "Возможность", "REAL_WORLD": "Реальный опыт"},
+        "en": {"ASSESSMENT": "Assessment", "MISSION": "Mission", "VIRTUAL_LAB": "Virtual lab", "OPPORTUNITY": "Opportunity", "REAL_WORLD": "Real-world experience", "RESOURCE": "Learning resource"},
+        "uz": {"ASSESSMENT": "Test", "MISSION": "Missiya", "VIRTUAL_LAB": "Virtual laboratoriya", "OPPORTUNITY": "Imkoniyat", "REAL_WORLD": "Hayotiy tajriba", "RESOURCE": "O‘quv manbasi"},
+        "ru": {"ASSESSMENT": "Тест", "MISSION": "Миссия", "VIRTUAL_LAB": "Виртуальная лаборатория", "OPPORTUNITY": "Возможность", "REAL_WORLD": "Реальный опыт", "RESOURCE": "Учебный материал"},
     },
     "text": {
         "en": {

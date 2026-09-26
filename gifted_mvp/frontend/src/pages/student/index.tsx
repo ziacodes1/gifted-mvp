@@ -8,4 +8,9 @@ export { CompanionPage as StudentCompanion } from "./CompanionPage";
 export { DiaryPage as StudentDiary } from "./DiaryPage";
 export { DiaryEntryRoute as StudentDiaryEntry } from "./DiaryEntryPage";
 export { RewardsPage as StudentRewards } from "./RewardsPage";
-
+export { ResourcesPage as StudentResources } from "./ResourcesPage";
+export { ResourceDetailPage as StudentResource } from "./ResourceDetailPage";
+export { LearningPathPage as StudentLearningPath } from "./LearningPathPage";
+export { OpportunitiesPage as StudentOpportunities } from "./OpportunitiesPage";
+export { OpportunityDetailPage as StudentOpportunity } from "./OpportunityDetailPage";
+export { CommunityPage as StudentCommunity } from "./CommunityPage";

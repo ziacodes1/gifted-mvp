@@ -13,6 +13,8 @@ Gifted's users are mostly minors. The design rule: **parents and staff see growt
 | **Student-private** | diary entries (title, body, mood, tags, stickers, photos), AI Companion conversations, mission reflection text, raw assessment answers, Today's Spark state, in-app nudges | the learner only (owner-scoped API; other learners get 404) |
 | **Parent-safe** | Passport status and journey, deterministic signals (score/confidence/counts), evidence counts and explored dimensions, activity titles/dates, AI parent guidance | the learner and connected parents |
 | **Aggregate / public** | leaderboard rows: rank, first name + last initial, weekly points | signed-in students |
+| **Community (moderated)** | circle posts (body, type, circle, time) shown as "First L."; memberships as counts | signed-in students, only after staff approval; staff via the admin moderation queue; never parents, never AI |
+| **Student-only interaction state** | saved/completed resources, saved/viewed opportunities, "application link opened" | the learner only; staff see aggregate counts only |
 | **Operational** | account email/role, activity event types (no content), AI trace metadata | the learner; staff via Django admin |
 
 ## 2. Enforcement points (all covered by tests)
@@ -25,6 +27,10 @@ Gifted's users are mostly minors. The design rule: **parents and staff see growt
 - **Role permissions:** diary, Companion, engagement and Today endpoints are `IsStudent` → parents 403.
 - **AI prompts:** the Companion's context is the Passport projection (no names/emails/answers/
   reflections/diary). The diary is never sent to any AI provider.
+- **Ecosystem:** all endpoints are `IsStudent`; matching reads deterministic signals only; posts
+  are PENDING until approved, reporters stop seeing the post, 3 open reports send it back to review;
+  no DMs, followers, likes or anonymous posting (tested: parents 403, no emails in responses,
+  parent overview contains no community/opportunity data).
 - **Engagement:** the diary hook passes only `entry:<id>` and a date; `ActivityEvent` has no content fields.
 - **Django admin:** diary, Companion, raw assessment answers, mission responses and Today state are
   **not registered**; learner records that are visible (sessions, signals, evidence, Passport,
