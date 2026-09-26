@@ -1,5 +1,6 @@
 """Student-only ecosystem API. Parents get 403 (IsStudent); nothing here is parent-visible."""
 from django.core.exceptions import ObjectDoesNotExist
+from drf_spectacular.utils import extend_schema
 from rest_framework import serializers, status
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
@@ -42,6 +43,7 @@ class ResourceListView(APIView):
 
     permission_classes = [IsStudent]
 
+    @extend_schema(operation_id="resources_list")
     def get(self, request):
         p = request.query_params
         return Response(
@@ -97,6 +99,7 @@ class OpportunityListView(APIView):
 
     permission_classes = [IsStudent]
 
+    @extend_schema(operation_id="opportunities_list")
     def get(self, request):
         p = request.query_params
         try:
