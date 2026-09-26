@@ -114,3 +114,13 @@ PARENT_INSIGHT_JSON_SCHEMA: dict = _obj(
         "caution": _STR,
     }
 )
+
+
+# --- AI Companion ---------------------------------------------------------------
+
+
+class CompanionReply(_Strict):
+    reply: str = Field(min_length=1, max_length=3000)
+
+
+COMPANION_REPLY_JSON_SCHEMA: dict = _obj({"reply": _STR})

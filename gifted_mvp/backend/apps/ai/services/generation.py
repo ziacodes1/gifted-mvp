@@ -79,7 +79,8 @@ def run_structured(
     try:
         raw = provider.generate_structured(
             system=system,
-            prompt=json.dumps(payload, separators=(",", ":"), default=str),
+            # Real UTF-8, not \uXXXX escapes: models misread escaped Cyrillic/Uzbek text.
+            prompt=json.dumps(payload, separators=(",", ":"), default=str, ensure_ascii=False),
             schema=schema,
             max_tokens=max_tokens,
         )

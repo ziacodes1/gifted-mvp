@@ -1,0 +1,16 @@
+file,type,purpose,implementation
+references/01_home_dashboard_reference.png,reference,Student Home after new features,Reference only; rebuild with dynamic React components
+references/02_ai_companion_reference.png,reference,AI Companion page,Reference only; real chat + consent + privacy
+references/03_my_diary_reference.png,reference,Diary overview,Reference only; real entries/progress/privacy
+references/04_streak_rewards_reference.png,reference,Streak Rewards Leaderboard,Reference only; data-driven UI
+components/diary/diary_open_book_overview.png,decorative/reference,Diary book overview visual,May be used as decorative asset but UI/data must remain separate
+components/diary/diary_open_book_editor.png,decorative/reference,Diary editor visual,Use as style reference; editor must be interactive
+components/streak_rewards/streak_current_7_day_card.png,reference,Current streak card,Rebuild dynamically
+components/streak_rewards/weekly_consistency_card.png,reference,Weekly activity ring,Rebuild dynamically
+components/streak_rewards/leaderboard_top_active_students.png,reference,Leaderboard rows,Rebuild from backend/data
+components/streak_rewards/top_10_percent_motivation_card.png,reference,Percentile encouragement,Dynamic value/text
+components/streak_rewards/badges_unlocked_collection.png,visual/reference,Unlocked badge visual language,Badge state/labels/conditions dynamic
+components/streak_rewards/badges_locked_collection.png,visual/reference,Locked badge visual language,Badge state/labels/conditions dynamic
+components/streak_rewards/rewards_catalog_physical.png,visual/reference,Sticker notebook bottle rewards,Reward metadata dynamic
+components/streak_rewards/rewards_course_event_pass.png,visual/reference,Course and event rewards,Reward metadata dynamic
+components/streak_rewards/rewards_community_mentor.png,visual/reference,Community and mentor rewards,Reward metadata dynamic

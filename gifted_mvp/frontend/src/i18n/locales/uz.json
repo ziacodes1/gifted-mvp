@@ -18,6 +18,7 @@
     "assessments": "Testlar",
     "passport": "Mening pasportim",
     "missions": "Missiyalar",
+    "companion": "AI hamroh",
     "myChild": "Farzandim",
     "parentInsights": "Ota-onalar uchun tahlil",
     "overview": "Umumiy ko‘rinish",
@@ -453,6 +454,63 @@
       "beyondNote": "Dastlabki mulohaza, ish uslubi, qadriyatlar va tajriba — qiziqishlardan alohida ko‘rsatilgan.",
       "uncertain": "Hali nimalar noaniq",
       "updates": "{{name}} yangi dalil qo‘shganda yangilanadi."
+    }
+  },
+  "companion": {
+    "eyebrow": "AI hamroh",
+    "titleA": "Bugun ham yoningizda,",
+    "titleB": "yorqin ertangizda ham.",
+    "intro": "Fikrlaringizni erkin ifoda etadigan, istalgan savolni beradigan va g‘oyalarni kichik qadamlarga aylantiradigan joy.",
+    "panelTitle": "AI hamroh",
+    "panelSubtitle": "Gifted yo‘lingizdagi fikrdoshingiz.",
+    "newChat": "Yangi suhbat",
+    "recent": "Oxirgi suhbatlar",
+    "noRecent": "Hali oldingi suhbatlar yo‘q.",
+    "untitled": "Yangi suhbat",
+    "welcome": "Salom, {{name}}! Men Gifted hamrohingizman. Qiyin mavzu haqida so‘rang, sinab ko‘rgan narsangiz haqida fikr yuriting yoki keyingi kichik qadamni rejalashtiring — suhbat foydali bo‘lishi uchun Gifted’dagi natijalaringizdan foydalanaman.",
+    "placeholder": "Nima haqida o‘ylayapsiz?…",
+    "send": "Yuborish",
+    "thinking": "O‘ylab ko‘ryapman…",
+    "error": "Hozir javob bera olmadim. Birozdan keyin qayta urinib ko‘ring.",
+    "retry": "Qayta urinish",
+    "loadError": "Bu suhbatni yuklab bo‘lmadi.",
+    "you": "Siz",
+    "hint": "Yuborish uchun Enter · Yangi qator uchun Shift+Enter",
+    "aiNote": "Hamroh ham xato qilishi mumkin. U fikrlashga yordam beradi — qarorlar sizniki.",
+    "about": {
+      "title": "Siz haqingizda",
+      "subtitle": "Yordamni moslashtirish uchun faqat Gifted’dagi natijalaringizdan foydalanaman.",
+      "stage": "Bosqich: {{stage}}",
+      "interests": "Qiziqish: {{list}}",
+      "values": "Qadriyatlar: {{list}}",
+      "missions_one": "{{count}} ta missiya bajarildi",
+      "missions_other": "{{count}} ta missiya bajarildi",
+      "next": "Keyingi izlanish",
+      "empty": "Kashfiyot testini topshirganingizdan so‘ng yordamimni qiziqishlaringizga moslashtira olaman.",
+      "startAssessment": "Testni boshlash",
+      "unknown": "Yoshingiz, sinfingiz yoki maqsadlaringizni bilmayman — faqat xohlasangiz ayting."
+    },
+    "prompts": {
+      "title": "Tavsiya etilgan savollar",
+      "subtitle": "Nima haqida gaplashishni bilmayapsizmi? Mana bir nechta g‘oya:",
+      "getting_started": "Gifted yordamida nimalarni kashf qilishim mumkin?",
+      "unsure_interests": "Menga nima qiziqligini hali aniq bilmayman",
+      "difficult_topic": "Qiyin mavzuni tushunishga yordam bering",
+      "weekly_plan": "Shu hafta uchun kichik reja tuzishga yordam bering",
+      "interest_meaning": "«{{interest}}» yo‘nalishiga qiziqishim nimani anglatishi mumkin?",
+      "current_interests": "Hozirgi qiziqishlarim nimani anglatishini tushunishga yordam bering",
+      "explore_next": "Keyin nimani o‘rganib ko‘rsam bo‘ladi?",
+      "skills_to_build": "Qaysi ko‘nikmalarni rivojlantirib ko‘rishim mumkin?",
+      "reflect_mission": "«{{mission}}» missiyam haqida fikr yuritishga yordam bering"
+    },
+    "diary": {
+      "title": "Kundalik lahzalari",
+      "soon": "Tez orada",
+      "text": "Tez orada suhbatlardagi muhim lahzalarni «Mening kundaligim»ga saqlay olasiz — faqat o‘zingiz xohlaganingizda."
+    },
+    "privacy": {
+      "title": "Faqat siz uchun",
+      "text": "AI hamroh bilan suhbatlaringiz shaxsiy va ota-onalarga ko‘rsatilmaydi."
     }
   }
 }

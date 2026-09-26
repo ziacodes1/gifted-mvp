@@ -87,3 +87,49 @@ export const UserIcon = ({ className = "h-5 w-5" }: IconProps) => (
     <path d="M5 19.5c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5" />
   </svg>
 );
+
+export const SendIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M20.5 3.5 10 14M20.5 3.5 14 20.5l-4-6.5-6.5-4Z" />
+  </svg>
+);
+
+export const PlusIcon = ({ className = "h-4 w-4" }: IconProps) => (
+  <svg {...base} className={className}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 8.5v7M8.5 12h7" />
+  </svg>
+);
+
+export const LockIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg {...base} className={className}>
+    <rect x="5.5" y="10.5" width="13" height="9.5" rx="2" />
+    <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2" />
+  </svg>
+);
+
+export const BookIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5Z" />
+    <path d="M12 6.5v13" />
+  </svg>
+);
+
+export const BulbIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M9 17.5h6M10 20.5h4M12 3.5a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V17.5h5v-1.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3.5Z" />
+  </svg>
+);
+
+export const ChevronIcon = ({ className = "h-4 w-4" }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="m9 6 6 6-6 6" />
+  </svg>
+);
+
+export const HistoryIcon = ({ className = "h-5 w-5" }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5M4 4.5v4h4" />
+    <path d="M12 8v4.5l3 1.5" />
+  </svg>
+);

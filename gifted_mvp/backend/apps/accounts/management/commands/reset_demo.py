@@ -1,7 +1,7 @@
 """Restore the demo to a clean presentation state (idempotent).
 
 Removes only the demo student's *activity* (sessions, responses, learner signals,
-evidence, mission attempts, AI insights, Passport). Seeded content — assessment,
+evidence, mission attempts, AI insights, Companion conversations, Passport). Seeded content — assessment,
 questions, signals, mappings, the flagship mission — is kept and re-synced, and
 the demo accounts + parent link are re-ensured via `seed_demo`.
 """
@@ -15,6 +15,7 @@ from django.db import transaction
 from apps.accounts.models import User
 from apps.ai.models import AIInsight
 from apps.assessments.models import AssessmentSession
+from apps.companion.models import CompanionConversation
 from apps.evidence.models import Evidence
 from apps.missions.models import MissionAttempt
 from apps.passports.models import Passport
@@ -37,6 +38,7 @@ class Command(BaseCommand):
             # Order matters only for readability; FKs cascade (responses, contributions).
             for label, qs in [
                 ("AI insights", AIInsight.objects.filter(learner=student)),
+                ("companion conversations", CompanionConversation.objects.filter(learner=student)),
                 ("evidence", Evidence.objects.filter(learner=student)),
                 ("mission attempts", MissionAttempt.objects.filter(learner=student)),
                 ("learner signals", LearnerSignal.objects.filter(learner=student)),

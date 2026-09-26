@@ -15,6 +15,7 @@ api_v1 = [
     path("", include("apps.passports.urls")),
     path("", include("apps.missions.urls")),
     path("", include("apps.parents.urls")),
+    path("", include("apps.companion.urls")),
 ]
 
 urlpatterns = [
