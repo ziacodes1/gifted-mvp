@@ -17,6 +17,15 @@ class MessageRole(models.TextChoices):
     ASSISTANT = "ASSISTANT", "Assistant"
 
 
+class DiaryOffer(models.TextChoices):
+    """On an ASSISTANT turn: whether to offer saving the student's message to My Diary.
+    Offering never saves anything; only the student's explicit action does."""
+
+    NONE = "NONE", "No offer"
+    OFFERED = "OFFERED", "Offered"
+    DISMISSED = "DISMISSED", "Kept only in chat"
+
+
 class CompanionConversation(models.Model):
     learner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="companion_conversations"
@@ -42,6 +51,7 @@ class CompanionMessage(models.Model):
     client_id = models.UUIDField(null=True, blank=True)
     reply_to = models.OneToOneField("self", null=True, blank=True, on_delete=models.CASCADE, related_name="reply")
     language = models.CharField(max_length=5, default="en")  # en | uz | ru (request language)
+    diary_offer = models.CharField(max_length=10, choices=DiaryOffer.choices, default=DiaryOffer.NONE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

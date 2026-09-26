@@ -19,7 +19,7 @@ from apps.ai.services.companion import generate_reply
 from apps.passports.services import build_passport
 from common.i18n import current_language
 
-from .models import CompanionConversation, CompanionMessage, MessageRole
+from .models import CompanionConversation, CompanionMessage, DiaryOffer, MessageRole
 
 TITLE_CHARS = 60
 MAX_MESSAGE_CHARS = 2000
@@ -187,7 +187,7 @@ def send_message(conversation: CompanionConversation, content: str, client_id: u
         if generated is None:
             raise CompanionUnavailable
 
-        reply, _provider, _model = generated
+        reply, suggest_diary, _provider, _model = generated
         try:
             with transaction.atomic():
                 user = CompanionMessage.objects.create(
@@ -196,7 +196,12 @@ def send_message(conversation: CompanionConversation, content: str, client_id: u
         except IntegrityError:  # same client_id raced in outside the lock (should not happen)
             return _existing_turn(conversation, client_id)
         assistant = CompanionMessage.objects.create(
-            conversation=conversation, role=MessageRole.ASSISTANT, content=reply, reply_to=user, language=language
+            conversation=conversation,
+            role=MessageRole.ASSISTANT,
+            content=reply,
+            reply_to=user,
+            language=language,
+            diary_offer=DiaryOffer.OFFERED if suggest_diary else DiaryOffer.NONE,
         )
         if not conversation.title:
             conversation.title = _title(content)
@@ -207,3 +212,15 @@ def send_message(conversation: CompanionConversation, content: str, client_id: u
 def _title(content: str) -> str:
     text = " ".join(content.split())
     return text if len(text) <= TITLE_CHARS else text[: TITLE_CHARS - 1].rsplit(" ", 1)[0] + "…"
+
+
+def dismiss_diary_offer(learner, assistant_message_id: int) -> bool:
+    """"Keep only in chat": hide the diary offer on this assistant turn for good.
+    False when the message isn't the learner's own assistant turn."""
+    mine = CompanionMessage.objects.filter(
+        pk=assistant_message_id, role=MessageRole.ASSISTANT, conversation__learner=learner
+    )
+    if not mine.exists():
+        return False
+    mine.filter(diary_offer=DiaryOffer.OFFERED).update(diary_offer=DiaryOffer.DISMISSED)
+    return True

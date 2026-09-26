@@ -28,6 +28,7 @@
     "passport": "My Passport",
     "missions": "Missions",
     "companion": "AI Companion",
+    "diary": "My Diary",
     "myChild": "My Child",
     "parentInsights": "Parent Insights",
     "overview": "Overview",
@@ -601,12 +602,149 @@
     },
     "diary": {
       "title": "Diary moments",
-      "soon": "Coming next",
-      "text": "Soon you’ll be able to save meaningful moments from your chats to My Diary — only when you choose to."
+      "subtitle": "Moments you chose to save from your chats.",
+      "empty": "When something feels worth keeping, you can save it to your diary — only if you choose to.",
+      "seeAll": "My Diary"
+    },
+    "offer": {
+      "text": "This sounds meaningful — would you like to add it to your diary?",
+      "sub": "Only your own words are copied, and you review everything before it’s saved.",
+      "add": "Add to My Diary",
+      "keep": "Keep only in chat",
+      "saved": "Saved to My Diary",
+      "open": "Open"
     },
     "privacy": {
       "title": "Private to you",
       "text": "Your conversations with your AI Companion are private and are not shown to parents."
+    }
+  },
+  "diary": {
+    "eyebrow": "My Diary",
+    "titleA": "Your story is growing,",
+    "titleB": "one page at a time.",
+    "intro": "A private space for your reflections, photos and memories — look back and see how far you’ve come.",
+    "features": {
+      "reflect": {
+        "a": "Reflect",
+        "b": "on your journey"
+      },
+      "photos": {
+        "a": "Add photos",
+        "b": "and memories"
+      },
+      "write": {
+        "a": "Write freely",
+        "b": "just for you"
+      },
+      "growth": {
+        "a": "Watch it grow",
+        "b": "page by page"
+      }
+    },
+    "bookTitle": "My Diary",
+    "pagesFilled": "{{count}} of {{total}} pages filled",
+    "pagesMore_one": "{{count}} more page to your brighter story…",
+    "pagesMore_other": "{{count}} more pages to your brighter story…",
+    "pagesComplete": "Every page filled — what a story!",
+    "pageRule": "Every saved entry fills one page.",
+    "open": "Open my diary",
+    "newEntry": "Create new entry",
+    "firstEntry": "Create your first entry",
+    "emptyTitle": "Your story starts here.",
+    "emptyText": "Write about your day, a small win, a worry or an idea. Add a photo, a sticker or a mood — it’s all yours.",
+    "emptyPage": "This page is waiting for your first words…",
+    "untitled": "Untitled page",
+    "fromCompanion": "From AI Companion",
+    "photos_one": "{{count}} photo",
+    "photos_other": "{{count}} photos",
+    "recent": {
+      "title": "Recent entries",
+      "seeAll": "See all",
+      "showLess": "Show less",
+      "loadMore": "Load more",
+      "empty": "Your entries will appear here."
+    },
+    "moodWeek": {
+      "title": "Mood this week",
+      "empty": "Pick a mood when you write — only you see it."
+    },
+    "mood": {
+      "question": "How are you feeling?",
+      "none": "No mood",
+      "very_low": "Very low",
+      "low": "Low",
+      "neutral": "Okay",
+      "good": "Good",
+      "great": "Great"
+    },
+    "privacy": {
+      "title": "Private by default",
+      "text": "Your diary is private unless a future feature explicitly lets you choose to share something. Parents can’t see it, and the AI doesn’t read it."
+    },
+    "companion": {
+      "title": "AI Companion",
+      "pending": "In a recent chat you shared a moment that might be worth keeping:",
+      "add": "Add to diary",
+      "dismiss": "Keep only in chat",
+      "idleTitle": "Want to talk something through?",
+      "idleText": "Your AI Companion can help you reflect — and you decide what, if anything, goes in your diary.",
+      "open": "Open AI Companion"
+    },
+    "editor": {
+      "back": "My Diary",
+      "newTitle": "New page",
+      "date": "Date",
+      "titlePlaceholder": "Give this page a title…",
+      "bodyPlaceholder": "Dear diary…",
+      "save": "Save entry",
+      "saving": "Saving…",
+      "saved": "Saved to your diary",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this page? Its photos go with it. This can’t be undone.",
+      "deleteYes": "Delete page",
+      "cancel": "Cancel",
+      "photos": "Photos",
+      "addPhoto": "Add photo",
+      "photoLimit": "Up to {{count}} photos · JPEG, PNG or WebP · max 5 MB",
+      "removePhoto": "Remove photo",
+      "captionPlaceholder": "Add a caption…",
+      "photoErrors": {
+        "type": "Please choose a JPEG, PNG or WebP image.",
+        "size": "That photo is larger than 5 MB.",
+        "too_many": "This page already has 4 photos.",
+        "upload": "The photo couldn’t be uploaded. Please try again."
+      },
+      "stickers": "Stickers",
+      "stickerHint": "Tap a sticker to place it. Tap it on the page to remove it.",
+      "stickersFull": "The page is full of stickers — remove one first.",
+      "removeSticker": "Remove sticker: {{name}}",
+      "emoji": "Emoji",
+      "tags": "Tags",
+      "tagPlaceholder": "Add a tag, then press Enter",
+      "removeTag": "Remove tag {{tag}}",
+      "empty": "Write a title or a few words before saving.",
+      "saveError": "Your page couldn’t be saved. Please try again.",
+      "loadError": "This page couldn’t be opened.",
+      "companionBanner": "From your AI Companion chat. Only your own words were copied — review them, add anything you like, then save. Nothing is saved until you do.",
+      "privateNote": "Only you can see this page."
+    },
+    "stickers": {
+      "leaf": "Leaf",
+      "flower": "Flower",
+      "star": "Star",
+      "spark": "Spark",
+      "heart": "Heart",
+      "sun": "Sun",
+      "sprout": "Sprout",
+      "note_grow": "Keep-growing note"
+    },
+    "home": {
+      "title": "My Diary",
+      "empty": "Your first page is waiting.",
+      "latest": "Latest page",
+      "open": "Open diary",
+      "write": "Write today’s page"
     }
   }
 }

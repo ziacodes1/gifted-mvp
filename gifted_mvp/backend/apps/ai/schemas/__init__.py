@@ -121,6 +121,7 @@ PARENT_INSIGHT_JSON_SCHEMA: dict = _obj(
 
 class CompanionReply(_Strict):
     reply: str = Field(min_length=1, max_length=3000)
+    suggest_diary: bool = False  # the student's message is a personal moment worth keeping
 
 
-COMPANION_REPLY_JSON_SCHEMA: dict = _obj({"reply": _STR})
+COMPANION_REPLY_JSON_SCHEMA: dict = _obj({"reply": _STR, "suggest_diary": {"type": "boolean"}})

@@ -16,6 +16,7 @@ api_v1 = [
     path("", include("apps.missions.urls")),
     path("", include("apps.parents.urls")),
     path("", include("apps.companion.urls")),
+    path("", include("apps.diary.urls")),
 ]
 
 urlpatterns = [

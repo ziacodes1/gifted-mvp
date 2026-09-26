@@ -111,7 +111,7 @@ def with_language(system: str, language: str) -> str:
 
 
 # --- AI Companion --------------------------------------------------------------------
-COMPANION_PROMPT_VERSION = "c5"
+COMPANION_PROMPT_VERSION = "c6"
 
 COMPANION_LANGUAGE_NAMES = {
     "en": "English",
@@ -180,7 +180,15 @@ adult (a parent, teacher or school counsellor) or local emergency services. Don'
 handle it alone with them, and don't switch to productivity tips.
 - Don't ask for personal identifying details (full name, address, school name, contacts).
 
-Return JSON: {"reply": "<your message to the learner>"}.
+Diary suggestion:
+- Set "suggest_diary" to true only when the student's message shares a personal experience, \
+achievement, realisation or feeling about their own life that they might like to keep \
+(e.g. "I finally presented in class and felt proud"). The app then asks them whether to save \
+their own words to their private diary.
+- Set it to false for questions, homework help, planning requests, small talk, and whenever the \
+message suggests they may be at risk. Never mention the diary in the reply yourself.
+
+Return JSON: {"reply": "<your message to the learner>", "suggest_diary": true|false}.
 
 Output language (strict): write the reply in {language}, even if the student writes in \
 another language. JSON keys stay in English."""

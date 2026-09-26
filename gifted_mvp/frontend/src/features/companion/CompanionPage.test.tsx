@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { I18nextProvider } from "react-i18next";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CompanionOverview, Conversation, SendResult } from "../../types/companion";
 
@@ -12,7 +12,11 @@ vi.mock("../../api/companion", () => ({
     create: vi.fn(),
     conversation: vi.fn(),
     send: vi.fn(),
+    dismissDiaryOffer: vi.fn(),
   },
+}));
+vi.mock("../../api/diary", () => ({
+  diaryApi: { list: vi.fn(async () => ({ count: 0, next: null, previous: null, results: [] })) },
 }));
 vi.mock("../auth/AuthContext", () => ({
   useAuth: () => ({ user: { full_name: "Ada Lovelace", email: "ada@test.dev", role: "STUDENT" } }),
@@ -51,13 +55,21 @@ function reply(id: number, content: string, answer = "Here is one idea to explor
   };
 }
 
+function ShowLocation() {
+  const loc = useLocation();
+  return <p>at {loc.pathname + loc.search}</p>;
+}
+
 function renderPage() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={client}>
         <MemoryRouter initialEntries={["/app/companion"]}>
-          <CompanionPage />
+          <Routes>
+            <Route path="/app/companion" element={<CompanionPage />} />
+            <Route path="/app/diary/new" element={<ShowLocation />} />
+          </Routes>
         </MemoryRouter>
       </QueryClientProvider>
     </I18nextProvider>,
@@ -83,7 +95,7 @@ describe("AI Companion page", () => {
     expect(screen.getByText("Stage: Explore")).toBeTruthy();
     expect(screen.getByText("1 mission completed")).toBeTruthy();
     expect(screen.getByText("Your conversations with your AI Companion are private and are not shown to parents.")).toBeTruthy();
-    expect(screen.getByText("Coming next")).toBeTruthy(); // Diary is not implemented yet
+    expect(await screen.findByText(/When something feels worth keeping/)).toBeTruthy(); // no diary moments yet
   });
 
   it("a suggested prompt sends that message and shows the reply", async () => {
@@ -149,6 +161,53 @@ describe("AI Companion page", () => {
     expect(screen.getByText("Новый чат")).toBeTruthy();
     expect(screen.getByText("Что мне исследовать дальше?")).toBeTruthy();
     expect(screen.getByText("1 миссия выполнена")).toBeTruthy();
+  });
+});
+
+describe("Add to My Diary offer", () => {
+  const offered = (): Conversation => ({
+    ...empty(5),
+    title: "t",
+    messages: [
+      { id: 51, role: "USER", content: "I finally presented in class and felt proud.", created_at: NOW },
+      {
+        id: 52,
+        role: "ASSISTANT",
+        content: "That took courage.",
+        created_at: NOW,
+        diary: { offer: "OFFERED", student_message_id: 51, entry_id: null },
+      },
+    ],
+  });
+
+  beforeEach(() => {
+    api.conversations.mockResolvedValue([{ id: 5, title: "t", created_at: NOW, updated_at: NOW }]);
+    api.conversation.mockResolvedValue(offered());
+  });
+
+  it("offers, and Add to My Diary opens the editor with that student message — nothing is saved here", async () => {
+    renderPage();
+    expect(await screen.findByText("This sounds meaningful — would you like to add it to your diary?")).toBeTruthy();
+    fireEvent.click(screen.getByText("Add to My Diary"));
+    expect(await screen.findByText("at /app/diary/new?from=51")).toBeTruthy();
+    expect(api.dismissDiaryOffer).not.toHaveBeenCalled();
+  });
+
+  it("Keep only in chat hides the offer", async () => {
+    api.dismissDiaryOffer.mockResolvedValue(undefined);
+    renderPage();
+    fireEvent.click(await screen.findByText("Keep only in chat"));
+    await waitFor(() => expect(screen.queryByText("Add to My Diary")).toBeNull());
+    expect(api.dismissDiaryOffer).toHaveBeenCalledWith(52);
+  });
+
+  it("a saved moment links to its diary page instead of offering again", async () => {
+    const saved = offered();
+    saved.messages[1].diary = { offer: "OFFERED", student_message_id: 51, entry_id: 9 };
+    api.conversation.mockResolvedValue(saved);
+    renderPage();
+    expect(await screen.findByText(/Saved to My Diary/)).toBeTruthy();
+    expect(screen.queryByText("Add to My Diary")).toBeNull();
   });
 });
 

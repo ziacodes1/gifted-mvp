@@ -91,8 +91,9 @@ def build_payload(context: dict, history: list[tuple[str, str]], message: str) -
 
 def generate_reply(
     *, context: dict, history: list[tuple[str, str]], message: str, language: str = "en"
-) -> tuple[str, str, str] | None:
-    """(reply, provider, model), or None when no trustworthy reply could be produced."""
+) -> tuple[str, bool, str, str] | None:
+    """(reply, suggest_diary, provider, model), or None when no trustworthy reply could be produced.
+    `suggest_diary` is only a hint to *offer* saving; it is never offered for risk messages."""
     provider = get_provider()
     result, source, provider_name, model = run_structured(
         provider=provider,
@@ -106,4 +107,5 @@ def generate_reply(
     )
     if result is None:
         return None
-    return with_safety_line(message, result["reply"], language), provider_name, model
+    suggest = bool(result["suggest_diary"]) and not _RISK.search(message)
+    return with_safety_line(message, result["reply"], language), suggest, provider_name, model

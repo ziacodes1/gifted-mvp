@@ -5,6 +5,12 @@ export interface CompanionMessage {
   role: MessageRole;
   content: string;
   created_at: string;
+  /** ASSISTANT turns only: an offer to save the student's own message to My Diary. */
+  diary?: {
+    offer: "NONE" | "OFFERED" | "DISMISSED";
+    student_message_id: number | null;
+    entry_id: number | null;
+  };
 }
 
 export interface ConversationSummary {

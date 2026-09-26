@@ -1,6 +1,12 @@
 from django.urls import path
 
-from .views import CompanionOverviewView, ConversationDetailView, ConversationListView, ConversationMessagesView
+from .views import (
+    CompanionOverviewView,
+    ConversationDetailView,
+    ConversationListView,
+    ConversationMessagesView,
+    DismissDiaryOfferView,
+)
 
 urlpatterns = [
     path("companion/overview/", CompanionOverviewView.as_view(), name="companion-overview"),
@@ -10,5 +16,10 @@ urlpatterns = [
         "companion/conversations/<int:pk>/messages/",
         ConversationMessagesView.as_view(),
         name="companion-conversation-messages",
+    ),
+    path(
+        "companion/messages/<int:pk>/dismiss-diary-offer/",
+        DismissDiaryOfferView.as_view(),
+        name="companion-dismiss-diary-offer",
     ),
 ]

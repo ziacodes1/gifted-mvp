@@ -17,6 +17,8 @@ import {
   StudentMissions,
   StudentMission,
   StudentCompanion,
+  StudentDiary,
+  StudentDiaryEntry,
   StudentOpportunities,
   StudentProfile,
 } from "../pages/student";
@@ -47,6 +49,9 @@ export const router = createBrowserRouter([
           { path: "missions", element: <StudentMissions /> },
           { path: "missions/:slug", element: <StudentMission /> },
           { path: "companion", element: <StudentCompanion /> },
+          { path: "diary", element: <StudentDiary /> },
+          { path: "diary/new", element: <StudentDiaryEntry /> },
+          { path: "diary/:id", element: <StudentDiaryEntry /> },
           { path: "opportunities", element: <StudentOpportunities /> },
           { path: "profile", element: <StudentProfile /> },
         ],

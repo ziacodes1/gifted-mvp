@@ -3,12 +3,8 @@ import { useTranslation } from "react-i18next";
 import { companionApi } from "../../api/companion";
 import { useAuth } from "../../features/auth/AuthContext";
 import { CompanionHero } from "../../features/companion/CompanionHero";
-import {
-  AboutYouCard,
-  DiaryMomentsSoon,
-  PrivacyNotice,
-  SuggestedPrompts,
-} from "../../features/companion/CompanionSidebar";
+import { AboutYouCard, PrivacyNotice, SuggestedPrompts } from "../../features/companion/CompanionSidebar";
+import { DiaryMoments, DiaryOfferCard } from "../../features/companion/DiaryOffer";
 import { ConversationPanel } from "../../features/companion/ConversationPanel";
 import { useCompanionChat } from "../../features/companion/useCompanionChat";
 
@@ -25,7 +21,7 @@ export function CompanionPage() {
     <div className="mx-auto max-w-6xl space-y-6">
       <CompanionHero />
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <ConversationPanel
           firstName={firstName}
           messages={chat.messages}
@@ -40,6 +36,9 @@ export function CompanionPage() {
           onRetry={chat.retry}
           onNewChat={chat.newChat}
           onOpen={chat.open}
+          renderAssistantActions={(m) =>
+            chat.activeId !== null && <DiaryOfferCard message={m} conversationId={chat.activeId} />
+          }
         />
 
         <aside className="space-y-5">
@@ -50,7 +49,7 @@ export function CompanionPage() {
             disabled={chat.sending || chat.creating}
             onPick={(text) => void chat.send(text)}
           />
-          <DiaryMomentsSoon />
+          <DiaryMoments />
           <PrivacyNotice />
         </aside>
       </div>

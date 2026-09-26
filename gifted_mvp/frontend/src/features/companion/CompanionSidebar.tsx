@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { BookIcon, BulbIcon, ChevronIcon, CompassIcon, LeafIcon, LockIcon, UserIcon } from "../passport/icons";
+import { BulbIcon, ChevronIcon, CompassIcon, LeafIcon, LockIcon, UserIcon } from "../passport/icons";
 import type { CompanionAbout, SuggestedPrompt } from "../../types/companion";
 
 function SideCard({ icon, title, subtitle, tag, children }: { icon: ReactNode; title: string; subtitle?: string; tag?: ReactNode; children?: ReactNode }) {
@@ -124,24 +124,6 @@ export function SuggestedPrompts({
           })}
         </ul>
       )}
-    </SideCard>
-  );
-}
-
-/** Placeholder for Milestone 2 (My Diary). Nothing is saved from chats yet. */
-export function DiaryMomentsSoon() {
-  const { t } = useTranslation();
-  return (
-    <SideCard
-      icon={<BookIcon />}
-      title={t("companion.diary.title")}
-      tag={
-        <span className="shrink-0 rounded-full bg-gold-50 px-2.5 py-0.5 text-[11px] font-medium text-gold-600">
-          {t("companion.diary.soon")}
-        </span>
-      }
-    >
-      <p className="text-sm leading-relaxed text-sage-600">{t("companion.diary.text")}</p>
     </SideCard>
   );
 }

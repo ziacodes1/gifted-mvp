@@ -1,3 +1,5 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
 from rest_framework.response import Response
@@ -11,6 +13,7 @@ from .services import (
     MAX_MESSAGE_CHARS,
     CompanionUnavailable,
     companion_overview,
+    dismiss_diary_offer,
     send_message,
     start_conversation,
 )
@@ -18,8 +21,24 @@ from .services import (
 LIST_LIMIT = 30
 
 
+def _diary_entry_id(user_message):
+    try:
+        return user_message.diary_entry.id if user_message else None
+    except ObjectDoesNotExist:
+        return None
+
+
 def message_payload(m) -> dict:
-    return {"id": m.id, "role": m.role, "content": m.content, "created_at": m.created_at}
+    data = {"id": m.id, "role": m.role, "content": m.content, "created_at": m.created_at}
+    if m.role == "ASSISTANT":
+        # The offer refers to the student's own message this turn answered; saving it is a
+        # separate, explicit action in My Diary.
+        data["diary"] = {
+            "offer": m.diary_offer,
+            "student_message_id": m.reply_to_id,
+            "entry_id": _diary_entry_id(m.reply_to),
+        }
+    return data
 
 
 def conversation_summary(c) -> dict:
@@ -61,7 +80,12 @@ class ConversationDetailView(APIView):
     def get(self, request, pk):
         conversation = _owned(request, pk)
         return Response(
-            {**conversation_summary(conversation), "messages": [message_payload(m) for m in conversation.messages.all()]}
+            {
+                **conversation_summary(conversation),
+                "messages": [
+                    message_payload(m) for m in conversation.messages.select_related("reply_to__diary_entry")
+                ],
+            }
         )
 
 
@@ -102,3 +126,14 @@ class ConversationMessagesView(APIView):
             },
             status=status.HTTP_201_CREATED if turn.created else status.HTTP_200_OK,
         )
+
+
+class DismissDiaryOfferView(APIView):
+    """POST: "Keep only in chat" — hides the diary offer on one of the learner's assistant turns."""
+
+    permission_classes = [IsStudent]
+
+    def post(self, request, pk):
+        if not dismiss_diary_offer(request.user, pk):
+            raise Http404
+        return Response(status=status.HTTP_204_NO_CONTENT)

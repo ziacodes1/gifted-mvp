@@ -37,6 +37,8 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         serif: ["'Fraunces'", "Georgia", "serif"],
+        // Handwriting, used only on My Diary's journal pages.
+        hand: ["'Caveat'", "'Segoe Print'", "cursive"],
       },
       borderRadius: {
         xl: "1rem",

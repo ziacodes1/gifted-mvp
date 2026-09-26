@@ -22,6 +22,10 @@ export const companionApi = {
   },
   /** Idempotent per clientId: a retry returns the stored turn instead of a second reply.
    * Rejects with HTTP 503 when the Companion can't answer right now (nothing is stored). */
+  /** "Keep only in chat" for a diary offer. */
+  async dismissDiaryOffer(assistantMessageId: number): Promise<void> {
+    await api.post(`/companion/messages/${assistantMessageId}/dismiss-diary-offer/`);
+  },
   async send(id: number, content: string, clientId: string): Promise<SendResult> {
     const { data } = await api.post<SendResult>(`/companion/conversations/${id}/messages/`, {
       content,

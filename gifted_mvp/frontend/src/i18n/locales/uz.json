@@ -19,6 +19,7 @@
     "passport": "Mening pasportim",
     "missions": "Missiyalar",
     "companion": "AI hamroh",
+    "diary": "Mening kundaligim",
     "myChild": "Farzandim",
     "parentInsights": "Ota-onalar uchun tahlil",
     "overview": "Umumiy ko‘rinish",
@@ -505,12 +506,149 @@
     },
     "diary": {
       "title": "Kundalik lahzalari",
-      "soon": "Tez orada",
-      "text": "Tez orada suhbatlardagi muhim lahzalarni «Mening kundaligim»ga saqlay olasiz — faqat o‘zingiz xohlaganingizda."
+      "subtitle": "Suhbatlardan o‘zingiz saqlagan lahzalar.",
+      "empty": "Biror narsa saqlashga arzisa, uni kundalikka qo‘shishingiz mumkin — faqat o‘zingiz xohlasangiz.",
+      "seeAll": "Mening kundaligim"
+    },
+    "offer": {
+      "text": "Bu muhim lahzaga o‘xshaydi — uni kundaligingizga qo‘shishni xohlaysizmi?",
+      "sub": "Faqat o‘zingizning so‘zlaringiz ko‘chiriladi va saqlashdan oldin hammasini ko‘rib chiqasiz.",
+      "add": "Kundalikka qo‘shish",
+      "keep": "Faqat suhbatda qolsin",
+      "saved": "Kundalikka saqlandi",
+      "open": "Ochish"
     },
     "privacy": {
       "title": "Faqat siz uchun",
       "text": "AI hamroh bilan suhbatlaringiz shaxsiy va ota-onalarga ko‘rsatilmaydi."
+    }
+  },
+  "diary": {
+    "eyebrow": "Mening kundaligim",
+    "titleA": "Hikoyangiz o‘sib bormoqda,",
+    "titleB": "sahifama-sahifa.",
+    "intro": "Fikrlaringiz, suratlaringiz va xotiralaringiz uchun shaxsiy makon — orqaga qarab, qanchalik o‘sganingizni ko‘ring.",
+    "features": {
+      "reflect": {
+        "a": "Fikr yuriting",
+        "b": "yo‘lingiz haqida"
+      },
+      "photos": {
+        "a": "Suratlar qo‘shing",
+        "b": "va xotiralar"
+      },
+      "write": {
+        "a": "Erkin yozing",
+        "b": "faqat o‘zingiz uchun"
+      },
+      "growth": {
+        "a": "O‘sishini kuzating",
+        "b": "sahifama-sahifa"
+      }
+    },
+    "bookTitle": "Mening kundaligim",
+    "pagesFilled": "{{total}} sahifadan {{count}} tasi to‘ldi",
+    "pagesMore_one": "Yorqin hikoyangizgacha yana {{count}} sahifa…",
+    "pagesMore_other": "Yorqin hikoyangizgacha yana {{count}} sahifa…",
+    "pagesComplete": "Barcha sahifalar to‘ldi — ajoyib hikoya!",
+    "pageRule": "Har bir saqlangan yozuv bitta sahifani to‘ldiradi.",
+    "open": "Kundalikni ochish",
+    "newEntry": "Yangi yozuv",
+    "firstEntry": "Birinchi yozuvni yaratish",
+    "emptyTitle": "Hikoyangiz shu yerdan boshlanadi.",
+    "emptyText": "Kuningiz, kichik yutug‘ingiz, xavotiringiz yoki g‘oyangiz haqida yozing. Surat, stiker yoki kayfiyat qo‘shing — bularning barchasi sizniki.",
+    "emptyPage": "Bu sahifa birinchi so‘zlaringizni kutmoqda…",
+    "untitled": "Nomsiz sahifa",
+    "fromCompanion": "AI hamrohdan",
+    "photos_one": "{{count}} ta surat",
+    "photos_other": "{{count}} ta surat",
+    "recent": {
+      "title": "Oxirgi yozuvlar",
+      "seeAll": "Barchasi",
+      "showLess": "Kamroq ko‘rsatish",
+      "loadMore": "Yana yuklash",
+      "empty": "Yozuvlaringiz shu yerda paydo bo‘ladi."
+    },
+    "moodWeek": {
+      "title": "Bu haftadagi kayfiyat",
+      "empty": "Yozayotganda kayfiyatni tanlang — uni faqat siz ko‘rasiz."
+    },
+    "mood": {
+      "question": "O‘zingizni qanday his qilyapsiz?",
+      "none": "Kayfiyatsiz",
+      "very_low": "Juda yomon",
+      "low": "Yomon",
+      "neutral": "O‘rtacha",
+      "good": "Yaxshi",
+      "great": "Ajoyib"
+    },
+    "privacy": {
+      "title": "Sukut bo‘yicha shaxsiy",
+      "text": "Kelajakdagi funksiya sizga biror narsani ulashishni aniq tanlash imkonini bermaguncha, kundaligingiz shaxsiy bo‘lib qoladi. Ota-onalar uni ko‘ra olmaydi, AI esa uni o‘qimaydi."
+    },
+    "companion": {
+      "title": "AI hamroh",
+      "pending": "Yaqindagi suhbatda saqlab qo‘yishga arziydigan lahza bilan o‘rtoqlashdingiz:",
+      "add": "Kundalikka qo‘shish",
+      "dismiss": "Faqat suhbatda qolsin",
+      "idleTitle": "Biror narsani muhokama qilmoqchimisiz?",
+      "idleText": "AI hamroh fikr yuritishga yordam beradi — kundalikka nima tushishini esa o‘zingiz hal qilasiz.",
+      "open": "AI hamrohni ochish"
+    },
+    "editor": {
+      "back": "Mening kundaligim",
+      "newTitle": "Yangi sahifa",
+      "date": "Sana",
+      "titlePlaceholder": "Sahifaga nom bering…",
+      "bodyPlaceholder": "Aziz kundalik…",
+      "save": "Saqlash",
+      "saving": "Saqlanmoqda…",
+      "saved": "Kundalikka saqlandi",
+      "delete": "O‘chirish",
+      "deleteConfirm": "Bu sahifa o‘chirilsinmi? Suratlari ham o‘chadi. Buni qaytarib bo‘lmaydi.",
+      "deleteYes": "Sahifani o‘chirish",
+      "cancel": "Bekor qilish",
+      "photos": "Suratlar",
+      "addPhoto": "Surat qo‘shish",
+      "photoLimit": "{{count}} tagacha surat · JPEG, PNG yoki WebP · 5 MB gacha",
+      "removePhoto": "Suratni olib tashlash",
+      "captionPlaceholder": "Izoh qo‘shing…",
+      "photoErrors": {
+        "type": "Iltimos, JPEG, PNG yoki WebP rasmini tanlang.",
+        "size": "Bu surat 5 MB dan katta.",
+        "too_many": "Bu sahifada allaqachon 4 ta surat bor.",
+        "upload": "Suratni yuklab bo‘lmadi. Qayta urinib ko‘ring."
+      },
+      "stickers": "Stikerlar",
+      "stickerHint": "Stikerni joylash uchun ustiga bosing. Olib tashlash uchun sahifadagi stikerga bosing.",
+      "stickersFull": "Sahifa stikerlarga to‘ldi — avval bittasini olib tashlang.",
+      "removeSticker": "Stikerni olib tashlash: {{name}}",
+      "emoji": "Emoji",
+      "tags": "Teglar",
+      "tagPlaceholder": "Teg yozing va Enter bosing",
+      "removeTag": "{{tag}} tegini olib tashlash",
+      "empty": "Saqlashdan oldin nom yoki bir necha so‘z yozing.",
+      "saveError": "Sahifani saqlab bo‘lmadi. Qayta urinib ko‘ring.",
+      "loadError": "Bu sahifani ochib bo‘lmadi.",
+      "companionBanner": "AI hamroh bilan suhbatingizdan. Faqat o‘zingizning so‘zlaringiz ko‘chirildi — ularni ko‘rib chiqing, xohlaganingizni qo‘shing va saqlang. Siz saqlamaguningizcha hech narsa saqlanmaydi.",
+      "privateNote": "Bu sahifani faqat siz ko‘rasiz."
+    },
+    "stickers": {
+      "leaf": "Barg",
+      "flower": "Gul",
+      "star": "Yulduz",
+      "spark": "Uchqun",
+      "heart": "Yurak",
+      "sun": "Quyosh",
+      "sprout": "Nihol",
+      "note_grow": "«O‘sishda davom et» yozuvi"
+    },
+    "home": {
+      "title": "Mening kundaligim",
+      "empty": "Birinchi sahifangiz sizni kutmoqda.",
+      "latest": "Oxirgi sahifa",
+      "open": "Kundalikni ochish",
+      "write": "Bugungi sahifani yozish"
     }
   }
 }

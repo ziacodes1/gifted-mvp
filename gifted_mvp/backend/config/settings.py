@@ -50,6 +50,7 @@ LOCAL_APPS = [
     "apps.missions",
     "apps.parents",
     "apps.companion",
+    "apps.diary",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -141,6 +142,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 DATA_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2MB, per spec
+# Private learner uploads (diary photos). Deliberately outside MEDIA_ROOT, so they are never
+# served by the public /media/ route — only through owner-checked API views.
+PRIVATE_MEDIA_ROOT = Path(env("PRIVATE_MEDIA_ROOT", str(BASE_DIR / "private_media")))
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
