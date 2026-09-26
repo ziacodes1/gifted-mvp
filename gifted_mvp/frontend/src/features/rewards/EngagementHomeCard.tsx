@@ -9,7 +9,8 @@ import { ENGAGEMENT_KEY, initials, streakMessage } from "./lib";
 /** Student Home: a compact momentum strip — streak, points/badges, top 3. Growth stays first. */
 export function EngagementHomeCard() {
   const { t } = useTranslation();
-  const { data } = useQuery({ queryKey: ENGAGEMENT_KEY, queryFn: engagementApi.overview, staleTime: 0 });
+  const { data, isError } = useQuery({ queryKey: ENGAGEMENT_KEY, queryFn: engagementApi.overview, staleTime: 0 });
+  if (isError) return null; // gamification never blocks Home
   if (!data) return <div className="h-36 animate-pulse rounded-2xl bg-white shadow-card" />;
   const unlocked = data.badges.filter((b) => b.unlocked);
   const top3 = data.leaderboard.top.slice(0, 3);

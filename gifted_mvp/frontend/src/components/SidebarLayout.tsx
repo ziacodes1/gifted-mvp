@@ -16,7 +16,7 @@ export interface NavItem {
 
 /** Shared authenticated shell (student/parent/admin). Light sidebar per the Gifted
  * dashboard references: large logo, icon nav, dark-green active pill. Items differ per role. */
-export function SidebarLayout({ items }: { items: NavItem[] }) {
+export function SidebarLayout({ items, topRight }: { items: NavItem[]; topRight?: ReactNode }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
@@ -66,11 +66,15 @@ export function SidebarLayout({ items }: { items: NavItem[] }) {
       </aside>
 
       <div className="flex-1 overflow-y-auto">
-        {/* The sidebar is desktop-only, so small screens get the language switch here. */}
-        <div className="flex justify-end px-6 pt-4 md:hidden">
-          <LanguageSwitcher />
+        {/* The sidebar is desktop-only, so small screens get the language switch here;
+            role-specific controls (e.g. the student's updates bell) sit on the right. */}
+        <div className={`mx-auto flex max-w-6xl items-center justify-end gap-3 px-6 pt-4 md:px-10 ${topRight ? "" : "md:hidden"}`}>
+          <span className="md:hidden">
+            <LanguageSwitcher />
+          </span>
+          {topRight}
         </div>
-        <main className="mx-auto max-w-6xl px-6 py-8 md:px-10">
+        <main className={`mx-auto max-w-6xl px-6 pb-8 md:px-10 ${topRight ? "pt-4" : "pt-8"}`}>
           <Outlet />
         </main>
       </div>

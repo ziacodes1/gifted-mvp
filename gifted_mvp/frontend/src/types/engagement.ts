@@ -4,7 +4,8 @@ export type EventType =
   | "MISSION_COMPLETED"
   | "DIARY_ENTRY_CREATED"
   | "FIRST_DIARY_ENTRY"
-  | "STREAK_7_DAYS";
+  | "STREAK_7_DAYS"
+  | "MINI_CHALLENGE";
 
 export type RewardType = "PHYSICAL" | "COURSE" | "EVENT" | "COMMUNITY" | "MENTOR";
 export type BadgeIcon = "leaf" | "star" | "book" | "compass" | "globe" | "people" | "bulb" | "mountain" | "passport";

@@ -22,6 +22,8 @@ interface Props {
   onRetry: () => void;
   onNewChat: () => void;
   onOpen: (id: number) => void;
+  /** Text placed in the composer (e.g. from Today's Spark). The student edits/sends it themselves. */
+  initialDraft?: string;
   /** Extension point for per-message actions (e.g. a later "Add to My Diary"). */
   renderAssistantActions?: (message: CompanionMessage) => ReactNode;
 }
@@ -30,6 +32,7 @@ export function ConversationPanel(props: Props) {
   const { t } = useTranslation();
   const { messages, pending, loading, loadError, sending } = props;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [draftNote, setDraftNote] = useState(Boolean(props.initialDraft));
 
   // Keep the newest message in view.
   useEffect(() => {
@@ -93,9 +96,16 @@ export function ConversationPanel(props: Props) {
         )}
       </div>
 
+      {props.initialDraft && draftNote && (
+        <p className="border-t border-cream-200/70 bg-gold-50/60 px-5 pt-2.5 text-xs text-forest-700 md:px-7">{t("sparks.companionPrefilled")}</p>
+      )}
       <ConversationComposer
-        onSend={props.onSend}
+        onSend={(text) => {
+          setDraftNote(false);
+          return props.onSend(text);
+        }}
         disabled={sending || props.creating}
+        initialText={props.initialDraft}
       />
     </section>
   );
@@ -232,9 +242,17 @@ function ThinkingBubble() {
   );
 }
 
-export function ConversationComposer({ onSend, disabled }: { onSend: (text: string) => Promise<boolean>; disabled: boolean }) {
+export function ConversationComposer({
+  onSend,
+  disabled,
+  initialText = "",
+}: {
+  onSend: (text: string) => Promise<boolean>;
+  disabled: boolean;
+  initialText?: string;
+}) {
   const { t } = useTranslation();
-  const [text, setText] = useState("");
+  const [text, setText] = useState(initialText);
   const ref = useRef<HTMLTextAreaElement>(null);
 
   // Grow with the text, up to a few lines.

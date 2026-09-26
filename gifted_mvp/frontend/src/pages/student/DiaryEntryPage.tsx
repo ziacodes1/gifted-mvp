@@ -8,6 +8,7 @@ import { CameraIcon } from "../../features/diary/DiaryHomeSections";
 import { DIARY_OVERVIEW_KEY } from "../../features/diary/queries";
 import { DaisySprig, FernSketch, MoodFace, Sticker } from "../../features/diary/decor";
 import { formatEntryDate, todayISO } from "../../features/diary/format";
+import { isSparkKey, sparkTitle } from "../../features/today/sparkText";
 import { BackIcon, LockIcon, SparkIcon } from "../../features/passport/icons";
 import {
   MAX_PHOTO_BYTES,
@@ -112,12 +113,25 @@ export function DiaryEntryPage() {
     return <DiaryEditor id={null} initial={initial} initialPhotos={[]} />;
   }
   if (id === null && fromMessage === null) {
-    return <DiaryEditor id={null} initial={{ ...EMPTY, entry_date: todayISO() }} initialPhotos={[]} />;
+    // From Today's Spark: a writing suggestion only — the body stays the student's own words.
+    const spark = params.get("spark");
+    const suggestion = isSparkKey(t, spark) ? sparkTitle(t, spark) : undefined;
+    return <DiaryEditor id={null} initial={{ ...EMPTY, entry_date: todayISO() }} initialPhotos={[]} suggestion={suggestion} />;
   }
   return <div className="mx-auto h-[34rem] max-w-6xl animate-pulse rounded-[26px] bg-forest-50" />;
 }
 
-function DiaryEditor({ id, initial, initialPhotos }: { id: number | null; initial: Form; initialPhotos: DiaryPhoto[] }) {
+function DiaryEditor({
+  id,
+  initial,
+  initialPhotos,
+  suggestion,
+}: {
+  id: number | null;
+  initial: Form;
+  initialPhotos: DiaryPhoto[];
+  suggestion?: string;
+}) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -287,6 +301,16 @@ function DiaryEditor({ id, initial, initialPhotos }: { id: number | null; initia
         </span>
       </div>
 
+      {suggestion && (
+        <div className="flex items-start gap-3 rounded-2xl border border-gold-400/40 bg-gold-50 px-4 py-3 text-sm text-forest-700">
+          <SparkIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
+          <p>
+            <span className="text-sage-600">{t("sparks.diarySuggestion")}: </span>
+            <span className="font-hand text-lg text-forest-800">{suggestion}</span>
+          </p>
+        </div>
+      )}
+
       {form.companion_message_id && id === null && (
         <div className="flex items-start gap-3 rounded-2xl border border-gold-400/40 bg-gold-50 px-4 py-3 text-sm text-forest-700">
           <SparkIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
@@ -325,7 +349,7 @@ function DiaryEditor({ id, initial, initialPhotos }: { id: number | null; initia
               value={form.body}
               onChange={(e) => set("body", e.target.value)}
               maxLength={10000}
-              placeholder={t("diary.editor.bodyPlaceholder")}
+              placeholder={suggestion ?? t("diary.editor.bodyPlaceholder")}
               aria-label={t("diary.editor.bodyPlaceholder")}
               className="diary-lines mt-3 min-h-[20rem] w-full flex-1 resize-none bg-transparent font-hand text-[1.45rem] text-[#2b3f5c] placeholder:text-[#2b3f5c]/35 focus:outline-none md:min-h-[24rem]"
             />

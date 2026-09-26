@@ -1,5 +1,6 @@
 import { SidebarLayout, type NavItem } from "../components/SidebarLayout";
 import { TrophyIcon } from "../features/rewards/art";
+import { NudgeBell } from "../features/today/NudgeBell";
 import { BookIcon, ChartIcon, CompassIcon, DocIcon, HomeIcon, SparkIcon } from "../features/passport/icons";
 
 // Only finished, demo-ready sections are linked (journey/opportunities/profile are placeholders).
@@ -14,5 +15,5 @@ const items: NavItem[] = [
 ];
 
 export function StudentLayout() {
-  return <SidebarLayout items={items} />;
+  return <SidebarLayout items={items} topRight={<NudgeBell />} />;
 }

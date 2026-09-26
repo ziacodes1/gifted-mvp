@@ -808,7 +808,7 @@
         "MISSION_COMPLETED": "Missiya yakunlandi",
         "DIARY_ENTRY_CREATED": "Kundalik sahifasi yozildi",
         "FIRST_DIARY_ENTRY": "Birinchi kundalik sahifasi bonusi",
-        "STREAK_7_DAYS": "7 kunlik seriya bonusi"
+        "STREAK_7_DAYS": "7 kunlik seriya bonusi", "MINI_CHALLENGE": "Kunlik kichik sinov"
       }
     },
     "howItWorks": {
@@ -818,7 +818,7 @@
         "+60 — missiyani yakunlash",
         "+10 — kundalik sahifasi (kuniga 2 tagacha)",
         "+15 — eng birinchi kundalik sahifangiz",
-        "+30 — 7 kunlik seriya"
+        "+30 — 7 kunlik seriya", "+5 — bugungi kichik sinovni bajarish (kuniga bir marta)"
       ],
       "note": "AI hamroh bilan suhbat, sahifalarni ochish va tilni almashtirish ball bermaydi. Mukofot olish to‘plangan ballaringizni hech qachon kamaytirmaydi."
     },
@@ -848,6 +848,168 @@
       "badges_other": "{{count}} ta nishon",
       "seeRewards": "Mukofotlar",
       "top3": "Bu haftaning faol o‘quvchilari"
+    }
+  },
+  "sparks": {
+    "title": "Bugungi uchqun",
+    "types": {
+      "REFLECTION": "Fikr yuritish",
+      "MINI_CHALLENGE": "Kichik sinov",
+      "FACT": "Bilasizmi?",
+      "NEXT_STEP": "Keyingi qadam",
+      "DIARY_PROMPT": "Kundalik uchun g‘oya",
+      "COMPANION_PROMPT": "Birga muhokama qiling",
+      "MISSION_NUDGE": "Izlanish"
+    },
+    "actions": {
+      "diary": "Kundalikka yozib qo‘yish",
+      "companion": "AI hamroh bilan o‘rganish",
+      "complete": "Bajardim",
+      "dismiss": "Bugun emas",
+      "restore": "Yana ko‘rsatish"
+    },
+    "done": "Bugun uchun bajarildi — barakalla!",
+    "dismissed": "Bugungi uchqunni chetga qo‘ydingiz.",
+    "tomorrow": "Ertaga yangi uchqun keladi.",
+    "diarySuggestion": "Bugungi uchqundan yozish uchun g‘oya",
+    "companionPrefilled": "Bugungi uchqun xabar oynasiga yozildi — tahrirlang yoki xohlagan paytingizda yuboring.",
+    "factCompanion": "Hozirgina bilib oldim: {{fact}} Bu haqida ko‘proq aytib bera olasizmi?",
+    "motivation": {
+      "welcome_back": "Xush kelibsiz. Natijalaringiz joyida.",
+      "curiosity_to_evidence": "Siz qiziqishni dalilga aylantirdingiz.",
+      "momentum": "Siz sur’at yig‘yapsiz.",
+      "near_bonus": "Seriyangiz o‘smoqda — bugungi kichik qadam ham hisobga olinadi.",
+      "story_growing": "Hikoyangiz sahifama-sahifa o‘sib bormoqda.",
+      "done_today": "Bugun allaqachon mazmunli qadam qo‘ydingiz. Qolgani — bonus.",
+      "first_step": "Har bir yo‘l bitta kichik qadamdan boshlanadi.",
+      "small_steps": "Kichik qadamlar jamlanadi."
+    },
+    "items": {
+      "reflect_no_fail": {
+        "title": "Muvaffaqiyatsizlikka uchramasligingizni bilsangiz, nimani sinab ko‘rardingiz?",
+        "body": "Mukammal javob shart emas — birinchi xayolingizga kelgan narsaga e’tibor bering.",
+        "companion": "Muvaffaqiyatsizlikka uchramasligimni bilsam, nimani sinab ko‘rardim? Shu haqida o‘ylashga yordam bering."
+      },
+      "reflect_learned_self": {
+        "title": "Bu hafta o‘zingiz haqingizda bilib olgan bitta narsani yozing.",
+        "body": "Katta yoki kichik — ikkalasi ham hisob.",
+        "companion": "Bu hafta o‘zim haqimda bilib olgan narsa haqida fikr yuritishga yordam bering."
+      },
+      "reflect_lost_time": {
+        "title": "Oxirgi marta qachon biror ish bilan vaqtni unutib qo‘ygansiz?",
+        "body": "Nima qilayotgan edingiz va uni nima shunchalik qiziqarli qildi?",
+        "companion": "Qachon vaqtni unutib qo‘yishim haqida o‘ylamoqchiman — bu qiziqishlarim haqida nima deydi?"
+      },
+      "reflect_proud": {
+        "title": "Bu haftadagi qaysi kichik ishingiz bilan faxrlanasiz?",
+        "body": "Kichik yutuqlar ham e’tiborga loyiq."
+      },
+      "reflect_curious": {
+        "title": "So‘nggi paytda sizni qaysi savol qiziqtirmoqda?",
+        "body": "Izlanish qiziqishdan boshlanadi.",
+        "companion": "So‘nggi paytda meni bir narsa qiziqtirmoqda — birga o‘rganib chiqamizmi?"
+      },
+      "ch_ask_field": {
+        "title": "Kimdandir o‘z sohasini qanday tanlaganini so‘rang.",
+        "body": "Oila a’zosi, o‘qituvchi yoki qo‘shni — ularni eng ko‘p nima hayratga solganini so‘rang."
+      },
+      "ch_three_solutions": {
+        "title": "Atrofingizdagi bitta muammoni payqang va uchta yechim o‘ylab toping.",
+        "body": "Mukammal bo‘lishi shart emas — avval miqdor."
+      },
+      "ch_new_field_fact": {
+        "title": "Hech qachon o‘rganmagan sohangiz haqida bitta faktni bilib oling.",
+        "body": "Masalan, arxitektura, dengiz biologiyasi yoki tilshunoslik?"
+      },
+      "ch_explain_simple": {
+        "title": "Qiyin g‘oyani oddiy so‘zlar bilan tushuntirib bering.",
+        "body": "Ovoz chiqarib, do‘stingizga yoki qaydlaringizda sinab ko‘ring."
+      },
+      "ch_understand_better": {
+        "title": "Yaxshiroq tushunishni istagan bitta narsani yozib qo‘ying.",
+        "body": "Savolni nomlash — unga javob topishning birinchi qadami."
+      },
+      "ch_outside_interests": {
+        "title": "Odatdagi qiziqishlaringizdan tashqaridagi kichik bir ishni sinab ko‘ring.",
+        "body": "Yangi narsa bilan o‘tgan o‘n daqiqa sizni hayratga solishi mumkin."
+      },
+      "ns_start_discovery": {
+        "title": "Kashfiyot testini boshlang.",
+        "body": "Taxminan 10 daqiqa — va birinchi belgilaringizni ko‘rasiz.",
+        "cta": "Kashf qilishni boshlash"
+      },
+      "ns_continue_assessment": {
+        "title": "Testni to‘xtagan joyingizdan davom ettiring.",
+        "body": "Javoblaringiz saqlangan.",
+        "cta": "Davom etish"
+      },
+      "ns_passport_updated": {
+        "title": "Pasportingizda yangi dalillar bor — ko‘rib chiqing.",
+        "body": "Oxirgi izlanishingiz unga qo‘shildi.",
+        "cta": "Pasportimni ko‘rish"
+      },
+      "mn_try_mission": {
+        "title": "Qisqa amaliy missiyani sinab ko‘ring.",
+        "body": "Test ko‘rsatgan narsani haqiqiy dalilga aylantiring.",
+        "cta": "Missiyani ochish"
+      },
+      "dp_first_page": {
+        "title": "Kundaligingizni bugun haqidagi bitta gap bilan boshlang.",
+        "body": "U shaxsiy — faqat siz uchun.",
+        "cta": "Birinchi sahifani yozish"
+      },
+      "dp_come_back": {
+        "title": "Bu haftaning qaysi lahzasi eslab qolishga arziydi?",
+        "body": "Qisqa sahifa ham yetarli.",
+        "cta": "Sahifa yozish"
+      },
+      "cp_interests": {
+        "title": "Qiziqishlaringiz nimani anglatishi mumkinligini muhokama qiling.",
+        "body": "AI hamroh izlanishga yordam beradi — yorliqlarsiz, faqat imkoniyatlar.",
+        "companion": "Hozirgi qiziqishlarim nimani anglatishi mumkinligini tushunishga yordam bering.",
+        "cta": "Birga o‘rganish"
+      },
+      "cp_plan_week": {
+        "title": "Shu hafta uchun bitta kichik qadamni rejalashtiring.",
+        "body": "AI hamroh uni aniq qilishga yordam beradi.",
+        "companion": "Shu hafta uchun bitta kichik, real qadamni rejalashtirishga yordam bering.",
+        "cta": "Birga rejalashtirish"
+      }
+    },
+    "facts": [
+      "Sakkizoyoqning uchta yuragi bor.",
+      "Veneradagi bir kun uning butun yilidan uzunroq.",
+      "Xorazmda (bugungi O‘zbekistonda) tug‘ilgan al-Xorazmiy nomidan «algoritm» so‘zi kelib chiqqan.",
+      "Mirzo Ulug‘bekning Samarqanddagi rasadxonasida XV asrda 1000 dan ortiq yulduz jadvalga kiritilgan.",
+      "Buxoro yaqinida tug‘ilgan Ibn Sino asrlar davomida o‘rganilgan tibbiyot ensiklopediyasini yozgan.",
+      "Ada Lavleys ko‘pincha birinchi kompyuter dasturi deb ataladigan narsani 1840-yillarda yozgan.",
+      "Bambukning ayrim turlari bir kunda deyarli bir metr o‘sishi mumkin.",
+      "Miyangiz butun umr davomida yangi bog‘lanishlar hosil qiladi — bu neyroplastiklik deyiladi.",
+      "Akulalar Yerda daraxtlardan oldin paydo bo‘lgan.",
+      "Uyqu miyangizga kun davomida o‘rgangan narsalarni saqlashga yordam beradi.",
+      "Penitsillin unutilgan laboratoriya idishida o‘sgan mog‘or tufayli kashf qilingan.",
+      "Mumkin bo‘lgan shaxmat o‘yinlari soni kuzatiladigan olamdagi atomlardan ko‘p.",
+      "Quyosh nuri Yerga taxminan 8 daqiqada yetib keladi.",
+      "Kapalaklar oyoqlari bilan ta’m sezadi.",
+      "Flamingolar to‘dasi inglizchada «flamboyance» deb ataladi.",
+      "Qadimgi Misr qabrlaridan topilgan asal ming yillardan keyin ham iste’molga yaroqli bo‘lgan.",
+      "Yozda Eyfel minorasi metall issiqdan kengaygani uchun taxminan 15 sm balandlashishi mumkin.",
+      "Arxitektorlar, o‘yin dizaynerlari va shifokorlar prototiplardan foydalanadi — asl ishdan oldin kichik sinovlar.",
+      "Buyuk ipak yo‘li Samarqand va Buxoroni Xitoy hamda Yevropa bilan bog‘lab, nafaqat mollar, balki g‘oyalarni ham tashigan.",
+      "Qo‘lda yozish narsani yaxshiroq eslab qolishga yordam berishi mumkin."
+    ]
+  },
+  "nudges": {
+    "title": "Yangiliklar",
+    "open": "Yangiliklarni ochish",
+    "empty": "Barcha yangiliklarni ko‘rdingiz.",
+    "kinds": {
+      "spark": "Bugungi uchqun tayyor",
+      "badge": "Yangi nishon ochildi: {{badge}}",
+      "passport": "Pasportingizda yangi dalillar bor",
+      "diary_milestone": "Kundaligingiz {{count}} sahifaga yetdi",
+      "reward_one": "{{count}} ta mukofot olish mumkin",
+      "reward_other": "{{count}} ta mukofot olish mumkin"
     }
   }
 }

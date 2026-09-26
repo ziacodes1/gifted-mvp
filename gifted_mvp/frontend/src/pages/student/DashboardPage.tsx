@@ -14,6 +14,7 @@ import { JourneyProgress } from "../../features/passport/PassportSections";
 import type { Passport } from "../../types/passport";
 import { DiaryHomeCard } from "../../features/diary/DiaryHomeCard";
 import { EngagementHomeCard } from "../../features/rewards/EngagementHomeCard";
+import { TodaySpark } from "../../features/today/TodaySpark";
 
 // Mission artwork: an existing asset whose scene matches the mission.
 const MISSION_IMAGES: Record<string, string> = { "design-a-better-school-bag": missionImage };
@@ -194,9 +195,11 @@ function WelcomeDashboard({
         </div>
       </div>
 
-      <DiaryHomeCard />
+      <TodaySpark />
 
       <SessionToday items={session} />
+
+      <DiaryHomeCard />
 
       <EngagementHomeCard />
     </div>
@@ -294,27 +297,6 @@ function ReturningDashboard({ name, passport }: { name: string; passport: Passpo
         </div>
       </HeroFrame>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((s) => (
-          <Link
-            key={s.key}
-            to="/app/passport"
-            className={`flex items-center gap-4 rounded-2xl border border-cream-200/80 p-5 shadow-soft transition hover:shadow-card ${
-              s.tone === "gold" ? "bg-gold-50/60" : "bg-forest-50/50"
-            }`}
-          >
-            <IconBubble tone={s.tone}>{s.icon}</IconBubble>
-            <div className="min-w-0">
-              <p className="font-serif text-lg text-forest-700">{t(`dashboard.stats.${s.key}.title`)}</p>
-              <p className="text-xs text-sage-600">{t(`dashboard.stats.${s.key}.sub`)}</p>
-              <p className="mt-1 text-forest-700">
-                <span className="font-serif text-2xl">{s.value}</span> <span className="text-sm text-sage-600">{s.unit}</span>
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
       <div className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
         <NextStepCard mission={mission} missionDone={missionDone} missionInProgress={missionInProgress} />
         <div className="card flex flex-col items-center gap-6 sm:flex-row">
@@ -336,6 +318,29 @@ function ReturningDashboard({ name, passport }: { name: string; passport: Passpo
             </Link>
           </div>
         </div>
+      </div>
+
+      <TodaySpark />
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {stats.map((s) => (
+          <Link
+            key={s.key}
+            to="/app/passport"
+            className={`flex items-center gap-4 rounded-2xl border border-cream-200/80 p-5 shadow-soft transition hover:shadow-card ${
+              s.tone === "gold" ? "bg-gold-50/60" : "bg-forest-50/50"
+            }`}
+          >
+            <IconBubble tone={s.tone}>{s.icon}</IconBubble>
+            <div className="min-w-0">
+              <p className="font-serif text-lg text-forest-700">{t(`dashboard.stats.${s.key}.title`)}</p>
+              <p className="text-xs text-sage-600">{t(`dashboard.stats.${s.key}.sub`)}</p>
+              <p className="mt-1 text-forest-700">
+                <span className="font-serif text-2xl">{s.value}</span> <span className="text-sm text-sage-600">{s.unit}</span>
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
@@ -392,9 +397,9 @@ function ReturningDashboard({ name, passport }: { name: string; passport: Passpo
         </div>
       </div>
 
-      <DiaryHomeCard />
-
       <JourneyProgress title={t("dashboard.yourJourney")} stages={passport.journey} />
+
+      <DiaryHomeCard />
 
       <EngagementHomeCard />
     </div>

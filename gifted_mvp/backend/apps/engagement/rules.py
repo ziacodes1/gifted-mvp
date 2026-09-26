@@ -13,6 +13,7 @@ class EventType:
     DIARY_ENTRY_CREATED = "DIARY_ENTRY_CREATED"
     FIRST_DIARY_ENTRY = "FIRST_DIARY_ENTRY"  # one-time bonus
     STREAK_7_DAYS = "STREAK_7_DAYS"  # bonus, once per streak run
+    MINI_CHALLENGE = "MINI_CHALLENGE"  # Today's Spark challenge; key is the day → max once a day
 
     CHOICES = [
         (ASSESSMENT_COMPLETED, "Assessment completed"),
@@ -21,6 +22,7 @@ class EventType:
         (DIARY_ENTRY_CREATED, "Diary entry created"),
         (FIRST_DIARY_ENTRY, "First diary entry bonus"),
         (STREAK_7_DAYS, "7-day streak bonus"),
+        (MINI_CHALLENGE, "Daily mini challenge"),
     ]
 
 
@@ -31,6 +33,7 @@ POINTS = {
     EventType.DIARY_ENTRY_CREATED: 10,  # first DIARY_POINTS_PER_DAY entries per day only
     EventType.FIRST_DIARY_ENTRY: 15,
     EventType.STREAK_7_DAYS: 30,
+    EventType.MINI_CHALLENGE: 5,
 }
 DIARY_POINTS_PER_DAY = 2
 STREAK_BONUS_DAYS = 7

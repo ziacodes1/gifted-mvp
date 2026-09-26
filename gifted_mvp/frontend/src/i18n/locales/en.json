@@ -744,7 +744,7 @@
       "title": "My Diary",
       "empty": "Your first page is waiting.",
       "latest": "Latest page",
-      "open": "Open diary",
+      "open": "Open my diary",
       "write": "Write today’s page"
     }
   },
@@ -904,7 +904,7 @@
         "MISSION_COMPLETED": "Mission completed",
         "DIARY_ENTRY_CREATED": "Diary page written",
         "FIRST_DIARY_ENTRY": "First diary page bonus",
-        "STREAK_7_DAYS": "7-day streak bonus"
+        "STREAK_7_DAYS": "7-day streak bonus", "MINI_CHALLENGE": "Daily mini challenge"
       }
     },
     "howItWorks": {
@@ -914,7 +914,7 @@
         "+60 — complete a mission",
         "+10 — write a diary page (up to 2 a day)",
         "+15 — your very first diary page",
-        "+30 — reach a 7-day streak"
+        "+30 — reach a 7-day streak", "+5 — complete today’s mini challenge (once a day)"
       ],
       "note": "Chatting with the AI Companion, opening pages and switching language don’t earn points. Redeeming a reward never lowers your earned points."
     },
@@ -944,6 +944,168 @@
       "badges_other": "{{count}} badges",
       "seeRewards": "See rewards",
       "top3": "This week’s top learners"
+    }
+  },
+  "sparks": {
+    "title": "Today’s Spark",
+    "types": {
+      "REFLECTION": "Reflection",
+      "MINI_CHALLENGE": "Mini challenge",
+      "FACT": "Did you know?",
+      "NEXT_STEP": "Next step",
+      "DIARY_PROMPT": "Diary prompt",
+      "COMPANION_PROMPT": "Talk it through",
+      "MISSION_NUDGE": "Exploration"
+    },
+    "actions": {
+      "diary": "Capture it in my diary",
+      "companion": "Explore it with my AI Companion",
+      "complete": "I did it",
+      "dismiss": "Not today",
+      "restore": "Show it again"
+    },
+    "done": "Done for today — nice work!",
+    "dismissed": "You set today’s spark aside.",
+    "tomorrow": "A new spark arrives tomorrow.",
+    "diarySuggestion": "Writing idea from Today’s Spark",
+    "companionPrefilled": "Today’s Spark is ready in the message box — edit it or send it when you like.",
+    "factCompanion": "I just learned: {{fact}} Can you tell me more?",
+    "motivation": {
+      "welcome_back": "Welcome back. Your progress is still here.",
+      "curiosity_to_evidence": "You turned curiosity into evidence.",
+      "momentum": "You’re building momentum.",
+      "near_bonus": "Your streak is growing — one small step today counts.",
+      "story_growing": "Your story is growing, one page at a time.",
+      "done_today": "You’ve already taken a meaningful step today. Anything more is a bonus.",
+      "first_step": "Every journey starts with one small step.",
+      "small_steps": "Small steps add up."
+    },
+    "items": {
+      "reflect_no_fail": {
+        "title": "What would you try if you knew you couldn’t fail?",
+        "body": "No need for a perfect answer — notice what comes to mind first.",
+        "companion": "What would I try if I knew I couldn’t fail? Help me think it through."
+      },
+      "reflect_learned_self": {
+        "title": "Write one thing you learned about yourself this week.",
+        "body": "Big or small — both count.",
+        "companion": "Help me reflect on something I learned about myself this week."
+      },
+      "reflect_lost_time": {
+        "title": "When did you last lose track of time doing something?",
+        "body": "What were you doing, and what made it so absorbing?",
+        "companion": "I want to think about when I lose track of time — what might that say about my interests?"
+      },
+      "reflect_proud": {
+        "title": "What’s one small thing you’re proud of from this week?",
+        "body": "Small wins are worth noticing."
+      },
+      "reflect_curious": {
+        "title": "What’s a question you’ve been curious about lately?",
+        "body": "Curiosity is where exploration starts.",
+        "companion": "There’s something I’ve been curious about lately — can we explore it together?"
+      },
+      "ch_ask_field": {
+        "title": "Ask someone how they chose their field.",
+        "body": "A family member, teacher or neighbour — ask what surprised them most."
+      },
+      "ch_three_solutions": {
+        "title": "Notice one problem around you and think of three solutions.",
+        "body": "They don’t have to be perfect — quantity first."
+      },
+      "ch_new_field_fact": {
+        "title": "Learn one fact about a field you’ve never explored.",
+        "body": "Maybe architecture, marine biology or linguistics?"
+      },
+      "ch_explain_simple": {
+        "title": "Explain a difficult idea in simple words.",
+        "body": "Try it out loud, to a friend, or in your notes."
+      },
+      "ch_understand_better": {
+        "title": "Write down one thing you want to understand better.",
+        "body": "Naming a question is the first step to answering it."
+      },
+      "ch_outside_interests": {
+        "title": "Try one small activity outside your usual interests.",
+        "body": "Ten minutes of something new can surprise you."
+      },
+      "ns_start_discovery": {
+        "title": "Start your Discovery Assessment.",
+        "body": "About 10 minutes to see your first emerging signals.",
+        "cta": "Start discovering"
+      },
+      "ns_continue_assessment": {
+        "title": "Pick up your assessment where you left off.",
+        "body": "Your answers are saved.",
+        "cta": "Continue"
+      },
+      "ns_passport_updated": {
+        "title": "Your Passport has new evidence — take a look.",
+        "body": "Your latest exploration was added to it.",
+        "cta": "View my Passport"
+      },
+      "mn_try_mission": {
+        "title": "Try a short hands-on mission.",
+        "body": "Turn what your assessment suggested into real evidence.",
+        "cta": "Open the mission"
+      },
+      "dp_first_page": {
+        "title": "Start your diary with one sentence about today.",
+        "body": "It’s private — just for you.",
+        "cta": "Write my first page"
+      },
+      "dp_come_back": {
+        "title": "What’s one moment from this week worth remembering?",
+        "body": "A short page is enough.",
+        "cta": "Write a page"
+      },
+      "cp_interests": {
+        "title": "Talk through what your interests might mean.",
+        "body": "Your AI Companion can help you explore — no labels, just possibilities.",
+        "companion": "Help me understand what my current interests might mean.",
+        "cta": "Explore together"
+      },
+      "cp_plan_week": {
+        "title": "Plan one small step for this week.",
+        "body": "Your AI Companion can help you make it concrete.",
+        "companion": "Help me plan one small, realistic step for this week.",
+        "cta": "Plan it together"
+      }
+    },
+    "facts": [
+      "Octopuses have three hearts.",
+      "A day on Venus is longer than its whole year.",
+      "Al-Khwarizmi, born in Khwarazm (in today’s Uzbekistan), gave his name to the word “algorithm”.",
+      "Ulugh Beg’s observatory in Samarkand catalogued more than 1,000 stars in the 15th century.",
+      "Ibn Sina, born near Bukhara, wrote a medical encyclopedia that was studied for centuries.",
+      "Ada Lovelace wrote what is often called the first computer program — in the 1840s.",
+      "Some bamboo species can grow almost a metre in a single day.",
+      "Your brain keeps forming new connections all your life — this is called neuroplasticity.",
+      "Sharks appeared on Earth before trees did.",
+      "Sleep helps your brain store what you learned during the day.",
+      "Penicillin was discovered thanks to mould growing on a forgotten lab dish.",
+      "There are more possible chess games than atoms in the observable universe.",
+      "Light from the Sun takes about 8 minutes to reach Earth.",
+      "Butterflies taste with their feet.",
+      "A group of flamingos is called a “flamboyance”.",
+      "Honey found in ancient Egyptian tombs was still edible thousands of years later.",
+      "The Eiffel Tower can grow about 15 cm taller in summer because metal expands in the heat.",
+      "Architects, game designers and doctors all use prototypes — small tries before the real thing.",
+      "The Silk Road linked Samarkand and Bukhara with China and Europe, carrying ideas as well as goods.",
+      "Writing something by hand can help you remember it better."
+    ]
+  },
+  "nudges": {
+    "title": "Updates",
+    "open": "Open updates",
+    "empty": "You’re all caught up.",
+    "kinds": {
+      "spark": "Today’s Spark is ready",
+      "badge": "New badge unlocked: {{badge}}",
+      "passport": "Your Passport has new evidence",
+      "diary_milestone": "Your diary reached {{count}} pages",
+      "reward_one": "{{count}} reward is within reach",
+      "reward_other": "{{count}} rewards are within reach"
     }
   }
 }

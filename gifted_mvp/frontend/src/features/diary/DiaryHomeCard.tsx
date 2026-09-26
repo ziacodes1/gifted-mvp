@@ -11,7 +11,8 @@ import { formatEntryDate } from "./format";
 /** Student Home: latest page (or empty state), page progress and a way in. */
 export function DiaryHomeCard() {
   const { t, i18n } = useTranslation();
-  const { data } = useQuery({ queryKey: DIARY_OVERVIEW_KEY, queryFn: diaryApi.overview });
+  const { data, isError } = useQuery({ queryKey: DIARY_OVERVIEW_KEY, queryFn: diaryApi.overview });
+  if (isError) return null; // the Diary page itself shows the error state
   if (!data) return <div className="h-40 animate-pulse rounded-2xl bg-white shadow-card" />;
   const latest = data.recent_entries[0];
   const pct = Math.min(data.pages_filled / data.page_target, 1) * 100;

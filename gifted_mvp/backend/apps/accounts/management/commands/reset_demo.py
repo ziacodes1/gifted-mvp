@@ -18,6 +18,7 @@ from apps.assessments.models import AssessmentSession
 from apps.companion.models import CompanionConversation
 from apps.diary.models import DiaryEntry
 from apps.engagement.models import ActivityEvent, RewardRedemption, StudentBadge
+from apps.today.models import DailySpark, NudgeState
 from apps.evidence.models import Evidence
 from apps.missions.models import MissionAttempt
 from apps.passports.models import Passport
@@ -44,6 +45,8 @@ class Command(BaseCommand):
                 ("activity events", ActivityEvent.objects.filter(learner=student)),
                 ("badges", StudentBadge.objects.filter(learner=student)),
                 ("reward redemptions", RewardRedemption.objects.filter(learner=student)),
+                ("daily sparks", DailySpark.objects.filter(learner=student)),
+                ("nudge state", NudgeState.objects.filter(learner=student)),
                 ("companion conversations", CompanionConversation.objects.filter(learner=student)),
                 ("evidence", Evidence.objects.filter(learner=student)),
                 ("mission attempts", MissionAttempt.objects.filter(learner=student)),

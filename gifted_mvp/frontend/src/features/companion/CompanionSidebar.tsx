@@ -36,9 +36,9 @@ export function AboutYouCard({ about, loading }: { about?: CompanionAbout; loadi
   const join = (items: string[]) => items.join(", ");
   return (
     <SideCard icon={<UserIcon />} title={t("companion.about.title")} subtitle={t("companion.about.subtitle")}>
-      {loading || !about ? (
+      {loading ? (
         <div className="h-16 animate-pulse rounded-2xl bg-cream-100" />
-      ) : about.passport_status === "EMPTY" ? (
+      ) : !about ? null : about.passport_status === "EMPTY" ? (
         <div className="rounded-2xl bg-cream-50 p-4">
           <p className="text-sm leading-relaxed text-forest-700">{t("companion.about.empty")}</p>
           <Link to="/app/assessment" className="btn-primary mt-3 px-4 py-2 text-xs">

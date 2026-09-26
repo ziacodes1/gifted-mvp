@@ -14,8 +14,9 @@ const queryClient = new QueryClient({
 //   reloads it itself via a side-effect-free GET;
 // - AI insight keys already include the language, so the new language gets its own entry
 //   and the previous one stays cached for when the learner switches back.
-// - diary photos are the learner's own bytes; nothing about them depends on the language.
-const LANGUAGE_SAFE_KEYS = new Set(["assessment-active-session", "profile-insight", "parent-insight", "diary-photo"]);
+// - diary photos are the learner's own bytes; nothing about them depends on the language;
+// - Today's Spark returns keys only (the copy is translated in the browser).
+const LANGUAGE_SAFE_KEYS = new Set(["assessment-active-session", "profile-insight", "parent-insight", "diary-photo", "today"]);
 
 /** Server content (questions, missions, labels, Passport) is localized by the backend,
  * so a language switch refetches it. Progress, answers and scores are unaffected. */
