@@ -22,6 +22,9 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 
 from apps.companion.models import CompanionMessage, DiaryOffer, MessageRole
 
+from apps.engagement.rules import EventType
+from apps.engagement.services import safe_record
+
 from .models import DiaryAttachment, DiaryEntry, EntrySource
 
 PAGE_TARGET = 100
@@ -261,5 +264,7 @@ def create_entry(learner, data: dict) -> tuple[DiaryEntry, bool]:
             )
     except IntegrityError:  # the same message saved concurrently
         return DiaryEntry.objects.get(companion_message=msg, learner=learner), False
+    # Engagement gets only "an entry was created" + its id — never title, body, mood, tags or photos.
+    safe_record(learner, EventType.DIARY_ENTRY_CREATED, f"entry:{entry.id}")
     return entry, True
 

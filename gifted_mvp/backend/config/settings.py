@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "apps.parents",
     "apps.companion",
     "apps.diary",
+    "apps.engagement",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -133,6 +134,8 @@ SIMPLE_JWT = {
 LANGUAGE_CODE = "en"
 LANGUAGES = [("en", "English"), ("uz", "O‘zbekcha"), ("ru", "Русский")]
 TIME_ZONE = "UTC"
+# Learners' local day for streaks/weekly points (the server stores UTC).
+ACTIVITY_TIME_ZONE = env("ACTIVITY_TIME_ZONE", "Asia/Tashkent")
 USE_I18N = True
 USE_TZ = True
 

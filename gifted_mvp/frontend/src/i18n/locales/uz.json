@@ -20,6 +20,7 @@
     "missions": "Missiyalar",
     "companion": "AI hamroh",
     "diary": "Mening kundaligim",
+    "rewards": "Seriya va mukofotlar",
     "myChild": "Farzandim",
     "parentInsights": "Ota-onalar uchun tahlil",
     "overview": "Umumiy ko‘rinish",
@@ -649,6 +650,204 @@
       "latest": "Oxirgi sahifa",
       "open": "Kundalikni ochish",
       "write": "Bugungi sahifani yozish"
+    }
+  },
+  "rewards": {
+    "eyebrow": "Seriya va mukofotlar",
+    "titleA": "Seriyangizni",
+    "titleB": "saqlab qoling",
+    "intro": "Bugungi kichik qadamlar — yorqin ertangi kun. Izchil bo‘ling, mazmunli ishlarni bajaring va o‘sishingizni qo‘llab-quvvatlaydigan mukofotlarga ega bo‘ling.",
+    "features": {
+      "explore": {
+        "a": "Izlaning",
+        "b": "maqsad bilan"
+      },
+      "build": {
+        "a": "Rivojlantiring",
+        "b": "haqiqiy ko‘nikmalarni"
+      },
+      "grow": {
+        "a": "Oshiring",
+        "b": "ishonchingizni"
+      },
+      "earn": {
+        "a": "Mukofot oling",
+        "b": "haqiqiy o‘sish uchun"
+      }
+    },
+    "points": {
+      "available": "Mavjud ballar",
+      "earned": "Jami to‘plangan",
+      "week": "Bu hafta",
+      "value_one": "{{count}} ball",
+      "value_other": "{{count}} ball"
+    },
+    "streak": {
+      "title": "Joriy seriyangiz",
+      "days_one": "{{count}} kunlik seriya",
+      "days_other": "{{count}} kunlik seriya",
+      "onRoll": "Zo‘r ketyapsiz",
+      "msgActive": "Ajoyib izchillik! Davom eting — siz haqiqiy sur’at yig‘yapsiz.",
+      "msgAlive": "Seriyangiz davom etmoqda — bugun bitta mazmunli ish uni saqlab qoladi.",
+      "msgWelcomeBack_one": "Xush kelibsiz! {{count}} kunlik eng yaxshi seriyangiz saqlangan. Bugun bitta mazmunli ish yangisini boshlaydi.",
+      "msgWelcomeBack_other": "Xush kelibsiz! {{count}} kunlik eng yaxshi seriyangiz saqlangan. Bugun bitta mazmunli ish yangisini boshlaydi.",
+      "msgStart": "Birinchi seriyangizni bugun boshlang: test savoli, missiya yoki kundalik sahifasi.",
+      "longest_one": "Eng yaxshi seriya: {{count}} kun",
+      "longest_other": "Eng yaxshi seriya: {{count}} kun",
+      "bonus": "{{days}} kunlik seriya uchun +{{points}} bonus ball."
+    },
+    "weekly": {
+      "title": "Haftalik izchillik",
+      "daysActive": "faol kun",
+      "full": "Butun hafta mazmunli ishlar bilan o‘tdi!",
+      "help": "Mazmunli ish qilingan har bir kun hisobga olinadi — dam olish kunlari ham o‘sishning bir qismi.",
+      "info": "Test, missiya va kundalik sahifalari hisobga olinadi. Suhbat va sahifalarni ochish hisobga olinmaydi."
+    },
+    "leaderboard": {
+      "title": "Bu haftaning eng faol o‘quvchilari",
+      "points_one": "{{count}} ball",
+      "points_other": "{{count}} ball",
+      "you": "Siz",
+      "anonymous": "Gifted o‘quvchisi",
+      "empty": "Bu hafta hali faollik yo‘q — bitta mazmunli ish sizni ro‘yxatga qo‘shadi.",
+      "seeAll": "Top 10 ni ko‘rish",
+      "showLess": "Kamroq",
+      "yourPosition": "Sizning o‘rningiz",
+      "notRanked": "Bu hafta hali ro‘yxatda emassiz",
+      "basis": "Bu haftadagi mazmunli ishlardan olingan ballar bo‘yicha. Faqat ism va familiya bosh harfi ko‘rsatiladi."
+    },
+    "standing": {
+      "top_percent": "Siz eng faol {{percent}}% ichidasiz!",
+      "most_active": "Siz bu haftaning eng faol o‘quvchilaridan birisiz!",
+      "keep_going": "Bu hafta sur’at yig‘yapsiz.",
+      "not_yet": "Bu haftadagi birinchi mazmunli ishingiz sizni ro‘yxatga qo‘shadi.",
+      "sub": "Izchilligingiz haqiqiy imkoniyatlar yaratmoqda.",
+      "cta": "Davom etish"
+    },
+    "badges": {
+      "title": "Nishonlaringiz",
+      "subtitle": "Nishonlar o‘sishingiz va qiziquvchanligingizni nishonlaydi. Izlanib, o‘rganib va harakat qilib ko‘proq nishon oling.",
+      "unlocked": "{{date}} da ochildi",
+      "soon": "Tez orada",
+      "count": "{{total}} tadan {{unlocked}} tasi ochilgan",
+      "items": {
+        "curious_learner": {
+          "title": "Qiziquvchan o‘quvchi",
+          "condition": "Birinchi testni yakunlang"
+        },
+        "consistent_explorer": {
+          "title": "Izchil izlanuvchi",
+          "condition": "7 kunlik seriyaga yeting"
+        },
+        "diary_champion": {
+          "title": "Kundalik chempioni",
+          "condition": "Kundalikka 10 ta yozuv yozing"
+        },
+        "opportunity_seeker": {
+          "title": "Imkoniyat izlovchi",
+          "condition": "Imkoniyatlarni o‘rganing"
+        },
+        "global_thinker": {
+          "title": "Keng fikrlovchi",
+          "condition": "Ikki yo‘l bilan izlaning: test va missiya"
+        },
+        "community_contributor": {
+          "title": "Hamjamiyat faoli",
+          "condition": "Hamjamiyat muhokamasiga qo‘shiling"
+        },
+        "ideas_in_action": {
+          "title": "G‘oyalar amalda",
+          "condition": "Missiyani yakunlang"
+        },
+        "future_leader": {
+          "title": "Kelajak yetakchisi",
+          "condition": "30 kunlik seriyaga yeting"
+        },
+        "gifted_explorer": {
+          "title": "Gifted kashfiyotchisi",
+          "condition": "Kelajakdagi Gifted bosqichi"
+        }
+      }
+    },
+    "catalog": {
+      "title": "Ochishingiz mumkin bo‘lgan mukofotlar",
+      "subtitle": "Faol bo‘ling va o‘qish yo‘lingizni qo‘llab-quvvatlaydigan mukofotlarga ega bo‘ling.",
+      "redeem": "Olish",
+      "needMore_one": "Yana {{count}} ball kerak",
+      "needMore_other": "Yana {{count}} ball kerak",
+      "reserved": "Band qilingan",
+      "outOfStock": "Tugagan",
+      "left_one": "{{count}} ta qoldi",
+      "left_other": "{{count}} ta qoldi",
+      "confirmTitle": "«{{title}}» olinsinmi?",
+      "confirmText": "Bu mavjud ballaringizdan {{points}} tasini sarflaydi. To‘plangan ballaringiz va reytingdagi o‘rningiz o‘zgarmaydi.",
+      "confirm": "Olish",
+      "cancel": "Bekor qilish",
+      "close": "Tushunarli",
+      "done": {
+        "PHYSICAL": "Mukofot band qilindi. Uni yetkazib berish bilan Gifted jamoasi shug‘ullanadi.",
+        "COURSE": "Band qilindi. Gifted jamoasi sizga kirish ma’lumotlarini yuboradi — hozircha hech qayerga yozilmagansiz.",
+        "EVENT": "Chipta band qilindi. Gifted jamoasi tadbir sanasi va tafsilotlarini tasdiqlaydi.",
+        "COMMUNITY": "Siz ro‘yxatdasiz. Gifted hamjamiyati ochilganda kirish huquqini olasiz.",
+        "MENTOR": "So‘rov saqlandi. Vaqtni kelishish uchun Gifted jamoasi siz bilan bog‘lanadi — hozircha hech narsa belgilanmagan."
+      },
+      "errors": {
+        "not_enough_points": "Buning uchun hali ballaringiz yetarli emas.",
+        "already_redeemed": "Bu mukofotni allaqachon band qilgansiz.",
+        "out_of_stock": "Bu mukofot hozircha tugagan.",
+        "inactive": "Bu mukofot hozir mavjud emas.",
+        "generic": "Xatolik yuz berdi. Qayta urinib ko‘ring."
+      }
+    },
+    "activity": {
+      "title": "So‘nggi faollik",
+      "empty": "Mazmunli ishlaringiz shu yerda paydo bo‘ladi.",
+      "types": {
+        "ASSESSMENT_COMPLETED": "Test yakunlandi",
+        "ASSESSMENT_PROGRESS": "Test ustida ishlash",
+        "MISSION_COMPLETED": "Missiya yakunlandi",
+        "DIARY_ENTRY_CREATED": "Kundalik sahifasi yozildi",
+        "FIRST_DIARY_ENTRY": "Birinchi kundalik sahifasi bonusi",
+        "STREAK_7_DAYS": "7 kunlik seriya bonusi"
+      }
+    },
+    "howItWorks": {
+      "title": "Ballar qanday beriladi",
+      "items": [
+        "+40 — testni yakunlash (birinchi marta)",
+        "+60 — missiyani yakunlash",
+        "+10 — kundalik sahifasi (kuniga 2 tagacha)",
+        "+15 — eng birinchi kundalik sahifangiz",
+        "+30 — 7 kunlik seriya"
+      ],
+      "note": "AI hamroh bilan suhbat, sahifalarni ochish va tilni almashtirish ball bermaydi. Mukofot olish to‘plangan ballaringizni hech qachon kamaytirmaydi."
+    },
+    "motivation": {
+      "active": [
+        "Kichik qadamlar jamlanadi.",
+        "Siz sur’at yig‘yapsiz.",
+        "Izchillik jimgina kuch beradi.",
+        "Har bir mazmunli ish — o‘sishning dalili.",
+        "Bugungi qiziqish — yorqin ertangi kun.",
+        "Bugun harakat qildingiz — bu muhim."
+      ],
+      "start": [
+        "Bugungi bitta mazmunli ish yo‘lingizni davom ettiradi.",
+        "Kundalik sahifasi ham hisobga olinadi — qisqa bo‘lsa ham.",
+        "Bitta kichik qadamni tanlang va boshlang.",
+        "Yo‘lingiz har bir ish bilan o‘sadi.",
+        "Dam olish ham kerak. Tayyor bo‘lganingizda bitta kichik qadam ritmni tiklaydi.",
+        "Bugungi qiziqish — yorqin ertangi kun."
+      ]
+    },
+    "home": {
+      "title": "Sizning sur’atingiz",
+      "streak": "Joriy seriya",
+      "available": "mavjud ball",
+      "badges_one": "{{count}} ta nishon",
+      "badges_other": "{{count}} ta nishon",
+      "seeRewards": "Mukofotlar",
+      "top3": "Bu haftaning faol o‘quvchilari"
     }
   }
 }

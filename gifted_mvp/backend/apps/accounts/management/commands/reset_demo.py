@@ -1,7 +1,7 @@
 """Restore the demo to a clean presentation state (idempotent).
 
 Removes only the demo student's *activity* (sessions, responses, learner signals,
-evidence, mission attempts, AI insights, diary entries + photos, Companion conversations, Passport). Seeded content — assessment,
+evidence, mission attempts, AI insights, diary entries + photos, engagement (activity, badges, redemptions), Companion conversations, Passport). Seeded content — assessment,
 questions, signals, mappings, the flagship mission — is kept and re-synced, and
 the demo accounts + parent link are re-ensured via `seed_demo`.
 """
@@ -17,6 +17,7 @@ from apps.ai.models import AIInsight
 from apps.assessments.models import AssessmentSession
 from apps.companion.models import CompanionConversation
 from apps.diary.models import DiaryEntry
+from apps.engagement.models import ActivityEvent, RewardRedemption, StudentBadge
 from apps.evidence.models import Evidence
 from apps.missions.models import MissionAttempt
 from apps.passports.models import Passport
@@ -40,6 +41,9 @@ class Command(BaseCommand):
             for label, qs in [
                 ("AI insights", AIInsight.objects.filter(learner=student)),
                 ("diary entries", DiaryEntry.objects.filter(learner=student)),  # photos removed by signal
+                ("activity events", ActivityEvent.objects.filter(learner=student)),
+                ("badges", StudentBadge.objects.filter(learner=student)),
+                ("reward redemptions", RewardRedemption.objects.filter(learner=student)),
                 ("companion conversations", CompanionConversation.objects.filter(learner=student)),
                 ("evidence", Evidence.objects.filter(learner=student)),
                 ("mission attempts", MissionAttempt.objects.filter(learner=student)),

@@ -4,6 +4,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.engagement.rules import EventType
+from apps.engagement.services import local_day, safe_record
 from apps.passports.services import sync_passport
 from apps.questions.models import MULTI_SELECT_TYPES, Question, QuestionOption
 from common.i18n import label
@@ -99,6 +101,10 @@ class AssessmentSessionAnswerView(APIView):
         response, _ = AssessmentResponse.objects.get_or_create(session=session, question=question)
         response.selected_options.set(options)
         response.save(update_fields=["updated_at"])
+        # Assessment work makes the day active (no points; one event per session per day).
+        safe_record(
+            request.user, EventType.ASSESSMENT_PROGRESS, f"session:{session.id}:day:{local_day().isoformat()}"
+        )
 
         total = sum(
             s.questions.filter(is_active=True).count() for s in session.assessment.sections.all()
@@ -131,6 +137,9 @@ class AssessmentSessionCompleteView(APIView):
 
         results = complete_session(session)
         sync_passport(request.user, session)
+        safe_record(
+            request.user, EventType.ASSESSMENT_COMPLETED, f"assessment:{session.assessment_id}:session:{session.id}"
+        )
 
         signals_payload = [
             {

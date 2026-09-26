@@ -19,6 +19,7 @@ import {
   StudentCompanion,
   StudentDiary,
   StudentDiaryEntry,
+  StudentRewards,
   StudentOpportunities,
   StudentProfile,
 } from "../pages/student";
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
           { path: "diary", element: <StudentDiary /> },
           { path: "diary/new", element: <StudentDiaryEntry /> },
           { path: "diary/:id", element: <StudentDiaryEntry /> },
+          { path: "rewards", element: <StudentRewards /> },
           { path: "opportunities", element: <StudentOpportunities /> },
           { path: "profile", element: <StudentProfile /> },
         ],

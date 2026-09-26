@@ -13,6 +13,7 @@ import { ArrowIcon, ChartIcon, CheckIcon, ClockIcon, CompassIcon, DocIcon, LeafI
 import { JourneyProgress } from "../../features/passport/PassportSections";
 import type { Passport } from "../../types/passport";
 import { DiaryHomeCard } from "../../features/diary/DiaryHomeCard";
+import { EngagementHomeCard } from "../../features/rewards/EngagementHomeCard";
 
 // Mission artwork: an existing asset whose scene matches the mission.
 const MISSION_IMAGES: Record<string, string> = { "design-a-better-school-bag": missionImage };
@@ -196,6 +197,8 @@ function WelcomeDashboard({
       <DiaryHomeCard />
 
       <SessionToday items={session} />
+
+      <EngagementHomeCard />
     </div>
   );
 }
@@ -392,6 +395,8 @@ function ReturningDashboard({ name, passport }: { name: string; passport: Passpo
       <DiaryHomeCard />
 
       <JourneyProgress title={t("dashboard.yourJourney")} stages={passport.journey} />
+
+      <EngagementHomeCard />
     </div>
   );
 }

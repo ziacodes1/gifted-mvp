@@ -17,6 +17,7 @@ api_v1 = [
     path("", include("apps.parents.urls")),
     path("", include("apps.companion.urls")),
     path("", include("apps.diary.urls")),
+    path("", include("apps.engagement.urls")),
 ]
 
 urlpatterns = [

@@ -9,6 +9,7 @@ export { MissionPage as StudentMission } from "./MissionPage";
 export { CompanionPage as StudentCompanion } from "./CompanionPage";
 export { DiaryPage as StudentDiary } from "./DiaryPage";
 export { DiaryEntryRoute as StudentDiaryEntry } from "./DiaryEntryPage";
+export { RewardsPage as StudentRewards } from "./RewardsPage";
 
 export const StudentJourney = () => (
   <PlaceholderPage title="My Journey" description="A timeline of milestones as you discover, explore, and grow." />

@@ -29,6 +29,7 @@
     "missions": "Missions",
     "companion": "AI Companion",
     "diary": "My Diary",
+    "rewards": "Streak & Rewards",
     "myChild": "My Child",
     "parentInsights": "Parent Insights",
     "overview": "Overview",
@@ -745,6 +746,204 @@
       "latest": "Latest page",
       "open": "Open diary",
       "write": "Write today’s page"
+    }
+  },
+  "rewards": {
+    "eyebrow": "Streak & Rewards",
+    "titleA": "Keep your streak",
+    "titleB": "alive",
+    "intro": "Small steps today, a brighter tomorrow. Stay consistent, complete meaningful activities and earn rewards that support your growth.",
+    "features": {
+      "explore": {
+        "a": "Explore",
+        "b": "with purpose"
+      },
+      "build": {
+        "a": "Build",
+        "b": "real skills"
+      },
+      "grow": {
+        "a": "Grow",
+        "b": "your confidence"
+      },
+      "earn": {
+        "a": "Earn rewards",
+        "b": "for real progress"
+      }
+    },
+    "points": {
+      "available": "Points available",
+      "earned": "Earned in total",
+      "week": "This week",
+      "value_one": "{{count}} point",
+      "value_other": "{{count}} points"
+    },
+    "streak": {
+      "title": "Your current streak",
+      "days_one": "{{count}}-day streak",
+      "days_other": "{{count}}-day streak",
+      "onRoll": "On a roll",
+      "msgActive": "Amazing consistency! Keep showing up — you’re building real momentum.",
+      "msgAlive": "Your streak is still going — one meaningful action today keeps it alive.",
+      "msgWelcomeBack_one": "Welcome back! Your best streak of {{count}} day is saved. One meaningful action today starts a new one.",
+      "msgWelcomeBack_other": "Welcome back! Your best streak of {{count}} days is saved. One meaningful action today starts a new one.",
+      "msgStart": "Start your first streak today with an assessment step, a mission or a diary page.",
+      "longest_one": "Best streak: {{count}} day",
+      "longest_other": "Best streak: {{count}} days",
+      "bonus": "Reach a {{days}}-day streak for +{{points}} bonus points."
+    },
+    "weekly": {
+      "title": "Weekly consistency",
+      "daysActive": "days active",
+      "full": "A full week of meaningful action!",
+      "help": "Every day with a meaningful action counts — and rest days are part of growing too.",
+      "info": "Assessment work, missions and diary pages count. Chatting and page views don’t."
+    },
+    "leaderboard": {
+      "title": "Top active learners this week",
+      "points_one": "{{count}} point",
+      "points_other": "{{count}} points",
+      "you": "You",
+      "anonymous": "Gifted learner",
+      "empty": "No activity yet this week — one meaningful action puts you on the board.",
+      "seeAll": "See top 10",
+      "showLess": "Show less",
+      "yourPosition": "Your position",
+      "notRanked": "Not on the board yet this week",
+      "basis": "Ranked by points from meaningful activities this week. Only first names and initials are shown."
+    },
+    "standing": {
+      "top_percent": "You’re in the top {{percent}}%!",
+      "most_active": "You’re among this week’s most active learners!",
+      "keep_going": "You’re building momentum this week.",
+      "not_yet": "Your first meaningful action this week puts you on the board.",
+      "sub": "Your consistency is creating real opportunities.",
+      "cta": "Keep going"
+    },
+    "badges": {
+      "title": "Your badges",
+      "subtitle": "Badges celebrate your progress and curiosity. Earn more as you explore, learn and take action.",
+      "unlocked": "Unlocked {{date}}",
+      "soon": "Coming soon",
+      "count": "{{unlocked}} of {{total}} unlocked",
+      "items": {
+        "curious_learner": {
+          "title": "Curious Learner",
+          "condition": "Complete your first assessment"
+        },
+        "consistent_explorer": {
+          "title": "Consistent Explorer",
+          "condition": "Reach a 7-day streak"
+        },
+        "diary_champion": {
+          "title": "Diary Champion",
+          "condition": "Write 10 diary entries"
+        },
+        "opportunity_seeker": {
+          "title": "Opportunity Seeker",
+          "condition": "Explore opportunities"
+        },
+        "global_thinker": {
+          "title": "Global Thinker",
+          "condition": "Explore two ways: an assessment and a mission"
+        },
+        "community_contributor": {
+          "title": "Community Contributor",
+          "condition": "Join a community discussion"
+        },
+        "ideas_in_action": {
+          "title": "Ideas in Action",
+          "condition": "Complete a mission"
+        },
+        "future_leader": {
+          "title": "Future Leader",
+          "condition": "Reach a 30-day streak"
+        },
+        "gifted_explorer": {
+          "title": "Gifted Explorer",
+          "condition": "A future Gifted milestone"
+        }
+      }
+    },
+    "catalog": {
+      "title": "Rewards you can unlock",
+      "subtitle": "Stay active and earn rewards that support your learning journey.",
+      "redeem": "Redeem",
+      "needMore_one": "{{count}} more point",
+      "needMore_other": "{{count}} more points",
+      "reserved": "Reserved",
+      "outOfStock": "Out of stock",
+      "left_one": "{{count}} left",
+      "left_other": "{{count}} left",
+      "confirmTitle": "Redeem “{{title}}”?",
+      "confirmText": "This uses {{points}} of your available points. Your earned points and leaderboard place stay the same.",
+      "confirm": "Redeem",
+      "cancel": "Cancel",
+      "close": "Got it",
+      "done": {
+        "PHYSICAL": "Reward reserved. Fulfilment will be handled by the Gifted team.",
+        "COURSE": "Reserved. The Gifted team will share access details with you — you’re not enrolled in anything yet.",
+        "EVENT": "Pass reserved. The Gifted team will confirm the event date and details.",
+        "COMMUNITY": "You’re on the list. You’ll get access when the Gifted community opens.",
+        "MENTOR": "Request saved. The Gifted team will be in touch to arrange a time — nothing is booked yet."
+      },
+      "errors": {
+        "not_enough_points": "You don’t have enough points for this yet.",
+        "already_redeemed": "You’ve already reserved this reward.",
+        "out_of_stock": "This reward is out of stock right now.",
+        "inactive": "This reward isn’t available right now.",
+        "generic": "Something went wrong. Please try again."
+      }
+    },
+    "activity": {
+      "title": "Recent activity",
+      "empty": "Your meaningful actions will appear here.",
+      "types": {
+        "ASSESSMENT_COMPLETED": "Assessment completed",
+        "ASSESSMENT_PROGRESS": "Assessment progress",
+        "MISSION_COMPLETED": "Mission completed",
+        "DIARY_ENTRY_CREATED": "Diary page written",
+        "FIRST_DIARY_ENTRY": "First diary page bonus",
+        "STREAK_7_DAYS": "7-day streak bonus"
+      }
+    },
+    "howItWorks": {
+      "title": "How points work",
+      "items": [
+        "+40 — complete an assessment (first time)",
+        "+60 — complete a mission",
+        "+10 — write a diary page (up to 2 a day)",
+        "+15 — your very first diary page",
+        "+30 — reach a 7-day streak"
+      ],
+      "note": "Chatting with the AI Companion, opening pages and switching language don’t earn points. Redeeming a reward never lowers your earned points."
+    },
+    "motivation": {
+      "active": [
+        "Small steps add up.",
+        "You’re building momentum.",
+        "Consistency is quietly powerful.",
+        "Every meaningful action is evidence of growth.",
+        "Curiosity today, brighter tomorrows.",
+        "You showed up today — that matters."
+      ],
+      "start": [
+        "One meaningful action today keeps your journey moving.",
+        "A diary page counts — even a short one.",
+        "Pick one small step and begin.",
+        "Your journey grows one action at a time.",
+        "Rest is fine. When you’re ready, one small step restarts the rhythm.",
+        "Curiosity today, brighter tomorrows."
+      ]
+    },
+    "home": {
+      "title": "Your momentum",
+      "streak": "Current streak",
+      "available": "points available",
+      "badges_one": "{{count}} badge",
+      "badges_other": "{{count}} badges",
+      "seeRewards": "See rewards",
+      "top3": "This week’s top learners"
     }
   }
 }

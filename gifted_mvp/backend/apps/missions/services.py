@@ -171,6 +171,10 @@ def complete_attempt(attempt: MissionAttempt):
             attempt.completed_at = timezone.now()
             attempt.save(update_fields=["status", "completed_at"])
     sync_passport(attempt.learner)
+    from apps.engagement.rules import EventType
+    from apps.engagement.services import safe_record
+
+    safe_record(attempt.learner, EventType.MISSION_COMPLETED, f"attempt:{attempt.id}", attempt.completed_at)
     return evidence, created
 
 
