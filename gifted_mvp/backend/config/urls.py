@@ -4,10 +4,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from apps.accounts.views import health
+from common.observability import health_live, health_ready
 
 api_v1 = [
-    path("health/", health, name="health"),
+    path("health/", health_live, name="health"),  # kept for existing probes/clients
+    path("health/live/", health_live, name="health-live"),
+    path("health/ready/", health_ready, name="health-ready"),
     path("auth/", include("apps.accounts.urls")),
     path("", include("apps.assessments.urls")),
     path("", include("apps.signals.urls")),
@@ -20,6 +22,14 @@ api_v1 = [
     path("", include("apps.engagement.urls")),
     path("", include("apps.today.urls")),
 ]
+
+if settings.API_DOCS_ENABLED:
+    from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
+    api_v1 += [
+        path("schema/", SpectacularAPIView.as_view(), name="schema"),
+        path("docs/", SpectacularSwaggerView.as_view(url_name="v1:schema"), name="docs"),
+    ]
 
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -120,7 +120,8 @@ class PassportTests(TestCase):
         c = self._client(self.student)
         c.get(URL)
         # Worst case (no saved insight → fallback derived on the fly); constant, no N+1.
-        with self.assertNumQueries(16):
+        # 14 since the fallback reads the session's frozen result snapshot instead of re-scoring.
+        with self.assertNumQueries(14):
             c.get(URL)
 
 

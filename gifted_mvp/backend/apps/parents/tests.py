@@ -12,7 +12,7 @@ from apps.ai.tests import FakeProvider
 from apps.assessments.models import Assessment
 from apps.missions.tests import ANSWERS, SLUG
 
-from .models import LearnerConnectionCode, ParentChild
+from .models import ParentChild
 
 PARENT_AI = {
     "summary": "The current evidence suggests an early interest in design. This picture is still forming.",
@@ -155,10 +155,10 @@ class ParentTests(TestCase):
             self.assertEqual(self._insight().json()["parent_insight"]["source"], "FALLBACK")
 
     def test_connect_with_code(self):
-        LearnerConnectionCode.objects.create(learner=self.other_kid, code="GFT-11111")
-        self.assertEqual(self._c(self.stranger).post("/api/v1/parent/children/connect/", {"code": "gft-11111"}).status_code, 200)
+        code = self._c(self.other_kid).post("/api/v1/parent-access/code/").json()["code"]  # learner generates it
+        self.assertEqual(self._c(self.stranger).post("/api/v1/parent/children/connect/", {"code": code.lower()}).status_code, 200)
         self.assertEqual(self._overview(user=self.stranger, learner=self.other_kid).status_code, 200)
-        self.assertEqual(self._c(self.stranger).post("/api/v1/parent/children/connect/", {"code": "GFT-00000"}).status_code, 404)
+        self.assertEqual(self._c(self.stranger).post("/api/v1/parent/children/connect/", {"code": "GFT-AAAA-BBBB"}).status_code, 404)
 
     def test_sources_explicit_and_mission_misattribution_rejected(self):
         from apps.ai.services.parent_insight import get_saved_parent_insight

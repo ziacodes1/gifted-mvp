@@ -1,0 +1,8 @@
+# Optional integrations — NOT needed for local development or tests.
+# Install only when the matching environment variables are configured.
+
+# Error reporting (SENTRY_DSN)
+sentry-sdk>=2.0,<3
+
+# Private diary photos in an S3-compatible bucket (PRIVATE_STORAGE_BACKEND=s3)
+django-storages[s3]>=1.14,<2

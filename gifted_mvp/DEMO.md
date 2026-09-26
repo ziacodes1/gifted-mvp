@@ -42,6 +42,10 @@ cd backend && .venv/bin/python manage.py groq_check     # expect outcome=ai
 ```
 Free tier ≈ 8k tokens/min — leave ~30 s between full rehearsals, then `reset_demo` again.
 
+## Before a demo after pulling this version
+`migrate` (new tables/fields) → `seed_demo` → `reset_demo`. Old browser sessions must sign in again
+(tokens now carry a revocation claim). Demo logins are prefilled only when `VITE_DEMO_MODE` isn't `false`.
+
 ## Student login
 `student@gifted.demo` / `demo123` (prefilled on the Student tab).
 

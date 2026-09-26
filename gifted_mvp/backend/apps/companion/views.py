@@ -102,6 +102,7 @@ class ConversationMessagesView(APIView):
     fake answer and never provider details."""
 
     permission_classes = [IsStudent]
+    throttle_scope = "companion"
 
     def post(self, request, pk):
         conversation = _owned(request, pk)

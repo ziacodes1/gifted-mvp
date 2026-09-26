@@ -45,7 +45,29 @@ class PrivateStorage(FileSystemStorage):
         raise NotImplementedError("private files are served by owner-checked views only")
 
 
-private_storage = PrivateStorage()
+def private_storage():
+    """Storage for private learner files, chosen by PRIVATE_STORAGE_BACKEND.
+
+    - filesystem (default): PRIVATE_MEDIA_ROOT, never served by a public URL.
+    - s3: a private S3-compatible bucket (AWS, R2, MinIO…). Objects are private; the API still
+      streams them through the owner-checked view, so bucket URLs are never handed to clients.
+      Requires `pip install -r requirements-optional.txt` and PRIVATE_S3_* settings.
+    """
+    if settings.PRIVATE_STORAGE_BACKEND == "s3":
+        from storages.backends.s3 import S3Storage  # optional dependency
+
+        return S3Storage(
+            bucket_name=settings.PRIVATE_S3_BUCKET,
+            endpoint_url=settings.PRIVATE_S3_ENDPOINT_URL or None,
+            region_name=settings.PRIVATE_S3_REGION or None,
+            access_key=settings.PRIVATE_S3_ACCESS_KEY_ID or None,
+            secret_key=settings.PRIVATE_S3_SECRET_ACCESS_KEY or None,
+            default_acl="private",
+            querystring_auth=True,
+            file_overwrite=False,
+            location="private",
+        )
+    return PrivateStorage()
 
 
 def attachment_path(instance, filename):

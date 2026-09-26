@@ -15,7 +15,7 @@ from apps.assessments.models import AssessmentSession
 
 from ..models import AIInsight, GenerationType
 from ..prompts import PARENT_INSIGHT_SYSTEM, PARENT_PROMPT_VERSION, with_language
-from ..schemas import PARENT_INSIGHT_JSON_SCHEMA, PARENT_LIST_LIMITS, ParentInsightOutput, keep_first
+from ..schemas import PARENT_INSIGHT_JSON_SCHEMA, PARENT_SCHEMA_VERSION, PARENT_LIST_LIMITS, ParentInsightOutput, keep_first
 from .generation import FALLBACK_RETRY_AFTER, check_language, get_or_generate, run_structured, saved_insight
 from .provider import get_provider
 
@@ -241,6 +241,8 @@ def get_or_create_parent_insight(
         produce=lambda: _generate(data, language),
         retry_after=FALLBACK_RETRY_AFTER,
         language=language,
+        prompt_version=PARENT_PROMPT_VERSION,
+        schema_version=PARENT_SCHEMA_VERSION,
     )
 
 

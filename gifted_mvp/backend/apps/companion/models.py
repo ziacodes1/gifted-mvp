@@ -52,6 +52,10 @@ class CompanionMessage(models.Model):
     reply_to = models.OneToOneField("self", null=True, blank=True, on_delete=models.CASCADE, related_name="reply")
     language = models.CharField(max_length=5, default="en")  # en | uz | ru (request language)
     diary_offer = models.CharField(max_length=10, choices=DiaryOffer.choices, default=DiaryOffer.NONE)
+    # ASSISTANT turns: which provider/model/prompt produced the reply (no prompt text stored).
+    ai_provider = models.CharField(max_length=32, blank=True)
+    ai_model = models.CharField(max_length=64, blank=True)
+    prompt_version = models.CharField(max_length=16, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

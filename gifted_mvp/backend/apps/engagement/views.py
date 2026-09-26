@@ -23,6 +23,7 @@ class RedeemRewardView(APIView):
     """POST: reserve a reward with available points. 400 {detail: code} when not possible."""
 
     permission_classes = [IsStudent]
+    throttle_scope = "redeem"
 
     def post(self, request, key):
         try:

@@ -1,48 +1,55 @@
-# Gifted MVP
+# Gifted
 
-Student-first platform to discover, explore, validate and develop potential.
-Modular monolith: Django + DRF + PostgreSQL backend, React + TS + Vite frontend.
+Youth potential discovery platform: **Assessment → deterministic signals → AI interpretation →
+Gifted Passport → missions & evidence → AI Companion, diary and daily guidance.**
+AI interprets; it never scores.
 
-> Backend runs on **port 8001** (8000 is used by another local project).
+Stage: controlled-pilot **POC foundation** (not production) — see `POC_READINESS.md`.
 
-## Backend
+| Doc | What |
+|---|---|
+| `ARCHITECTURE.md` | modular monolith, domains, diagram, privacy boundaries |
+| `ASSESSMENT_METHOD.md` | scoring, confidence, versioning, limitations, validation plan |
+| `PRIVACY.md` | private vs parent-safe data, deletion, retention, backups |
+| `DEPLOYMENT.md` | local, Docker, POC hosting, configuration |
+| `POC_READINESS.md` | what is real, hardcoding audit, hardening, what remains |
+| `DEMO.md` | demo commands and presentation flow |
+| `PROJECT_STATE.md` | detailed milestone log |
+
+## Quick start (local)
 
 ```bash
+# Backend (PostgreSQL running locally)
 cd backend
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env                    # DJANGO_ENV=development; adjust POSTGRES_*, secret
+createdb gifted_mvp
+.venv/bin/python manage.py migrate
+.venv/bin/python manage.py seed_demo    # demo content + demo accounts (demo only)
+.venv/bin/python manage.py runserver 127.0.0.1:8001
 
-# PostgreSQL (local): assumes a running server and a database named `gifted_mvp`.
-# Create it once if needed:  createdb gifted_mvp
-# Config is read from backend/.env (copy from .env.example and adjust user/password).
-
-python manage.py migrate
-python manage.py seed_demo          # demo student/parent/admin @gifted.demo (pw: demo123)
-python manage.py createsuperuser    # optional, for Django admin
-python manage.py runserver 127.0.0.1:8001
+# Frontend
+cd frontend && npm ci && npm run dev    # http://localhost:5173
 ```
 
-API base: `http://127.0.0.1:8001/api/v1/` — `health/`, `auth/register|login|refresh|me/`, `assessments/`, `assessment-sessions/{id}/{,answer,complete}/`, `signals/me/`.
+- API: `http://127.0.0.1:8001/api/v1/` · docs: `/api/v1/docs/` · health: `/api/v1/health/live/`, `/api/v1/health/ready/`
+- Django admin (content, rewards, fulfilment): `http://127.0.0.1:8001/admin/`
+- Full stack in Docker: `docker compose up --build` (see `DEPLOYMENT.md`)
 
-## Frontend
+## Demo accounts (after `seed_demo`, demo only)
+
+| Role | Email | Password |
+|---|---|---|
+| Student | student@gifted.demo | demo123 |
+| Parent | parent@gifted.demo | demo123 |
+| Admin (Django admin) | admin@gifted.demo | demo123 |
+
+Demo passwords are set by the seed and bypass the password policy (min 10 chars) that applies to
+real registrations. Never run the seed commands against a pilot database.
+
+## Checks (same as CI)
 
 ```bash
-cd frontend
-npm install
-npm run dev                          # http://localhost:5173
+cd backend && .venv/bin/python manage.py check && .venv/bin/python manage.py makemigrations --check --dry-run && .venv/bin/python manage.py test
+cd frontend && npm test && npx tsc -b && npm run lint && npm run build
 ```
-
-`frontend/.env` sets `VITE_API_URL` (defaults to the backend on 8001).
-
-## Demo accounts (after `seed_demo`)
-
-| Role    | Email               | Password |
-| ------- | ------------------- | -------- |
-| Student | student@gifted.demo | demo123  |
-| Parent  | parent@gifted.demo  | demo123  |
-| Admin   | admin@gifted.demo   | demo123  |
-
-Demo loop: log in as the student → Dashboard → Start Assessment → answer the 7 "Interests
-Discovery" questions → Complete → Emerging Profile.
-
-See `PROJECT_STATE.md` for architecture and current status.

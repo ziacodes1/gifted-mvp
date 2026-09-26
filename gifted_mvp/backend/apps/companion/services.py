@@ -15,6 +15,7 @@ from dataclasses import dataclass
 
 from django.db import IntegrityError, transaction
 
+from apps.ai.prompts import COMPANION_PROMPT_VERSION
 from apps.ai.services.companion import generate_reply
 from apps.passports.services import build_passport
 from common.i18n import current_language
@@ -187,7 +188,7 @@ def send_message(conversation: CompanionConversation, content: str, client_id: u
         if generated is None:
             raise CompanionUnavailable
 
-        reply, suggest_diary, _provider, _model = generated
+        reply, suggest_diary, provider, model = generated
         try:
             with transaction.atomic():
                 user = CompanionMessage.objects.create(
@@ -202,6 +203,9 @@ def send_message(conversation: CompanionConversation, content: str, client_id: u
             reply_to=user,
             language=language,
             diary_offer=DiaryOffer.OFFERED if suggest_diary else DiaryOffer.NONE,
+            ai_provider=provider,
+            ai_model=model,
+            prompt_version=COMPANION_PROMPT_VERSION,
         )
         if not conversation.title:
             conversation.title = _title(content)

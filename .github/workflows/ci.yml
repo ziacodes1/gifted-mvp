@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gifted_mvp/backend
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: gifted_ci
+          POSTGRES_USER: gifted
+          POSTGRES_PASSWORD: gifted
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U gifted -d gifted_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DJANGO_ENV: development
+      DJANGO_SECRET_KEY: ci-only-not-a-secret-ci-only-not-a-secret-ci-only-not-a-secret
+      POSTGRES_DB: gifted_ci
+      POSTGRES_USER: gifted
+      POSTGRES_PASSWORD: gifted
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: "5432"
+      AI_PROVIDER: stub  # tests mock providers; CI never calls a real AI API
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: gifted_mvp/backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Django system check
+        run: python manage.py check
+      - name: Deploy checklist (production settings)
+        run: python manage.py check --deploy --fail-level ERROR
+        env:
+          DJANGO_ENV: production
+          DJANGO_DEBUG: "False"
+          DJANGO_ALLOWED_HOSTS: pilot.example.org
+      - name: Migrations are consistent
+        run: python manage.py makemigrations --check --dry-run
+      - name: Tests
+        run: python manage.py test --verbosity 1
+      - name: Demo seed/reset are idempotent
+        run: |
+          python manage.py migrate --noinput
+          python manage.py seed_demo && python manage.py seed_demo
+          python manage.py reset_demo && python manage.py reset_demo
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gifted_mvp/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: gifted_mvp/frontend/package-lock.json
+      - run: npm ci
+      - name: Tests
+        run: npm test
+      - name: Type check
+        run: npx tsc -b
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build

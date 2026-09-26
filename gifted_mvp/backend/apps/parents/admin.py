@@ -10,4 +10,5 @@ class ParentChildAdmin(admin.ModelAdmin):
 
 @admin.register(LearnerConnectionCode)
 class LearnerConnectionCodeAdmin(admin.ModelAdmin):
-    list_display = ("learner", "code", "created_at")
+    list_display = ("learner", "code", "created_at", "expires_at", "used_at", "revoked_at")
+    readonly_fields = ("code", "created_at", "used_at")

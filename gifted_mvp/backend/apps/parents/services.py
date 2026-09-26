@@ -8,6 +8,7 @@ Privacy boundary — parents get growth signals, not private responses:
 from __future__ import annotations
 
 from django.db import transaction
+from django.utils import timezone
 from django.http import Http404
 
 from apps.ai.services.parent_insight import get_or_create_parent_insight, get_saved_parent_insight
@@ -16,7 +17,7 @@ from apps.passports.services import build_passport
 from apps.signals.models import Signal, SignalCategory
 from common.i18n import current_language, label, tr
 
-from .models import LearnerConnectionCode, ParentChild
+from .models import LearnerConnectionCode, ParentChild, default_expiry, new_code
 
 
 def connected_learners(parent):
@@ -33,11 +34,56 @@ def get_connected_learner(parent, learner_id: int):
 
 @transaction.atomic
 def connect_with_code(parent, code: str):
-    entry = LearnerConnectionCode.objects.filter(code=code.strip().upper()).select_related("learner").first()
-    if entry is None or entry.learner.role != "STUDENT":
+    """A parent redeems the learner's code. Unknown, expired, revoked or already-used codes all
+    give the same 404 (no hint which), and the endpoint is throttled. Single-use: the code is
+    consumed by the first successful connection."""
+    entry = (
+        LearnerConnectionCode.objects.select_for_update()
+        .filter(code=code.strip().upper())
+        .select_related("learner")
+        .first()
+    )
+    if entry is None or not entry.is_valid or entry.learner.role != "STUDENT" or not entry.learner.is_active:
         raise Http404
     ParentChild.objects.get_or_create(parent=parent, learner=entry.learner)
+    entry.used_at = timezone.now()
+    entry.save(update_fields=["used_at"])
     return entry.learner
+
+
+# --- Learner side: the learner controls who is connected ------------------------------------
+
+
+@transaction.atomic
+def issue_code(learner) -> LearnerConnectionCode:
+    """New single-use code (replaces any previous one)."""
+    entry, _ = LearnerConnectionCode.objects.select_for_update().get_or_create(learner=learner)
+    entry.code = new_code()
+    entry.created_at = timezone.now()
+    entry.expires_at = default_expiry()
+    entry.used_at = entry.revoked_at = None
+    entry.save()
+    return entry
+
+
+def revoke_code(learner) -> None:
+    LearnerConnectionCode.objects.filter(learner=learner, revoked_at__isnull=True).update(revoked_at=timezone.now())
+
+
+def parent_access(learner) -> dict:
+    entry = LearnerConnectionCode.objects.filter(learner=learner).first()
+    return {
+        "code": {"code": entry.code, "expires_at": entry.expires_at} if entry and entry.is_valid else None,
+        "parents": [
+            {"id": link.parent_id, "display_name": link.parent.full_name.strip() or "Parent", "connected_at": link.connected_at}
+            for link in ParentChild.objects.filter(learner=learner).select_related("parent").order_by("connected_at")
+        ],
+    }
+
+
+def disconnect_parent(learner, parent_id: int) -> bool:
+    deleted, _ = ParentChild.objects.filter(learner=learner, parent_id=parent_id).delete()
+    return bool(deleted)
 
 
 def _latest_session(learner):

@@ -95,7 +95,7 @@ def generate_reply(
     """(reply, suggest_diary, provider, model), or None when no trustworthy reply could be produced.
     `suggest_diary` is only a hint to *offer* saving; it is never offered for risk messages."""
     provider = get_provider()
-    result, source, provider_name, model = run_structured(
+    gen = run_structured(
         provider=provider,
         system=companion_system(language),
         payload=build_payload(context, history, message),
@@ -105,7 +105,7 @@ def generate_reply(
         max_tokens=1200,
         feature=f"companion lang={language} v={COMPANION_PROMPT_VERSION}",
     )
-    if result is None:
+    if gen.result is None:
         return None
-    suggest = bool(result["suggest_diary"]) and not _RISK.search(message)
-    return with_safety_line(message, result["reply"], language), suggest, provider_name, model
+    suggest = bool(gen.result["suggest_diary"]) and not _RISK.search(message)
+    return with_safety_line(message, gen.result["reply"], language), suggest, gen.provider, gen.model

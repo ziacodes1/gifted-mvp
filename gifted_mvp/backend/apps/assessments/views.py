@@ -4,6 +4,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.assessments.services.scoring import SCORING_VERSION
 from apps.engagement.rules import EventType
 from apps.engagement.services import local_day, safe_record
 from apps.passports.services import sync_passport
@@ -47,7 +48,11 @@ class AssessmentStartView(APIView):
         )
         if session is None:
             session = AssessmentSession.objects.create(
-                learner=request.user, assessment=assessment, status=SessionStatus.IN_PROGRESS
+                learner=request.user,
+                assessment=assessment,
+                status=SessionStatus.IN_PROGRESS,
+                assessment_version=assessment.version,
+                scoring_version=SCORING_VERSION,
             )
         return Response(
             AssessmentSessionSerializer(session).data,

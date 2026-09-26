@@ -25,7 +25,9 @@ async function refreshAccess(): Promise<string | null> {
   if (!refresh) return null;
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/refresh/`, { refresh });
-    tokenStore.setAccess(data.access);
+    // Refresh tokens rotate: the backend returns a new one and blacklists the old one.
+    if (data.refresh) tokenStore.set({ access: data.access, refresh: data.refresh });
+    else tokenStore.setAccess(data.access);
     return data.access;
   } catch {
     tokenStore.clear();

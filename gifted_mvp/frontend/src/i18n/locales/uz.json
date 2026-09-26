@@ -52,7 +52,7 @@
   "login": {
     "title": "Qaytganingizdan xursandmiz",
     "subtitle": "Gifted bilan yo‘lingizni davom ettirish uchun kiring.",
-    "error": "Email yoki parol noto‘g‘ri. Iltimos, qayta urinib ko‘ring.",
+    "error": "Email yoki parol noto‘g‘ri. Iltimos, qayta urinib ko‘ring.", "adminNotice": "Administrator hisoblari kontent, mukofotlar va ularni topshirishni ilovada emas, Django admin panelida (API serverida /admin/) boshqaradi.",
     "signIn": "Kirish",
     "signingIn": "Kirilmoqda…",
     "newHere": "Gifted’da yangimisiz?",

@@ -17,6 +17,10 @@ export const authApi = {
     const { data } = await api.post<User>("/auth/register/", payload);
     return data;
   },
+  /** Revokes the refresh token server-side (best effort — local tokens are cleared anyway). */
+  async logout(refresh: string): Promise<void> {
+    await api.post("/auth/logout/", { refresh });
+  },
   async me(): Promise<User> {
     const { data } = await api.get<User>("/auth/me/");
     return data;

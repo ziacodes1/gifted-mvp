@@ -5,7 +5,8 @@ import type { Role } from "../../types/auth";
 const HOME_BY_ROLE: Record<Role, string> = {
   STUDENT: "/app",
   PARENT: "/parent",
-  ADMIN: "/admin",
+  // Admins work in the Django admin (content, rewards, fulfilment) — not in this app.
+  ADMIN: "/",
 };
 
 /** Role-aware route guard. Pass `roles` to restrict a subtree to given roles. */

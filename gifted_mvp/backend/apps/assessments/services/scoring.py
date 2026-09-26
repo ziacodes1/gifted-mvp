@@ -27,6 +27,10 @@ from common.i18n import tr
 
 from ..models import AssessmentSession, SessionStatus
 
+# Bump when the scoring semantics below change (formula, confidence thresholds, evidence rules).
+# Recorded on every session; part of the AI profile input version.
+SCORING_VERSION = "s2"
+
 # What kind of evidence each signal category represents (never "ability proven").
 EVIDENCE_KIND = {
     SignalCategory.INTEREST: EvidenceKind.INTEREST,
@@ -145,5 +149,48 @@ def complete_session(session: AssessmentSession) -> list[SignalResult]:
     session.status = SessionStatus.COMPLETED
     session.progress = 100
     session.completed_at = timezone.now()
-    session.save(update_fields=["status", "progress", "completed_at"])
+    session.scoring_version = SCORING_VERSION
+    session.result_snapshot = snapshot(results)
+    session.save(update_fields=["status", "progress", "completed_at", "scoring_version", "result_snapshot"])
     return results
+
+
+def snapshot(results: list[SignalResult]) -> dict:
+    """Language-independent record of the scores as computed at completion (no labels)."""
+    return {
+        "scoring_version": SCORING_VERSION,
+        "signals": [
+            {
+                "key": r.key,
+                "category": r.category,
+                "score": r.score,
+                "confidence": r.confidence,
+                "evidence_count": r.evidence_count,
+                "opportunity_count": r.opportunity_count,
+            }
+            for r in results
+        ],
+    }
+
+
+def session_results(session: AssessmentSession) -> list[SignalResult]:
+    """The session's signals for reading. Completed sessions use their frozen snapshot, so later
+    edits to mappings never re-interpret them; only legacy sessions (pre-snapshot) are re-scored."""
+    snap = session.result_snapshot
+    if not snap:
+        return score_session(session)
+    from apps.signals.models import Signal
+
+    signals = {s.key: s for s in Signal.objects.filter(key__in=[x["key"] for x in snap["signals"]])}
+    return [
+        SignalResult(
+            key=x["key"],
+            label=tr(signals[x["key"]], "label") if x["key"] in signals else x["key"],
+            category=x["category"],
+            score=x["score"],
+            confidence=x["confidence"],
+            evidence_count=x["evidence_count"],
+            opportunity_count=x["opportunity_count"],
+        )
+        for x in snap["signals"]
+    ]

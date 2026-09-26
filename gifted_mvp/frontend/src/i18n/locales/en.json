@@ -73,7 +73,7 @@
   "login": {
     "title": "Welcome back",
     "subtitle": "Sign in to continue your journey with Gifted.",
-    "error": "That email and password don't match. Please try again.",
+    "error": "That email and password don't match. Please try again.", "adminNotice": "Admin accounts manage content, rewards and fulfilment in the Django admin (/admin/ on the API server), not in this app.",
     "signIn": "Sign in",
     "signingIn": "Signing in…",
     "newHere": "New to Gifted?",

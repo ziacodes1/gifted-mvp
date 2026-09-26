@@ -7,18 +7,21 @@ import { HOME_BY_ROLE } from "../../features/auth/RequireAuth";
 import { ArrowIcon } from "../../features/passport/icons";
 
 type LoginAs = "student" | "parent";
-// Demo accounts are prefilled for the local MVP demo.
-const DEMO_EMAIL: Record<LoginAs, string> = { student: "student@gifted.demo", parent: "parent@gifted.demo" };
+// Demo accounts are prefilled only in demo builds (VITE_DEMO_MODE=false for a pilot build).
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== "false";
+const DEMO_EMAIL: Record<LoginAs, string> = DEMO_MODE
+  ? { student: "student@gifted.demo", parent: "parent@gifted.demo" }
+  : { student: "", parent: "" };
 
 export function LoginPage() {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
   const [as, setAs] = useState<LoginAs>(params.get("as") === "parent" ? "parent" : "student");
   const [email, setEmail] = useState(DEMO_EMAIL[as]);
-  const [password, setPassword] = useState("demo123");
+  const [password, setPassword] = useState(DEMO_MODE ? "demo123" : "");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -33,6 +36,12 @@ export function LoginPage() {
     setBusy(true);
     try {
       const user = await login(email, password);
+      if (user.role === "ADMIN") {
+        // Admin work happens in the Django admin; this app is for students and parents.
+        logout();
+        setError(t("login.adminNotice"));
+        return;
+      }
       const from = (location.state as { from?: Location })?.from?.pathname;
       navigate(from ?? HOME_BY_ROLE[user.role], { replace: true });
     } catch {

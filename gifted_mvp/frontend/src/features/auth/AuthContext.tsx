@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../../api/auth";
 import { tokenStore } from "../../api/tokens";
 import type { User } from "../../types/auth";
@@ -20,6 +21,7 @@ interface AuthState {
 const AuthContext = createContext<AuthState | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const queryClient = useQueryClient();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,11 +49,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return res.user;
       },
       logout() {
+        const refresh = tokenStore.refresh;
+        if (refresh) void authApi.logout(refresh).catch(() => undefined); // revoke server-side
         tokenStore.clear();
+        // Shared devices: never show the next person the previous learner's cached data.
+        queryClient.clear();
         setUser(null);
       },
     }),
-    [user, loading],
+    [user, loading, queryClient],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

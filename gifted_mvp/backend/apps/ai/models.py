@@ -32,6 +32,12 @@ class AIInsight(models.Model):
     provider = models.CharField(max_length=32, blank=True)
     model = models.CharField(max_length=64, blank=True)
     result = models.JSONField()
+    # Traceability (no prompts, no learner text): which prompt/schema produced this row, how
+    # long the provider took, and — for FALLBACK rows — the safe failure category.
+    prompt_version = models.CharField(max_length=16, blank=True)
+    schema_version = models.CharField(max_length=16, blank=True)
+    latency_ms = models.PositiveIntegerField(default=0)
+    failure_reason = models.CharField(max_length=60, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

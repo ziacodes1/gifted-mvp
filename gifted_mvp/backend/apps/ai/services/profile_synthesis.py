@@ -14,17 +14,16 @@ from django.utils import translation
 from pydantic import ValidationError
 
 from apps.assessments.models import AssessmentSession
-from apps.assessments.services.scoring import score_session
+from apps.assessments.services.scoring import SCORING_VERSION, session_results
 from apps.signals.models import Signal, SignalCategory
 from common.i18n import tr
 
 from ..models import AIInsight, GenerationType
 from ..prompts import PROFILE_SYNTHESIS_SYSTEM, PROMPT_VERSION, with_language
-from ..schemas import PROFILE_LIST_LIMITS, PROFILE_SYNTHESIS_JSON_SCHEMA, ProfileInsight, keep_first
+from ..schemas import PROFILE_SCHEMA_VERSION, PROFILE_LIST_LIMITS, PROFILE_SYNTHESIS_JSON_SCHEMA, ProfileInsight, keep_first
 from .generation import Generated, check_language, get_or_generate, run_structured, saved_insight
 from .provider import get_provider
 
-SCORING_VERSION = "s2"  # bump if apps.assessments.services.scoring semantics change
 INPUT_VERSION = f"{SCORING_VERSION}-{PROMPT_VERSION}"
 FALLBACK_RETRY_AFTER = timedelta(minutes=10)
 
@@ -51,7 +50,7 @@ def build_signal_input(session: AssessmentSession, language: str = "en") -> dict
     blur interest, ability and exposure together. Labels are in `language`; keys and
     numbers are language-independent."""
     with translation.override(language):
-        results = score_session(session)
+        results = session_results(session)  # frozen snapshot; never re-scored with edited content
     scored = {r.key: r for r in results}
     signals = []
     for s in Signal.objects.filter(is_active=True, category=SignalCategory.INTEREST).order_by("key"):
@@ -401,6 +400,8 @@ def get_or_create_profile_insight(session: AssessmentSession, language: str = "e
         produce=lambda: _generate(build_signal_input(session, language), language),
         retry_after=FALLBACK_RETRY_AFTER,
         language=language,
+        prompt_version=PROMPT_VERSION,
+        schema_version=PROFILE_SCHEMA_VERSION,
     )
 
 

@@ -41,6 +41,12 @@ class ProfileInsight(_Strict):
     next_step: NextStepRecommendation
 
 
+# Bump when a structured-output contract changes (recorded on every AIInsight / Companion reply).
+PROFILE_SCHEMA_VERSION = "ps1"
+PARENT_SCHEMA_VERSION = "pi1"
+COMPANION_SCHEMA_VERSION = "cr2"  # cr2 = reply + suggest_diary
+
+
 def keep_first(raw, limits: dict[str, int], nested: dict[str, dict[str, int]] | None = None):
     """Models sometimes return more list items than asked for (e.g. 5 where the prompt says 1-3).
     Keep the first N instead of discarding an otherwise valid answer; everything else is still

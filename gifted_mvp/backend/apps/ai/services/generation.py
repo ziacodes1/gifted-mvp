@@ -15,7 +15,7 @@ import logging
 import re
 import time
 from datetime import timedelta
-from typing import Callable
+from typing import Callable, NamedTuple
 
 from django.db import transaction
 from django.utils import timezone
@@ -29,7 +29,15 @@ logger = logging.getLogger("apps.ai")
 
 FALLBACK_RETRY_AFTER = timedelta(minutes=10)
 
-Generated = tuple[dict, str, str, str]  # (result, source, provider_name, model)
+class Generated(NamedTuple):
+    """One generation attempt. `reason` is a safe failure category (never provider text)."""
+
+    result: dict
+    source: str
+    provider: str
+    model: str
+    latency_ms: int = 0
+    reason: str = ""
 
 
 def iter_strings(value):
@@ -64,6 +72,9 @@ def run_structured(
     or learner text."""
     started = time.monotonic()
 
+    def elapsed() -> int:
+        return int((time.monotonic() - started) * 1000)
+
     def log(outcome: str, level=logging.INFO, reason: str = "") -> None:
         logger.log(
             level,
@@ -72,10 +83,11 @@ def run_structured(
             provider.name,
             provider.model or "-",
             outcome,
-            (time.monotonic() - started) * 1000,
+            elapsed(),
             f" reason={reason}" if reason else "",
         )
 
+    reason, level = "", logging.INFO
     try:
         raw = provider.generate_structured(
             system=system,
@@ -86,16 +98,17 @@ def run_structured(
         )
         result = validate(raw)
         log("ai")
-        return result, InsightSource.AI, provider.name, provider.model
+        return Generated(result, InsightSource.AI, provider.name, provider.model, elapsed())
     except ProviderUnavailable:
-        log("fallback", reason="not_configured")
+        reason = "not_configured"
     except ProviderError as exc:
-        log("fallback", logging.WARNING, reason=str(exc))
+        reason, level = str(exc), logging.WARNING
     except ValueError as exc:
-        log("fallback", logging.WARNING, reason=f"rejected:{str(exc).split(':')[0]}")
+        reason, level = f"rejected:{str(exc).split(':')[0]}", logging.WARNING
     except Exception as exc:  # never let a page break on AI
-        log("fallback", logging.ERROR, reason=type(exc).__name__)
-    return fallback(), InsightSource.FALLBACK, "", ""
+        reason, level = type(exc).__name__, logging.ERROR
+    log("fallback", level, reason=reason)
+    return Generated(fallback(), InsightSource.FALLBACK, "", "", elapsed(), reason[:60])
 
 
 def saved_insight(
@@ -115,6 +128,8 @@ def get_or_generate(
     produce: Callable[[], Generated],
     retry_after: timedelta | None = None,
     language: str = "en",
+    prompt_version: str = "",
+    schema_version: str = "",
 ) -> AIInsight:
     retry_after = FALLBACK_RETRY_AFTER if retry_after is None else retry_after
     with transaction.atomic():
@@ -125,14 +140,23 @@ def get_or_generate(
         ):
             return existing
 
-        result, source, provider_name, model = produce()
+        gen = produce()
+        trace = {
+            "prompt_version": prompt_version,
+            "schema_version": schema_version,
+            "latency_ms": gen.latency_ms,
+            "failure_reason": gen.reason,
+        }
 
         if existing:
-            if source == InsightSource.FALLBACK:
-                existing.save(update_fields=["updated_at"])  # restart cooldown
+            if gen.source == InsightSource.FALLBACK:
+                existing.failure_reason, existing.latency_ms = gen.reason, gen.latency_ms
+                existing.save(update_fields=["updated_at", "failure_reason", "latency_ms"])  # restart cooldown
                 return existing
-            existing.source, existing.provider, existing.model = source, provider_name, model
-            existing.result = result
+            existing.source, existing.provider, existing.model = gen.source, gen.provider, gen.model
+            existing.result = gen.result
+            for k, v in trace.items():
+                setattr(existing, k, v)
             existing.save()
             return existing
 
@@ -142,8 +166,9 @@ def get_or_generate(
             generation_type=generation_type,
             input_version=input_version,
             language=language,
-            source=source,
-            provider=provider_name,
-            model=model,
-            result=result,
+            source=gen.source,
+            provider=gen.provider,
+            model=gen.model,
+            result=gen.result,
+            **trace,
         )

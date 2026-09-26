@@ -25,6 +25,7 @@ class ProfileSynthesisView(APIView):
     """
 
     permission_classes = [IsStudent]
+    throttle_scope = "ai_generation"
 
     def post(self, request):
         data = ProfileSynthesisInputSerializer(data=request.data)

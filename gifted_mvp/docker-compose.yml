@@ -1,0 +1,50 @@
+# Reproducible full stack: nginx (web + proxy) → Django API (gunicorn) → PostgreSQL.
+# AI providers stay external. Private diary photos live on a named volume here; a POC
+# deployment can switch to a private S3-compatible bucket via PRIVATE_STORAGE_BACKEND=s3.
+#
+#   cp .env.docker.example .env.docker   # then set DJANGO_SECRET_KEY (+ AI keys if wanted)
+#   docker compose up --build
+#   docker compose exec backend python manage.py seed_demo      # optional demo content
+#   open http://localhost:8080          (Django admin: http://localhost:8080/admin/)
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: gifted
+      POSTGRES_USER: gifted
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gifted-local-only}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gifted -d gifted"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file: .env.docker
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: gifted
+      POSTGRES_USER: gifted
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gifted-local-only}
+    volumes:
+      - private_media:/data/private_media
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api/v1
+        VITE_DEMO_MODE: "true"  # prefill demo logins locally; set "false" for a pilot build
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  private_media:
