@@ -21,6 +21,8 @@ class Signal(models.Model):
     label = models.CharField(max_length=100)
     category = models.CharField(max_length=16, choices=SignalCategory.choices, db_index=True)
     is_active = models.BooleanField(default=True)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "signals_signal"

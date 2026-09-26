@@ -1,6 +1,7 @@
 """Persisted AI-generated insights.
 
-One row per (session, generation_type, input_version). AI rows are final; a
+One row per (session, generation_type, input_version, language) — a Uzbek insight is
+never served from the English row, and each language is generated at most once. AI rows are final; a
 FALLBACK row may be upgraded in place to AI once the provider is reachable.
 """
 from django.conf import settings
@@ -26,6 +27,7 @@ class AIInsight(models.Model):
     )
     generation_type = models.CharField(max_length=32, choices=GenerationType.choices)
     input_version = models.CharField(max_length=32)
+    language = models.CharField(max_length=5, default="en")  # en | uz | ru (common.i18n.SUPPORTED)
     source = models.CharField(max_length=8, choices=InsightSource.choices)
     provider = models.CharField(max_length=32, blank=True)
     model = models.CharField(max_length=64, blank=True)
@@ -37,10 +39,10 @@ class AIInsight(models.Model):
         db_table = "ai_insight"
         constraints = [
             models.UniqueConstraint(
-                fields=["session", "generation_type", "input_version"],
-                name="uniq_ai_insight_per_session_type_version",
+                fields=["session", "generation_type", "input_version", "language"],
+                name="uniq_ai_insight_per_session_type_version_lang",
             )
         ]
 
     def __str__(self) -> str:
-        return f"{self.learner_id}:{self.session_id}:{self.generation_type}:{self.source}"
+        return f"{self.learner_id}:{self.session_id}:{self.generation_type}:{self.language}:{self.source}"

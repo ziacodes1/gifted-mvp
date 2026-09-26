@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Trans, useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { aiApi } from "../../api/ai";
 import { signalsApi } from "../../api/signals";
@@ -16,6 +17,7 @@ import type { CompleteResult } from "../../types/assessment";
  * fetched separately (persisted server-side, so refreshes don't re-generate).
  */
 export function AssessmentResultPage() {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const stateResult = (location.state as { result?: CompleteResult } | null)?.result;
 
@@ -27,16 +29,16 @@ export function AssessmentResultPage() {
     .sort((a, b) => b.score - a.score);
   const otherSignals = allSignals.filter((s) => s.category !== "INTEREST");
   const topSignals = signals.slice(0, 3);
-  const exposureNote =
-    stateResult?.exposure_note ??
-    "These are early signals from your assessments. Real-world exploration will help confirm and refine them.";
+  // The router-state note was written in the language active at completion; the UI copy follows the current one.
+  const exposureNote = t("result.exposureNote");
 
   const loading = signalsQuery.isLoading;
 
-  // POST is idempotent get-or-create on the backend, so a query is safe here.
+  // POST is idempotent get-or-create on the backend, so a query is safe here. The language is
+  // part of the key: switching to Uzbek fetches (once) the Uzbek insight, switching back reuses English.
   const sessionId = stateResult?.session_id;
   const insightQuery = useQuery({
-    queryKey: ["profile-insight", sessionId ?? "latest"],
+    queryKey: ["profile-insight", sessionId ?? "latest", i18n.resolvedLanguage],
     queryFn: () => aiApi.profileSynthesis(sessionId),
     enabled: signals.length > 0,
     staleTime: Infinity,
@@ -45,16 +47,16 @@ export function AssessmentResultPage() {
   const insight = insightQuery.data;
 
   if (loading) {
-    return <div className="grid h-64 place-items-center text-sage-600">Loading your profile…</div>;
+    return <div className="grid h-64 place-items-center text-sage-600">{t("result.loading")}</div>;
   }
 
   if (signals.length === 0) {
     return (
       <div className="card mx-auto max-w-lg text-center">
-        <p className="text-forest-700">No signals yet.</p>
-        <p className="mt-2 text-sm text-sage-600">Complete an assessment to see your emerging profile.</p>
+        <p className="text-forest-700">{t("result.empty.title")}</p>
+        <p className="mt-2 text-sm text-sage-600">{t("result.empty.text")}</p>
         <Link to="/app/assessment" className="btn-primary mt-4 inline-flex">
-          Start Assessment
+          {t("result.empty.cta")}
         </Link>
       </div>
     );
@@ -62,30 +64,21 @@ export function AssessmentResultPage() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">
-        Your potential in focus
-      </p>
-      <h1 className="mt-2 text-3xl">Your emerging profile</h1>
-      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-sage-600">
-        Here's a summary of what we've learned from your assessment so far. This reflects
-        early signals, not fixed conclusions — it will keep evolving as you explore.
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">{t("result.eyebrow")}</p>
+      <h1 className="mt-2 text-3xl">{t("result.title")}</h1>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-sage-600">{t("result.intro")}</p>
 
       {insight ? (
         <InsightHero insight={insight} signals={signals} />
       ) : insightQuery.isError ? (
         <div className="card mt-6">
-          <p className="text-xs font-medium uppercase tracking-widest text-sage-600">Overall insight</p>
+          <p className="text-xs font-medium uppercase tracking-widest text-sage-600">{t("insight.overall")}</p>
           <p className="mt-2 text-lg leading-relaxed text-forest-700">
-            Your current responses show stronger interest in{" "}
-            <span className="font-semibold">{topSignals[0]?.label}</span>
-            {topSignals[1] && (
-              <>
-                {" "}
-                and <span className="font-semibold">{topSignals[1].label}</span>
-              </>
-            )}
-            . This is an emerging signal, not a fixed label.
+            <Trans
+              i18nKey={topSignals[1] ? "result.offlineTwo" : "result.offlineOne"}
+              values={{ a: topSignals[0]?.label, b: topSignals[1]?.label }}
+              components={{ b: <span className="font-semibold" /> }}
+            />
           </p>
           <p className="mt-4 rounded-xl bg-forest-50 px-4 py-3 text-sm text-forest-700">
             {exposureNote}
@@ -96,10 +89,8 @@ export function AssessmentResultPage() {
       )}
 
       <div className="mt-8">
-        <h2 className="text-lg">Current interests</h2>
-        <p className="text-sm text-sage-600">
-          Assessment signals from your answers — they stay the same whatever the insight says.
-        </p>
+        <h2 className="text-lg">{t("result.currentInterests")}</h2>
+        <p className="text-sm text-sage-600">{t("result.currentInterestsNote")}</p>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {signals.map((s) => (
             <div key={s.key} className="card flex items-start gap-4">
@@ -108,9 +99,9 @@ export function AssessmentResultPage() {
                 <p className="flex items-center gap-1.5 font-medium text-forest-700">
                   <span>{iconForSignal(s.key)}</span> {s.label}
                 </p>
-                <p className="mt-1 text-xs text-sage-600">{confidenceWording(s.confidence)}</p>
+                <p className="mt-1 text-xs text-sage-600">{confidenceWording(s.confidence, t)}</p>
                 <p className="mt-1 text-xs text-sage-600">
-                  Picked {s.evidence_count} of {s.opportunity_count} times
+                  {t("signals.pickedOf", { picked: s.evidence_count, total: s.opportunity_count })}
                 </p>
               </div>
             </div>
@@ -120,8 +111,8 @@ export function AssessmentResultPage() {
 
       {otherSignals.some((s) => s.evidence_count > 0 || s.category === "EXPOSURE") && (
         <div className="mt-8">
-          <h2 className="text-lg">Beyond interests</h2>
-          <p className="text-sm text-sage-600">Reasoning, work style, values and experience — kept separate on purpose.</p>
+          <h2 className="text-lg">{t("result.beyond")}</h2>
+          <p className="text-sm text-sage-600">{t("result.beyondNote")}</p>
           <div className="mt-4">
             <SignalGroups signals={otherSignals} />
           </div>
@@ -131,11 +122,9 @@ export function AssessmentResultPage() {
       {insight && <InsightDetails insight={insight} />}
 
       <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-md text-sm text-sage-600">
-          More real-world exploration can help clarify and grow these signals over time.
-        </p>
+        <p className="max-w-md text-sm text-sage-600">{t("result.moreExploration")}</p>
         <Link to="/app/passport" className="btn-primary shrink-0">
-          Build My Gifted Passport
+          {t("result.buildPassport")}
         </Link>
       </div>
     </div>

@@ -58,6 +58,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "common.i18n.LanguageMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -127,7 +128,8 @@ SIMPLE_JWT = {
 }
 
 # --- I18N / TZ ----------------------------------------------------------
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
+LANGUAGES = [("en", "English"), ("uz", "O‘zbekcha"), ("ru", "Русский")]
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True

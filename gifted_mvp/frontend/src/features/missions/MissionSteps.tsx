@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { MissionOption, MissionStep, StepResponse } from "../../types/mission";
 import { CheckIcon, LeafIcon, QuoteIcon } from "../passport/icons";
 import { selectedList, spent } from "./stepRules";
@@ -36,12 +37,13 @@ function StepHeading({ step }: { step: MissionStep }) {
 }
 
 function ContextStep({ step }: StepProps) {
+  const { t } = useTranslation();
   const { voices = [], goal } = step.content;
   return (
     <div>
       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">{step.title}</p>
       <p className="mt-3 max-w-3xl font-serif text-2xl leading-snug text-forest-700 md:text-[1.75rem]">{step.prompt}</p>
-      <p className="mt-8 text-xs font-medium uppercase tracking-wider text-sage-600">What students told us</p>
+      <p className="mt-8 text-xs font-medium uppercase tracking-wider text-sage-600">{t("mission.steps.voices")}</p>
       <div className="mt-3 grid gap-4 md:grid-cols-3">
         {voices.map((v) => (
           <figure key={v.quote} className="rounded-2xl border border-cream-200 bg-cream-50 p-5">
@@ -113,6 +115,7 @@ function OptionCard({
 }
 
 function MultiSelectStep({ step, value, onChange }: StepProps) {
+  const { t } = useTranslation();
   const selected = selectedList(value);
   const max = step.content.max ?? Infinity;
   const toggle = (key: string) =>
@@ -120,9 +123,7 @@ function MultiSelectStep({ step, value, onChange }: StepProps) {
   return (
     <div>
       <StepHeading step={step} />
-      <p className="mt-4 text-sm font-medium text-forest-700">
-        {selected.length} of {max} chosen
-      </p>
+      <p className="mt-4 text-sm font-medium text-forest-700">{t("mission.steps.chosen", { count: selected.length, max })}</p>
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {(step.content.options ?? []).map((o) => (
           <OptionCard
@@ -139,6 +140,7 @@ function MultiSelectStep({ step, value, onChange }: StepProps) {
 }
 
 function BudgetStep({ step, value, onChange }: StepProps) {
+  const { t } = useTranslation();
   const selected = selectedList(value);
   const budget = step.content.budget ?? 0;
   const used = spent(step, selected);
@@ -151,9 +153,9 @@ function BudgetStep({ step, value, onChange }: StepProps) {
       <StepHeading step={step} />
       <div className="mt-5 rounded-2xl border border-cream-200 bg-cream-50 p-4">
         <div className="flex items-baseline justify-between text-sm">
-          <span className="font-medium text-forest-700">Budget used</span>
+          <span className="font-medium text-forest-700">{t("mission.steps.budgetUsed")}</span>
           <span className="font-serif text-lg text-forest-700">
-            {used} <span className="text-sm text-sage-600">/ {budget} points</span>
+            {used} <span className="text-sm text-sage-600">/ {t("mission.steps.points", { count: budget })}</span>
           </span>
         </div>
         <div className="mt-2 flex gap-1" aria-hidden>
@@ -162,7 +164,7 @@ function BudgetStep({ step, value, onChange }: StepProps) {
           ))}
         </div>
         <p className="mt-2 text-xs text-sage-600">
-          {left > 0 ? `${left} point${left === 1 ? "" : "s"} left — you don't have to spend them all.` : "Budget fully used."}
+          {left > 0 ? t("mission.steps.left", { count: left }) : t("mission.steps.fullyUsed")}
         </p>
       </div>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -182,12 +184,12 @@ function BudgetStep({ step, value, onChange }: StepProps) {
                     isSel ? "bg-forest-700 text-cream-50" : "bg-gold-50 text-gold-600"
                   }`}
                 >
-                  {o.cost} pts
+                  {t("mission.steps.pts", { count: o.cost ?? 0 })}
                 </span>
               }
               footer={
                 !affordable && (
-                  <span className="mt-2 block text-xs text-sage-600">Not enough points left — swap something out.</span>
+                  <span className="mt-2 block text-xs text-sage-600">{t("mission.steps.notEnough")}</span>
                 )
               }
             />
@@ -199,6 +201,7 @@ function BudgetStep({ step, value, onChange }: StepProps) {
 }
 
 function ChoiceStep({ step, value, onChange }: StepProps) {
+  const { t } = useTranslation();
   return (
     <div>
       <StepHeading step={step} />
@@ -210,7 +213,11 @@ function ChoiceStep({ step, value, onChange }: StepProps) {
             option={o}
             selected={value?.selected === o.key}
             onClick={() => onChange({ selected: o.key })}
-            footer={o.tradeoff && <span className="mt-2 block text-xs font-medium text-gold-600">Trade-off: {o.tradeoff}</span>}
+            footer={
+              o.tradeoff && (
+                <span className="mt-2 block text-xs font-medium text-gold-600">{t("mission.steps.tradeoff", { text: o.tradeoff })}</span>
+              )
+            }
           />
         ))}
       </div>
@@ -219,6 +226,7 @@ function ChoiceStep({ step, value, onChange }: StepProps) {
 }
 
 function ReflectionStep({ step, value, onChange }: StepProps) {
+  const { t } = useTranslation();
   return (
     <div>
       <StepHeading step={step} />
@@ -230,7 +238,7 @@ function ReflectionStep({ step, value, onChange }: StepProps) {
             <label key={f.key} className="block">
               <span className="flex items-baseline justify-between gap-3">
                 <span className="font-medium text-forest-700">{f.label}</span>
-                <span className="shrink-0 text-xs text-sage-600">{f.required ? "Required" : "Optional"}</span>
+                <span className="shrink-0 text-xs text-sage-600">{f.required ? t("mission.steps.required") : t("mission.steps.optional")}</span>
               </span>
               <textarea
                 className="input mt-2 min-h-[7rem] resize-y leading-relaxed"
@@ -240,7 +248,7 @@ function ReflectionStep({ step, value, onChange }: StepProps) {
                 onChange={(e) => onChange({ ...(value ?? {}), [f.key]: e.target.value })}
               />
               <span className="mt-1 flex justify-between text-xs text-sage-600">
-                <span>{f.required && text.trim().length < (f.min_length ?? 1) ? `At least ${f.min_length} characters` : ""}</span>
+                <span>{f.required && text.trim().length < (f.min_length ?? 1) ? t("mission.steps.atLeast", { count: f.min_length ?? 1 }) : ""}</span>
                 <span>
                   {text.length}/{max}
                 </span>

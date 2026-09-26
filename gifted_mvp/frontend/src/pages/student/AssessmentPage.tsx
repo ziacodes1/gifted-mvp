@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { assessmentsApi } from "../../api/assessments";
@@ -15,6 +16,7 @@ async function fetchOrStartSession(retake: boolean) {
 }
 
 export function AssessmentPage() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -30,15 +32,32 @@ export function AssessmentPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Restore progress from the backend (handles the refresh-mid-assessment case).
+  // A reload of the *same* session (e.g. after a language switch) keeps the current question.
+  const restoredSessionId = useRef<number | null>(null);
   useEffect(() => {
     if (!sessionQuery.data) return;
     setResponses(sessionQuery.data.responses);
     setProgress(sessionQuery.data.progress);
+    if (restoredSessionId.current === sessionQuery.data.id) return;
+    restoredSessionId.current = sessionQuery.data.id;
     const firstUnanswered = sessionQuery.data.questions.findIndex(
       (q) => sessionQuery.data!.responses[String(q.id)] === undefined,
     );
     setCurrentIndex(firstUnanswered === -1 ? sessionQuery.data.questions.length - 1 : firstUnanswered);
   }, [sessionQuery.data]);
+
+  // Language switch: re-read the same session (side-effect-free GET) so questions come back
+  // in the new language. Same session, same answers, same order — nothing is restarted.
+  const sessionId = sessionQuery.data?.id;
+  const language = i18n.resolvedLanguage;
+  const loadedLanguage = useRef(language);
+  useEffect(() => {
+    if (!sessionId || loadedLanguage.current === language) return;
+    loadedLanguage.current = language;
+    void assessmentsApi.getSession(sessionId).then((fresh) =>
+      queryClient.setQueryData(["assessment-active-session", retake], fresh),
+    );
+  }, [language, sessionId, retake, queryClient]);
 
   const answerMutation = useMutation({
     mutationFn: ({ questionId, optionIds }: { questionId: number; optionIds: number[] }) =>
@@ -91,7 +110,7 @@ export function AssessmentPage() {
   }
 
   if (sessionQuery.isLoading) {
-    return <div className="grid h-64 place-items-center text-sage-600">Loading your assessment…</div>;
+    return <div className="grid h-64 place-items-center text-sage-600">{t("assessment.loading")}</div>;
   }
 
   if (sessionQuery.data === null) return <AssessmentCompleted />;
@@ -99,8 +118,8 @@ export function AssessmentPage() {
   if (sessionQuery.isError || !currentQuestion) {
     return (
       <div className="card mx-auto max-w-lg text-center">
-        <p className="text-forest-700">This assessment isn't available right now.</p>
-        <p className="mt-2 text-sm text-sage-600">Please try again in a moment.</p>
+        <p className="text-forest-700">{t("assessment.unavailable")}</p>
+        <p className="mt-2 text-sm text-sage-600">{t("assessment.tryLater")}</p>
       </div>
     );
   }
@@ -110,11 +129,9 @@ export function AssessmentPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">Discovery</p>
-      <h1 className="mt-2 text-3xl">What you enjoy, how you think</h1>
-      <p className="mt-2 max-w-xl text-sm leading-relaxed text-sage-600">
-        Ten short moments — activities, situations, a couple of quick puzzles. About 5 minutes.
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">{t("assessment.eyebrowTop")}</p>
+      <h1 className="mt-2 text-3xl">{t("assessment.title")}</h1>
+      <p className="mt-2 max-w-xl text-sm leading-relaxed text-sage-600">{t("assessment.intro")}</p>
 
       <div className="mt-6 flex items-center gap-4">
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-sage-200">
@@ -124,7 +141,7 @@ export function AssessmentPage() {
           />
         </div>
         <span className="shrink-0 text-sm text-sage-600">
-          Question {currentIndex + 1} of {totalQuestions}
+          {t("assessment.questionOf", { current: currentIndex + 1, total: totalQuestions })}
         </span>
       </div>
 
@@ -138,7 +155,7 @@ export function AssessmentPage() {
             disabled={currentIndex === 0}
             onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
           >
-            Back
+            {t("common.back")}
           </button>
 
           {isLastQuestion ? (
@@ -148,7 +165,7 @@ export function AssessmentPage() {
               disabled={!allAnswered || completeMutation.isPending}
               onClick={() => completeMutation.mutate()}
             >
-              {completeMutation.isPending ? "Completing…" : "Complete Assessment"}
+              {completeMutation.isPending ? t("assessment.completing") : t("assessment.complete")}
             </button>
           ) : (
             <button
@@ -157,41 +174,38 @@ export function AssessmentPage() {
               disabled={selected.length === 0}
               onClick={() => setCurrentIndex((i) => Math.min(questions.length - 1, i + 1))}
             >
-              Next Question
+              {t("assessment.next")}
             </button>
           )}
         </div>
       </div>
 
       <p className="mt-4 text-center text-xs text-sage-600">
-        {isPuzzle
-          ? "Just a quick puzzle — one small piece of evidence, never a verdict."
-          : "There are no right or wrong answers — choose what feels most true right now."}
+        {isPuzzle ? t("assessment.puzzleNote") : t("assessment.noRightAnswers")}
       </p>
     </div>
   );
 }
 
 function AssessmentCompleted() {
+  const { t } = useTranslation();
   return (
     <div className="card mx-auto max-w-2xl md:p-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">Discovery</p>
-      <h1 className="mt-2 text-3xl">You've completed this assessment</h1>
-      <p className="mt-3 leading-relaxed text-sage-600">
-        Your answers are already part of your emerging profile and Gifted Passport.
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-gold-600">{t("assessment.eyebrowTop")}</p>
+      <h1 className="mt-2 text-3xl">{t("assessment.completed.title")}</h1>
+      <p className="mt-3 leading-relaxed text-sage-600">{t("assessment.completed.text")}</p>
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <Link to="/app/assessment/result" className="btn-primary">
-          View Emerging Profile
+          {t("dashboard.profile.cta")}
         </Link>
         <Link to="/app/passport" className="btn-ghost">
-          Open my Passport
+          {t("assessment.completed.openPassport")}
         </Link>
       </div>
       <p className="mt-6 text-sm text-sage-600">
-        Want to see how your answers change?{" "}
+        {t("assessment.completed.retakeQuestion")}{" "}
         <Link to="/app/assessment?retake=1" className="font-medium text-forest-700 underline-offset-2 hover:underline">
-          Retake the assessment
+          {t("assessment.completed.retake")}
         </Link>
       </p>
     </div>

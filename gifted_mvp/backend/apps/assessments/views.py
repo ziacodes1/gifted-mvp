@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 
 from apps.passports.services import sync_passport
 from apps.questions.models import MULTI_SELECT_TYPES, Question, QuestionOption
+from common.i18n import label
 from common.permissions.roles import IsStudent
 
 from .models import Assessment, AssessmentResponse, AssessmentSession, SessionStatus
@@ -148,10 +149,7 @@ class AssessmentSessionCompleteView(APIView):
                 "status": session.status,
                 "signals": signals_payload,
                 "top_signals": signals_payload[:3],
-                "exposure_note": (
-                    "These are early signals from your first assessment. "
-                    "Real-world exploration will help confirm and refine them."
-                ),
+                "exposure_note": label("text", "exposure_note"),
                 "ai_ready": True,
             }
         )

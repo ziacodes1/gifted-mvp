@@ -1,4 +1,5 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
+import { currentLanguage } from "../i18n";
 import { tokenStore } from "./tokens";
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8001/api/v1";
@@ -11,6 +12,8 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = tokenStore.access;
   if (token) config.headers.Authorization = `Bearer ${token}`;
+  // The backend localizes server-driven content and AI output from this header.
+  config.headers["Accept-Language"] = currentLanguage();
   return config;
 });
 

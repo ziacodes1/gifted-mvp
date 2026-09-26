@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 /** Minimal placeholder used for foundation routes. Real screens replace these later. */
 export function PlaceholderPage({
   title,
@@ -6,6 +8,7 @@ export function PlaceholderPage({
   title: string;
   description?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-3xl">
       <div className="card">
@@ -14,7 +17,7 @@ export function PlaceholderPage({
         </p>
         <h1 className="mt-2 text-2xl">{title}</h1>
         <p className="mt-3 text-sm leading-relaxed text-sage-600">
-          {description ?? "This screen is part of the Gifted MVP and is coming soon."}
+          {description ?? t("common.comingSoon")}
         </p>
       </div>
     </div>

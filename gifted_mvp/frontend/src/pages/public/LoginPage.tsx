@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import portrait from "../../assets/public/login_portrait.webp";
 import { useAuth } from "../../features/auth/AuthContext";
@@ -10,6 +11,7 @@ type LoginAs = "student" | "parent";
 const DEMO_EMAIL: Record<LoginAs, string> = { student: "student@gifted.demo", parent: "parent@gifted.demo" };
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +36,7 @@ export function LoginPage() {
       const from = (location.state as { from?: Location })?.from?.pathname;
       navigate(from ?? HOME_BY_ROLE[user.role], { replace: true });
     } catch {
-      setError("That email and password don't match. Please try again.");
+      setError(t("login.error"));
     } finally {
       setBusy(false);
     }
@@ -47,16 +49,16 @@ export function LoginPage() {
           <img src={portrait} alt="" className="absolute inset-0 h-full w-full object-cover object-bottom" />
           <div className="absolute inset-0 bg-gradient-to-b from-cream-50/95 via-cream-50/60 to-transparent" />
           <div className="relative p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-forest-600">Young people. Brighter tomorrows.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-forest-600">{t("public.tagline")}</p>
             <p className="mt-4 font-serif text-4xl leading-tight text-forest-700">
-              Discover what you could <span className="text-gold-600">become.</span>
+              <Trans i18nKey="public.heroTitle" components={{ accent: <span className="text-gold-600" /> }} />
             </p>
           </div>
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col justify-center p-8 md:p-12">
-          <h1 className="text-3xl">Welcome back</h1>
-          <p className="mt-1 text-sage-600">Sign in to continue your journey with Gifted.</p>
+          <h1 className="text-3xl">{t("login.title")}</h1>
+          <p className="mt-1 text-sage-600">{t("login.subtitle")}</p>
 
           <div role="tablist" className="mt-6 grid grid-cols-2 rounded-full bg-cream-100 p-1 text-sm">
             {(["student", "parent"] as const).map((r) => (
@@ -66,22 +68,22 @@ export function LoginPage() {
                 role="tab"
                 aria-selected={as === r}
                 onClick={() => choose(r)}
-                className={`rounded-full py-2 font-medium capitalize transition ${
+                className={`rounded-full py-2 font-medium transition ${
                   as === r ? "bg-white text-forest-700 shadow-soft" : "text-sage-600 hover:text-forest-700"
                 }`}
               >
-                {r}
+                {t(`roles.${r}`)}
               </button>
             ))}
           </div>
 
           <label className="mt-6 block text-sm font-medium text-forest-700" htmlFor="email">
-            Email
+            {t("auth.email")}
           </label>
           <input id="email" className="input mt-1.5" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
           <label className="mt-4 block text-sm font-medium text-forest-700" htmlFor="password">
-            Password
+            {t("auth.password")}
           </label>
           <input
             id="password"
@@ -100,12 +102,12 @@ export function LoginPage() {
           )}
 
           <button className="btn-primary mt-6 w-full gap-2 py-3" disabled={busy}>
-            {busy ? "Signing in…" : "Sign in"} {!busy && <ArrowIcon />}
+            {busy ? t("login.signingIn") : t("login.signIn")} {!busy && <ArrowIcon />}
           </button>
           <p className="mt-5 text-center text-sm text-sage-600">
-            New to Gifted?{" "}
+            {t("login.newHere")}{" "}
             <Link to="/register" className="font-medium text-forest-700 underline-offset-2 hover:underline">
-              Create an account
+              {t("login.createAccount")}
             </Link>
           </p>
         </form>

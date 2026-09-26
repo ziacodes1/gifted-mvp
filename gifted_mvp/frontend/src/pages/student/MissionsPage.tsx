@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { missionsApi } from "../../api/missions";
 import { ArrowIcon, CheckIcon, ClockIcon, CompassIcon, LeafIcon } from "../../features/passport/icons";
@@ -7,26 +8,21 @@ import type { MissionSummary } from "../../types/mission";
 
 /** /app/missions — one flagship mission for now; each mission adds Passport evidence. */
 export function MissionsPage() {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({ queryKey: ["missions"], queryFn: missionsApi.list });
 
   return (
     <div className="mx-auto max-w-6xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Explore · Try · Reflect</p>
-      <h1 className="mt-2 text-4xl leading-tight md:text-5xl">Exploration missions</h1>
-      <p className="mt-2 max-w-2xl leading-relaxed text-sage-600">
-        Short real-world challenges that help you test your emerging signals through action. Every mission adds evidence
-        to your Passport — never a score.
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">{t("missions.eyebrow")}</p>
+      <h1 className="mt-2 text-4xl leading-tight md:text-5xl">{t("missions.title")}</h1>
+      <p className="mt-2 max-w-2xl leading-relaxed text-sage-600">{t("missions.intro")}</p>
 
       <div className="mt-8 space-y-5">
         {isLoading && <div className="h-64 animate-pulse rounded-3xl bg-white" />}
         {data?.map((m) => <MissionCard key={m.id} mission={m} />)}
         <div className="flex items-start gap-4 rounded-3xl border border-dashed border-sage-200 px-6 py-5">
           <LeafIcon className="mt-0.5 h-5 w-5 shrink-0 text-sage-600" />
-          <p className="text-sm leading-relaxed text-sage-600">
-            More missions and virtual labs are on the way. Each one will explore a different direction, so your Passport
-            can draw on more than one kind of evidence.
-          </p>
+          <p className="text-sm leading-relaxed text-sage-600">{t("missions.more")}</p>
         </div>
       </div>
     </div>
@@ -34,8 +30,14 @@ export function MissionsPage() {
 }
 
 function MissionCard({ mission }: { mission: MissionSummary }) {
+  const { t } = useTranslation();
   const status = mission.my_attempt?.status;
-  const cta = status === "COMPLETED" ? "View what you added" : status === "IN_PROGRESS" ? "Continue mission" : "Start mission";
+  const cta =
+    status === "COMPLETED"
+      ? t("passport.next.viewAdded")
+      : status === "IN_PROGRESS"
+        ? t("passport.next.continue")
+        : t("missions.startMissionLower");
   return (
     <WaveSurface>
       <div className="grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-end md:p-9">
@@ -44,11 +46,11 @@ function MissionCard({ mission }: { mission: MissionSummary }) {
             <span className="rounded-full bg-forest-700 px-3 py-1 text-xs font-medium text-cream-50">{mission.activity_label}</span>
             {status === "COMPLETED" && (
               <span className="inline-flex items-center gap-1 rounded-full bg-forest-50 px-3 py-1 text-xs font-medium text-forest-700">
-                <CheckIcon className="h-3 w-3" /> Completed
+                <CheckIcon className="h-3 w-3" /> {t("missions.status.completed")}
               </span>
             )}
             {status === "IN_PROGRESS" && (
-              <span className="rounded-full bg-gold-50 px-3 py-1 text-xs font-medium text-gold-600">In progress</span>
+              <span className="rounded-full bg-gold-50 px-3 py-1 text-xs font-medium text-gold-600">{t("missions.status.inProgress")}</span>
             )}
           </div>
           <h2 className="mt-4 text-3xl leading-tight">{mission.title}</h2>
@@ -68,7 +70,7 @@ function MissionCard({ mission }: { mission: MissionSummary }) {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CompassIcon className="h-4 w-4 text-gold-500" />
-              {mission.difficulty === "BEGINNER" ? "Beginner" : "Intermediate"}
+              {t(`missions.difficulty.${mission.difficulty}`)}
             </span>
           </span>
           <Link to={`/app/missions/${mission.slug}`} className="btn-primary gap-2 px-6 py-3">

@@ -3,8 +3,9 @@
 Every AI feature (profile synthesis, parent insight, ...) follows the same rules:
 - compact trusted JSON in, schema-validated JSON out (validator raises ValueError);
 - any provider/validation failure → deterministic fallback, never a user-facing error;
-- one persisted `AIInsight` per (session, generation_type, input_version), created
-  under a row lock so concurrent requests can't trigger duplicate paid calls;
+- one persisted `AIInsight` per (session, generation_type, input_version, language),
+  created under a row lock so concurrent requests can't trigger duplicate paid calls;
+  an insight in one language is never served for another;
 - AI rows are final; FALLBACK rows retry the provider after a cooldown.
 """
 from __future__ import annotations
@@ -96,10 +97,12 @@ def run_structured(
     return fallback(), InsightSource.FALLBACK, "", ""
 
 
-def saved_insight(session: AssessmentSession, generation_type: str, input_version: str) -> AIInsight | None:
+def saved_insight(
+    session: AssessmentSession, generation_type: str, input_version: str, language: str = "en"
+) -> AIInsight | None:
     """Read-only lookup. Never calls a provider."""
     return AIInsight.objects.filter(
-        session=session, generation_type=generation_type, input_version=input_version
+        session=session, generation_type=generation_type, input_version=input_version, language=language
     ).first()
 
 
@@ -110,11 +113,12 @@ def get_or_generate(
     input_version: str,
     produce: Callable[[], Generated],
     retry_after: timedelta | None = None,
+    language: str = "en",
 ) -> AIInsight:
     retry_after = FALLBACK_RETRY_AFTER if retry_after is None else retry_after
     with transaction.atomic():
         AssessmentSession.objects.select_for_update().only("id").get(pk=session.pk)
-        existing = saved_insight(session, generation_type, input_version)
+        existing = saved_insight(session, generation_type, input_version, language)
         if existing and (
             existing.source == InsightSource.AI or timezone.now() - existing.updated_at < retry_after
         ):
@@ -136,6 +140,7 @@ def get_or_generate(
             session=session,
             generation_type=generation_type,
             input_version=input_version,
+            language=language,
             source=source,
             provider=provider_name,
             model=model,

@@ -1,0 +1,554 @@
+{
+  "language": {
+    "label": "Language"
+  },
+  "common": {
+    "comingSoon": "This screen is part of the Gifted MVP and is coming soon.",
+    "loading": "Loading…",
+    "tryAgain": "Try again",
+    "retry": "Retry",
+    "back": "Back",
+    "continue": "Continue",
+    "minutes": "{{count}} min",
+    "and": "and"
+  },
+  "roles": {
+    "student": "Student",
+    "parent": "Parent",
+    "admin": "Admin"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name"
+  },
+  "nav": {
+    "home": "Home",
+    "assessments": "Assessments",
+    "passport": "My Passport",
+    "missions": "Missions",
+    "myChild": "My Child",
+    "parentInsights": "Parent Insights",
+    "overview": "Overview",
+    "motto": "A brighter future begins with you.",
+    "signOut": "Sign out"
+  },
+  "public": {
+    "logIn": "Log in",
+    "getStarted": "Get started",
+    "footer": "© Gifted — discover, explore, and develop your potential.",
+    "tagline": "Young people. Brighter tomorrows.",
+    "heroTitle": "Discover what you could <accent>become.</accent>"
+  },
+  "landing": {
+    "intro": "Gifted helps young people discover, test and grow their potential — through short assessments, real-world missions and a Passport that evolves with them.",
+    "imParent": "I'm a parent",
+    "trust": {
+      "learners": "For curious learners 12–17",
+      "evidence": "Built on real evidence",
+      "noLabels": "No fixed labels"
+    },
+    "pillars": {
+      "discover": {
+        "title": "Discover",
+        "text": "A short assessment surfaces your first interests and signals."
+      },
+      "explore": {
+        "title": "Explore",
+        "text": "Real-world missions test those signals through action."
+      },
+      "grow": {
+        "title": "Grow",
+        "text": "Every activity adds evidence — never a fixed label."
+      }
+    },
+    "passport": {
+      "title": "Gifted Passport",
+      "text": "Your journey. Your story. Your evidence."
+    }
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to continue your journey with Gifted.",
+    "error": "That email and password don't match. Please try again.",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "newHere": "New to Gifted?",
+    "createAccount": "Create an account"
+  },
+  "register": {
+    "title": "Create your account",
+    "subtitle": "Begin your Gifted journey.",
+    "error": "Could not create the account. Try a different email or a stronger password.",
+    "submit": "Create account",
+    "creating": "Creating…",
+    "haveAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "there": "there",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "welcomeEyebrow": "Welcome to Gifted",
+    "welcomeStarted": "You're {{progress}}% through your Discovery assessment — pick up right where you left off.",
+    "welcomeNew": "Today's a great day to take your first step. This session helps you discover what you enjoy and how you think.",
+    "features": {
+      "discover": {
+        "a": "Discover",
+        "b": "your interests"
+      },
+      "build": {
+        "a": "Build",
+        "b": "real evidence"
+      },
+      "grow": {
+        "a": "Grow",
+        "b": "your Passport"
+      }
+    },
+    "recommended": "Recommended for you",
+    "startJourney": "Start My Journey",
+    "continueJourney": "Continue My Journey",
+    "pickUp": "Pick up where you left off.",
+    "beginWith": "Begin with ten short moments about what you enjoy.",
+    "stepOf": "You're on step 1 of 5 · Discover",
+    "assessmentCard": {
+      "title": "Discovery Assessment",
+      "text": "Activities, situations, two quick puzzles and what you've tried so far.",
+      "take": "Take Assessment",
+      "continue": "Continue Assessment",
+      "time": "About 5 minutes",
+      "done": "{{progress}}% done"
+    },
+    "passportCard": {
+      "title": "Your Gifted Passport",
+      "text": "Opens with your first signals after the assessment.",
+      "preview": "Preview My Passport",
+      "grows": "Grows with every activity"
+    },
+    "session": {
+      "title": "Your Session Today",
+      "subtitle": "A few steps toward your first Passport.",
+      "completed": "{{done}} of {{total}} completed",
+      "discover": {
+        "title": "Discover your interests",
+        "text": "Complete the Discovery assessment."
+      },
+      "mission": {
+        "title": "Try your first mission",
+        "text": "A 5–8 minute hands-on challenge."
+      },
+      "passport": {
+        "title": "Open your Passport",
+        "text": "See your first signals come together."
+      }
+    },
+    "discoverStage": "Discover",
+    "stats": {
+      "interests": {
+        "title": "Interests",
+        "sub": "With evidence",
+        "unit_one": "interest area",
+        "unit_other": "interest areas"
+      },
+      "reasoning": {
+        "title": "Reasoning",
+        "sub": "Early evidence only",
+        "unit_one": "quick puzzle",
+        "unit_other": "quick puzzles"
+      },
+      "experience": {
+        "title": "Experience",
+        "sub": "You've tried",
+        "unit": "of {{total}} areas"
+      },
+      "explorations": {
+        "title": "Explorations",
+        "sub": "Completed",
+        "unit_one": "mission",
+        "unit_other": "missions"
+      }
+    },
+    "welcomeBack": "Welcome back,",
+    "growing": "Your Passport is growing — new evidence has been added.",
+    "profileReady": "Your emerging profile is ready. Continue your journey.",
+    "journeyProgress": "Journey progress",
+    "stagesOf": "{{done}} of 5 · {{stage}}",
+    "builtFrom": "Built from {{responses}} assessment responses.",
+    "builtFromWithMissions_one": "Built from {{responses}} assessment responses and {{count}} exploration mission.",
+    "builtFromWithMissions_other": "Built from {{responses}} assessment responses and {{count}} exploration missions.",
+    "viewPassport": "View My Passport",
+    "viewUpdatedPassport": "View Updated Passport",
+    "mission": {
+      "yourExploration": "Your exploration",
+      "recommended": "Recommended Next Mission",
+      "suggested": "Suggested Mission",
+      "completedView": "Completed · View what you added"
+    },
+    "profile": {
+      "title": "Your emerging profile",
+      "text": "Your first interests, how you think and what you've tried — from your Discovery assessment.",
+      "cta": "View Emerging Profile"
+    },
+    "yourJourney": "Your journey",
+    "next": {
+      "eyebrow": "Your next step",
+      "continueTitle": "Continue your mission",
+      "firstTitle": "Try your first mission",
+      "missionText": "{{title}} — a short hands-on challenge that adds new evidence to your Passport.",
+      "grewTitle": "See how your Passport grew",
+      "grewText": "Your mission evidence now sits beside your assessment signals. More missions are coming soon."
+    }
+  },
+  "missions": {
+    "beginnerFriendly": "Beginner friendly",
+    "startMission": "Start Mission",
+    "continueMission": "Continue Mission",
+    "eyebrow": "Explore · Try · Reflect",
+    "title": "Exploration missions",
+    "intro": "Short real-world challenges that help you test your emerging signals through action. Every mission adds evidence to your Passport — never a score.",
+    "more": "More missions and virtual labs are on the way. Each one will explore a different direction, so your Passport can draw on more than one kind of evidence.",
+    "startMissionLower": "Start mission",
+    "status": {
+      "completed": "Completed",
+      "inProgress": "In progress"
+    },
+    "difficulty": {
+      "BEGINNER": "Beginner",
+      "INTERMEDIATE": "Intermediate"
+    }
+  },
+  "passport": {
+    "status": {
+      "growing": "Growing Passport",
+      "emerging": "Emerging Passport",
+      "empty": "Not started"
+    },
+    "page": {
+      "error": "We couldn't open your Passport right now.",
+      "titleName": "{{name}}’s Passport",
+      "intro": "A living record of your interests, evidence and growth — built from what you’ve explored so far.",
+      "currentSignals": "Current signals",
+      "currentSignalsNote": "From your assessment answers — the insight below explains them, it never changes them.",
+      "explorationEvidence": "Evidence from your explorations",
+      "explorationEvidenceNote": "Recorded from what you did in missions. It sits beside your assessment signals — it doesn't change them.",
+      "suggests": "What your evidence suggests",
+      "suggestsNote": "An interpretation of the signals above. It explains them — it never changes them.",
+      "notCovered": "This interpretation was written from your assessment. Your mission evidence is shown above and will be included the next time your interpretation is refreshed.",
+      "cantTell": "What the evidence can’t tell yet",
+      "worthExploring": "Worth exploring",
+      "worthExploringNote": "Open questions your next experiences can answer.",
+      "ideas": "Ideas to try:",
+      "opening": "Opening your Passport"
+    },
+    "empty": {
+      "badge": "Passport not started",
+      "title": "Your Gifted Passport starts with discovery.",
+      "text": "Complete the Discovery assessment — about 5 minutes — and your Passport will open with your first signals.",
+      "upcoming": {
+        "signals": {
+          "title": "Current signals",
+          "text": "Your interest signals, scored from your own answers."
+        },
+        "strengths": {
+          "title": "Emerging strengths",
+          "text": "What your evidence suggests so far — never a fixed label."
+        },
+        "next": {
+          "title": "Next exploration",
+          "text": "One concrete thing to try, chosen from your signals."
+        }
+      }
+    },
+    "hero": {
+      "discover": "Discover",
+      "explore": "Explore",
+      "become": "Become",
+      "aiHeadline": "AI-assisted headline",
+      "signalHeadline": "Signal-based headline",
+      "evolves": "evolves with new evidence",
+      "number": "Passport no.",
+      "memberSince": "Member since",
+      "lastUpdated": "Last updated",
+      "stage": "Journey stage"
+    },
+    "tags": {
+      "recorded": "Recorded evidence",
+      "calculated": "Assessment signals"
+    },
+    "signalLevel": {
+      "HIGH": "Consistent signal",
+      "MEDIUM": "Developing signal",
+      "LOW": "Early signal"
+    },
+    "journey": {
+      "count": "{{done}} of {{total}}",
+      "two": "<b>Discover and Explore are under way.</b> Validate opens as more varied evidence — more missions and real experiences — builds up.",
+      "one": "<b>Discover is complete.</b> Explore opens with your first mission — see your next exploration below.",
+      "none": "Your journey begins with the Discovery assessment."
+    },
+    "evidence": {
+      "title": "Evidence so far",
+      "assessment": "Assessment responses",
+      "missions": "Exploration missions",
+      "experiences": "Real-world experiences",
+      "includes": "Your profile now includes evidence from {{assessments}} and {{missions}}.",
+      "assessmentCount_one": "{{count}} assessment",
+      "assessmentCount_other": "{{count}} assessments",
+      "missionCount_one": "{{count}} exploration mission",
+      "missionCount_other": "{{count}} exploration missions",
+      "early": "Your Passport is still early — every new activity adds evidence."
+    },
+    "log": {
+      "title": "Evidence log",
+      "explored": "Explored so far",
+      "exploredNote": "What your activities gave evidence of.",
+      "singlePoint": "One activity is a single data point — it adds context, not a verdict."
+    },
+    "next": {
+      "eyebrow": "Your next exploration",
+      "aiNote": "Suggested with AI from your current signals.",
+      "completed": "Exploration completed",
+      "startWith": "Start with this mission",
+      "useful": "A useful next exploration",
+      "added": "Added to your Passport evidence",
+      "viewAdded": "View what you added",
+      "continue": "Continue mission",
+      "exploreNext": "Explore this next",
+      "try": "Try this mission",
+      "general": "A general exploration that adds a different kind of evidence — not tailored to the suggestion on the left."
+    }
+  },
+  "assessment": {
+    "eyebrow": {
+      "SINGLE_CHOICE": "Your interests",
+      "VISUAL_CHOICE": "Pick an activity",
+      "STORY_CHOICE": "A moment at school",
+      "SCENARIO_CHOICE": "A real situation",
+      "VALUE_TRADEOFF": "What matters to you",
+      "MULTI_SELECT": "Your experience so far",
+      "PATTERN_CHOICE": "Quick puzzle"
+    },
+    "or": "or",
+    "optionLabel": "Option {{label}}",
+    "loading": "Loading your assessment…",
+    "unavailable": "This assessment isn't available right now.",
+    "tryLater": "Please try again in a moment.",
+    "eyebrowTop": "Discovery",
+    "title": "What you enjoy, how you think",
+    "intro": "Ten short moments — activities, situations, a couple of quick puzzles. About 5 minutes.",
+    "questionOf": "Question {{current}} of {{total}}",
+    "completing": "Completing…",
+    "complete": "Complete Assessment",
+    "next": "Next Question",
+    "puzzleNote": "Just a quick puzzle — one small piece of evidence, never a verdict.",
+    "noRightAnswers": "There are no right or wrong answers — choose what feels most true right now.",
+    "completed": {
+      "title": "You've completed this assessment",
+      "text": "Your answers are already part of your emerging profile and Gifted Passport.",
+      "openPassport": "Open my Passport",
+      "retakeQuestion": "Want to see how your answers change?",
+      "retake": "Retake the assessment"
+    }
+  },
+  "confidence": {
+    "LOW": "An early signal — more exploration will help clarify this.",
+    "MEDIUM": "A fairly consistent early signal.",
+    "HIGH": "A strong, consistent signal across your answers."
+  },
+  "activity": {
+    "challenge": "challenge",
+    "project": "project",
+    "experiment": "experiment",
+    "observation": "observation",
+    "conversation": "conversation",
+    "reflection": "reflection"
+  },
+  "result": {
+    "exposureNote": "These are early signals from your assessments. Real-world exploration will help confirm and refine them.",
+    "loading": "Loading your profile…",
+    "empty": {
+      "title": "No signals yet.",
+      "text": "Complete an assessment to see your emerging profile.",
+      "cta": "Start Assessment"
+    },
+    "eyebrow": "Your potential in focus",
+    "title": "Your emerging profile",
+    "intro": "Here's a summary of what we've learned from your assessment so far. This reflects early signals, not fixed conclusions — it will keep evolving as you explore.",
+    "offlineOne": "Your current responses show stronger interest in <b>{{a}}</b>. This is an emerging signal, not a fixed label.",
+    "offlineTwo": "Your current responses show stronger interest in <b>{{a}}</b> and <b>{{b}}</b>. This is an emerging signal, not a fixed label.",
+    "currentInterests": "Current interests",
+    "currentInterestsNote": "Assessment signals from your answers — they stay the same whatever the insight says.",
+    "beyond": "Beyond interests",
+    "beyondNote": "Reasoning, work style, values and experience — kept separate on purpose.",
+    "moreExploration": "More real-world exploration can help clarify and grow these signals over time.",
+    "buildPassport": "Build My Gifted Passport"
+  },
+  "insight": {
+    "loading": {
+      "connecting": "Connecting your signals…",
+      "patterns": "Looking for patterns in your current evidence…",
+      "preparing": "Preparing your emerging profile…"
+    },
+    "badge": {
+      "ai": "AI-assisted insight",
+      "signal": "Signal-based insight",
+      "aiTitle": "Written with AI from your assessment signals — it explains them and never changes them.",
+      "signalTitle": "Written from your assessment signals."
+    },
+    "overall": "Overall insight",
+    "basedOn": "Based on",
+    "helpsClarify": "What this helps clarify",
+    "strengths": "Emerging strengths",
+    "exploreFurther": "Worth exploring further",
+    "exploreFurtherNote": "Areas where there isn't enough evidence yet."
+  },
+  "signals": {
+    "pickedOf": "Picked {{picked}} of {{total}} times",
+    "groups": {
+      "reasoning": {
+        "title": "Reasoning",
+        "note": "From one or two quick puzzles — early evidence, not a measure of ability.",
+        "chip": "{{label}}: early evidence"
+      },
+      "style": {
+        "title": "Work style",
+        "note_you": "How you tend to approach things, from the situations in the assessment.",
+        "note_they": "How they tend to approach things, from the situations in the assessment.",
+        "clear": "clear leaning",
+        "hint": "a first hint"
+      },
+      "values": {
+        "title": "What matters",
+        "note": "From the trade-off questions — neither side is better."
+      },
+      "exposure": {
+        "title": "Experience so far",
+        "note": "What has been tried — experience, not skill. Untried areas are open doors.",
+        "notTried": "Not tried yet: {{label}}"
+      }
+    }
+  },
+  "mission": {
+    "opening": "Opening your mission…",
+    "unavailable": "This mission isn't available right now.",
+    "backToMissions": "Back to missions",
+    "allMissions": "All missions",
+    "suggested": "Suggested exploration",
+    "starting": "Starting…",
+    "start": "Start challenge",
+    "explores": "What this explores",
+    "noRightAnswers": "There are no right or wrong answers. Your choices add evidence to your Passport — they are not a test score.",
+    "whatYoullDo": "What you'll do",
+    "saveError": "Something went wrong. Please try again.",
+    "stepOf": "Step {{current}} of {{total}}",
+    "saved": "Your progress is saved as you go.",
+    "saving": "Saving…",
+    "complete": "Complete mission",
+    "letsBegin": "Let's begin",
+    "done": {
+      "badge": "Mission complete",
+      "title": "New evidence added to your Gifted Passport.",
+      "text": "This doesn't prove what you're good at — it adds one more piece of evidence about what you explored and how you made decisions. Your Passport becomes more informed, not final.",
+      "explored": "What this activity explored",
+      "added": "Evidence added",
+      "recorded": "Recorded from the choices you made in this mission."
+    },
+    "steps": {
+      "voices": "What students told us",
+      "chosen": "{{count}} of {{max}} chosen",
+      "budgetUsed": "Budget used",
+      "points_one": "{{count}} point",
+      "points_other": "{{count}} points",
+      "left_one": "{{count}} point left — you don't have to spend them all.",
+      "left_other": "{{count}} points left — you don't have to spend them all.",
+      "fullyUsed": "Budget fully used.",
+      "pts_one": "{{count}} pt",
+      "pts_other": "{{count}} pts",
+      "notEnough": "Not enough points left — swap something out.",
+      "tradeoff": "Trade-off: {{text}}",
+      "required": "Required",
+      "optional": "Optional",
+      "atLeast": "At least {{count}} characters"
+    }
+  },
+  "parent": {
+    "chips": {
+      "stage": "Journey stage: {{stage}}"
+    },
+    "signalGuidance": "Signal-based guidance",
+    "picture": {
+      "title": "Current picture",
+      "picked": "picked {{picked}} of {{total}} times",
+      "note": "Interest signals from the Discovery assessment — not ability or career labels."
+    },
+    "evidence": {
+      "realWorld": "Real-world & opportunities",
+      "varied": "Evidence now comes from more than one kind of activity.",
+      "oneAssessment": "So far, the picture rests on one assessment."
+    },
+    "preparing": "Preparing guidance from your child's current evidence…",
+    "learning": "What we're learning",
+    "readFull": "Read the full insight",
+    "unclear": "What is still unclear",
+    "support": "How to support at home",
+    "next": {
+      "eyebrow": "Next exploration",
+      "connected": "Connected to: {{signals}}",
+      "note": "A small activity to test a signal through real experience — not a commitment or a career choice.",
+      "completed": "Mission completed",
+      "inProgress": "Mission in progress",
+      "available": "Mission available",
+      "explores": "explores {{areas}}",
+      "added": "Added to their Passport evidence"
+    },
+    "starter": "A conversation starter",
+    "notStarted": {
+      "title": "Discovery hasn't started yet.",
+      "text": "{{name}} hasn't completed the Discovery assessment, so there isn't enough evidence to describe anything yet — and we won't guess. Once they begin, you'll see:",
+      "later": {
+        "signals": "Their strongest current interest signals, and how much evidence supports them.",
+        "explored": "What they have explored — and where exposure is still limited.",
+        "ideas": "Calm, practical ideas for supporting them at home."
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Parent overview",
+      "title": "Understand their journey, not just their scores.",
+      "intro": "A calm view of what {{name}} is exploring, how much evidence there is, and how you can support them.",
+      "introEmpty": "{{name}}'s Gifted Passport will appear here once they start discovering.",
+      "theirJourney": "Their journey",
+      "journeyNote": {
+        "EMERGING": "Discover is complete. The next stage begins when they try a hands-on mission.",
+        "GROWING": "They've moved from discovering to exploring. Validate opens as more varied evidence builds up."
+      }
+    },
+    "states": {
+      "error": "We couldn't load this page right now.",
+      "noChild": "No child connected yet",
+      "noChildText": "Ask your child for their Gifted connection code (it looks like <code>GFT-48291</code>) to see their growth signals here."
+    },
+    "insights": {
+      "title": "{{name}}'s current picture, explained",
+      "intro": "What we're seeing, the evidence behind it, what's still uncertain — and how to help without deciding too early.",
+      "seeing": "What we're seeing",
+      "aiNote": "AI-assisted: written from the signals and activities below. It explains them — it never scores your child.",
+      "signalNote": "Written from the signals and activities below.",
+      "evidenceSignals": "Evidence behind it: signals",
+      "fromAnswers": "From {{count}} assessment answers.",
+      "level": {
+        "HIGH": "Consistent",
+        "MEDIUM": "Developing",
+        "LOW": "Early"
+      },
+      "scoreNote": "A score is the share of chances where your child picked that interest. Mission evidence is recorded separately and never changes these numbers.",
+      "evidenceActivities": "Evidence behind it: activities",
+      "noActivities": "No hands-on activities yet — so far the picture comes only from the assessment. A first mission will add evidence from real choices.",
+      "beyondNote": "Early reasoning, work style, values and experience — kept separate from interests.",
+      "uncertain": "What is still uncertain",
+      "updates": "Updates when {{name}} adds new evidence."
+    }
+  }
+}

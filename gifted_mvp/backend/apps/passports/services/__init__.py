@@ -7,6 +7,8 @@ Trust rules:
 - Interpretation comes only from the persisted `AIInsight`; if there is none
   the deterministic fallback is derived on the fly. No LLM call ever happens here,
   and new evidence does not trigger regeneration (that is a later explicit action).
+- Display text follows the request language (`common.i18n`); scores, statuses and
+  evidence never depend on it. A saved insight is only reused in its own language.
 """
 from __future__ import annotations
 
@@ -22,27 +24,17 @@ from apps.ai.services.profile_synthesis import (
     get_saved_profile_insight,
 )
 from apps.assessments.models import AssessmentSession, SessionStatus
-from apps.evidence.models import Evidence, EvidenceKind, EvidenceSource
+from apps.evidence.models import Evidence, EvidenceSource
 from apps.missions.models import MissionAttempt
-from apps.missions.serializers import mission_summary
+from apps.missions.serializers import evidence_title, mission_summary
 from apps.missions.services import featured_mission, match_mission
 from apps.signals.models import LearnerSignal
+from common.i18n import current_language, label, tr
 
 from ..models import Passport, PassportStatus
 
-EVOLVING_MESSAGE = (
-    "Your Gifted Passport grows with you. Assessments are only the beginning — future "
-    "missions and real experiences will add new evidence."
-)
-
-# Journey stages. Discover = assessment; Explore = first exploration mission.
-JOURNEY_STAGES = [
-    ("discover", "Discover"),
-    ("explore", "Explore"),
-    ("validate", "Validate"),
-    ("develop", "Develop"),
-    ("guide", "Guide"),
-]
+# Journey stages (labels in common.i18n). Discover = assessment; Explore = first exploration mission.
+JOURNEY_STAGES = ["discover", "explore", "validate", "develop", "guide"]
 
 _NON_ASSESSMENT = [s for s in EvidenceSource.values if s != EvidenceSource.ASSESSMENT]
 
@@ -93,19 +85,19 @@ def _display_name(learner) -> str:
     return learner.full_name.strip() or learner.email.split("@")[0]
 
 
-def _insight_for(session: AssessmentSession):
-    """(insight dict, source, saved_row_or_None, responses_answered).
+def _insight_for(session: AssessmentSession, language: str):
+    """(insight dict, source, saved_row_or_None, responses_answered) in `language`.
     Read-only, never calls a provider."""
-    saved = get_saved_profile_insight(session)
+    saved = get_saved_profile_insight(session, language)
     if saved is not None:
         return saved.result, saved.source, saved, None
-    signal_input = build_signal_input(session)
-    return build_fallback(signal_input), InsightSource.FALLBACK, None, signal_input["questions_answered"]
+    signal_input = build_signal_input(session, language)
+    return build_fallback(signal_input, language), InsightSource.FALLBACK, None, signal_input["questions_answered"]
 
 
 def current_next_step(learner) -> dict | None:
     session = _latest_completed_session(learner)
-    return _insight_for(session)[0]["next_step"] if session else None
+    return _insight_for(session, current_language())[0]["next_step"] if session else None
 
 
 def _recommended_mission(learner, next_step: dict | None) -> dict | None:
@@ -133,27 +125,25 @@ def _evidence_overview(learner) -> dict:
         .prefetch_related("contributions__signal")
         .order_by("-created_at")[:5]
     )
-    kinds = dict(EvidenceKind.choices)
-    sources = dict(EvidenceSource.choices)
-
     dimensions: OrderedDict[str, dict] = OrderedDict()
     recent_items = []
     for ev in recent:
         dims = []
         for c in sorted(ev.contributions.all(), key=lambda c: (-c.weight, c.signal.label)):
-            dims.append({"key": c.signal.key, "label": c.signal.label, "kind_label": kinds[c.kind]})
+            signal_label, kind_label = tr(c.signal, "label"), label("evidence_kind", c.kind)
+            dims.append({"key": c.signal.key, "label": signal_label, "kind_label": kind_label})
             d = dimensions.setdefault(
-                c.signal.key, {"key": c.signal.key, "label": c.signal.label, "kinds": [], "activities": 0}
+                c.signal.key, {"key": c.signal.key, "label": signal_label, "kinds": [], "activities": 0}
             )
             d["activities"] += 1
-            if kinds[c.kind] not in d["kinds"]:
-                d["kinds"].append(kinds[c.kind])
+            if kind_label not in d["kinds"]:
+                d["kinds"].append(kind_label)
         recent_items.append(
             {
                 "id": ev.id,
-                "title": ev.title,
+                "title": evidence_title(ev),
                 "source_type": ev.source_type,
-                "source_label": sources[ev.source_type],
+                "source_label": label("evidence_source", ev.source_type),
                 "created_at": ev.created_at,
                 "dimensions": dims,
             }
@@ -173,7 +163,8 @@ def passport_snapshot(learner) -> dict:
     return {"status": passport.status, "version": passport.version, "missions": missions}
 
 
-def build_passport(learner) -> dict:
+def build_passport(learner, language: str | None = None) -> dict:
+    language = language or current_language()
     session = _latest_completed_session(learner)
     passport = sync_passport(learner, session)
     overview = _evidence_overview(learner) if session else None
@@ -191,12 +182,12 @@ def build_passport(learner) -> dict:
         "journey": [
             {
                 "key": key,
-                "label": label,
+                "label": label("journey", key, language),
                 "done": (key == "discover" and session is not None) or (key == "explore" and missions_done > 0),
             }
-            for key, label in JOURNEY_STAGES
+            for key in JOURNEY_STAGES
         ],
-        "message": EVOLVING_MESSAGE,
+        "message": label("text", "evolving", language),
         "updated_at": passport.updated_at,
     }
 
@@ -230,7 +221,7 @@ def build_passport(learner) -> dict:
     def row(ls):
         return {
             "key": ls.signal.key,
-            "label": ls.signal.label,
+            "label": tr(ls.signal, "label", language),
             "category": ls.signal.category,
             "score": ls.score,
             "confidence": ls.confidence,
@@ -244,7 +235,7 @@ def build_passport(learner) -> dict:
     other_signals = [row(ls) for ls in learner_signals if ls.signal.category != "INTEREST"]
     labels = {s["key"]: s["label"] for s in signals}
 
-    insight, source, saved, answered = _insight_for(session)
+    insight, source, saved, answered = _insight_for(session, language)
     profile, step = insight["profile"], insight["next_step"]
     assessment_responses = answered if answered is not None else session.responses.count()
     counts = overview["counts"]

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "../../api/auth";
 import { useAuth } from "../../features/auth/AuthContext";
@@ -6,6 +7,7 @@ import { HOME_BY_ROLE } from "../../features/auth/RequireAuth";
 import type { Role } from "../../types/auth";
 
 export function RegisterPage() {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
@@ -24,7 +26,7 @@ export function RegisterPage() {
       const user = await login(email, password);
       navigate(HOME_BY_ROLE[user.role], { replace: true });
     } catch {
-      setError("Could not create the account. Try a different email or a stronger password.");
+      setError(t("register.error"));
     } finally {
       setBusy(false);
     }
@@ -33,8 +35,8 @@ export function RegisterPage() {
   return (
     <section className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-6">
       <form onSubmit={onSubmit} className="card w-full">
-        <h1 className="text-2xl">Create your account</h1>
-        <p className="mt-1 text-sm text-sage-600">Begin your Gifted journey.</p>
+        <h1 className="text-2xl">{t("register.title")}</h1>
+        <p className="mt-1 text-sm text-sage-600">{t("register.subtitle")}</p>
 
         <div className="mt-6 grid grid-cols-2 gap-2">
           {(["STUDENT", "PARENT"] as const).map((r) => (
@@ -48,15 +50,15 @@ export function RegisterPage() {
                   : "border-sage-200 text-sage-600 hover:border-forest-600/40"
               }`}
             >
-              {r === "STUDENT" ? "Student" : "Parent"}
+              {t(r === "STUDENT" ? "roles.student" : "roles.parent")}
             </button>
           ))}
         </div>
 
-        <label className="mt-4 block text-sm font-medium text-forest-700">Full name</label>
+        <label className="mt-4 block text-sm font-medium text-forest-700">{t("auth.fullName")}</label>
         <input className="input mt-1.5" value={fullName} onChange={(e) => setFullName(e.target.value)} />
 
-        <label className="mt-4 block text-sm font-medium text-forest-700">Email</label>
+        <label className="mt-4 block text-sm font-medium text-forest-700">{t("auth.email")}</label>
         <input
           className="input mt-1.5"
           type="email"
@@ -65,7 +67,7 @@ export function RegisterPage() {
           required
         />
 
-        <label className="mt-4 block text-sm font-medium text-forest-700">Password</label>
+        <label className="mt-4 block text-sm font-medium text-forest-700">{t("auth.password")}</label>
         <input
           className="input mt-1.5"
           type="password"
@@ -77,12 +79,12 @@ export function RegisterPage() {
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
         <button className="btn-primary mt-6 w-full" disabled={busy}>
-          {busy ? "Creating…" : "Create account"}
+          {busy ? t("register.creating") : t("register.submit")}
         </button>
         <p className="mt-4 text-center text-sm text-sage-600">
-          Already have an account?{" "}
+          {t("register.haveAccount")}{" "}
           <Link to="/login" className="text-forest-700 underline-offset-2 hover:underline">
-            Log in
+            {t("public.logIn")}
           </Link>
         </p>
       </form>

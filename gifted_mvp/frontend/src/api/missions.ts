@@ -34,8 +34,8 @@ export const missionsApi = {
   },
 };
 
-/** Pull a human message out of the API's `{error: {detail}}` envelope. */
-export function apiErrorMessage(err: unknown, fallback = "Something went wrong. Please try again."): string {
+/** Pull a human message out of the API's `{error: {detail}}` envelope (callers pass a localized fallback). */
+export function apiErrorMessage(err: unknown, fallback: string): string {
   if (!isAxiosError(err)) return fallback;
   const detail = (err.response?.data as { error?: { detail?: unknown } } | undefined)?.error?.detail;
   if (typeof detail === "string") return detail;

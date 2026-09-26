@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.questions.serializers import QuestionSerializer
+from common.i18n import tr
 
 from .models import Assessment, AssessmentResponse, AssessmentSession
 
@@ -27,6 +28,11 @@ class AssessmentListSerializer(serializers.ModelSerializer):
         session = obj.sessions.filter(learner=user).order_by("-started_at").first()
         return LatestSessionSerializer(session).data if session else None
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["title"], data["description"] = tr(instance, "title"), tr(instance, "description")
+        return data
+
 
 class AssessmentDetailSerializer(serializers.ModelSerializer):
     question_count = serializers.SerializerMethodField()
@@ -37,6 +43,11 @@ class AssessmentDetailSerializer(serializers.ModelSerializer):
 
     def get_question_count(self, obj: Assessment) -> int:
         return sum(section.questions.filter(is_active=True).count() for section in obj.sections.all())
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["title"], data["description"] = tr(instance, "title"), tr(instance, "description")
+        return data
 
 
 class AssessmentSessionSerializer(serializers.ModelSerializer):

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import heroImage from "../../assets/parent/parent_insights_hero.webp";
 import {
   CardTitle,
@@ -16,12 +17,12 @@ import { SignalGroups } from "../../features/assessment/SignalGroups";
 import { useParentOverview } from "../../features/parent/useParentOverview";
 import { ChartIcon, CompassIcon, DocIcon, LeafIcon, SparkIcon } from "../../features/passport/icons";
 import { SignalStrength } from "../../features/passport/PassportSections";
+import { formatDate } from "../../utils/date";
 import { iconForSignal } from "../../utils/signalIcons";
-
-const CONFIDENCE_WORD = { HIGH: "Consistent", MEDIUM: "Developing", LOW: "Early" } as const;
 
 /** /parent/insights — the explanation behind the dashboard summary. */
 export function ParentInsightsPage() {
+  const { t, i18n } = useTranslation();
   const { loading, error, noChild, data, insight, insightLoading } = useParentOverview();
 
   if (loading || error) return <ParentPageState error={error} />;
@@ -32,10 +33,8 @@ export function ParentInsightsPage() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <PhotoHero image={heroImage} eyebrow="Parent insights" title={`${name}'s current picture, explained`}>
-        <p className="mt-3 max-w-xl leading-relaxed text-forest-700/85">
-          What we're seeing, the evidence behind it, what's still uncertain — and how to help without deciding too early.
-        </p>
+      <PhotoHero image={heroImage} eyebrow={t("nav.parentInsights")} title={t("parent.insights.title", { name })}>
+        <p className="mt-3 max-w-xl leading-relaxed text-forest-700/85">{t("parent.insights.intro")}</p>
         <LearnerChips data={data} />
       </PhotoHero>
 
@@ -47,7 +46,7 @@ export function ParentInsightsPage() {
           <section>
             {insight ? (
               <div className="card md:p-8">
-                <CardTitle icon={<LeafIcon className="h-4 w-4" />} title="What we're seeing" aside={<InsightBadge source={insight.source} />} />
+                <CardTitle icon={<LeafIcon className="h-4 w-4" />} title={t("parent.insights.seeing")} aside={<InsightBadge source={insight.source} />} />
                 <p className="mt-4 max-w-3xl font-serif text-xl leading-snug text-forest-700">{insight.content.summary}</p>
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
                   {insight.content.what_we_are_seeing.map((s) => (
@@ -58,9 +57,7 @@ export function ParentInsightsPage() {
                   ))}
                 </div>
                 <p className="mt-4 text-xs text-sage-600">
-                  {insight.source === "AI"
-                    ? "AI-assisted: written from the signals and activities below. It explains them — it never scores your child."
-                    : "Written from the signals and activities below."}
+                  {insight.source === "AI" ? t("parent.insights.aiNote") : t("parent.insights.signalNote")}
                 </p>
               </div>
             ) : insightLoading ? (
@@ -71,8 +68,8 @@ export function ParentInsightsPage() {
           {/* 2. Evidence behind it */}
           <section className="grid gap-5 lg:grid-cols-2">
             <div className="card">
-              <CardTitle icon={<ChartIcon className="h-4 w-4" />} title="Evidence behind it: signals" />
-              <p className="mt-1 text-sm text-sage-600">From {answered} assessment answers.</p>
+              <CardTitle icon={<ChartIcon className="h-4 w-4" />} title={t("parent.insights.evidenceSignals")} />
+              <p className="mt-1 text-sm text-sage-600">{t("parent.insights.fromAnswers", { count: answered })}</p>
               <ul className="mt-5 space-y-4">
                 {(data.current_signals ?? []).map((s) => (
                   <li key={s.key}>
@@ -81,7 +78,7 @@ export function ParentInsightsPage() {
                         {iconForSignal(s.key)} {s.label}
                       </span>
                       <span className="text-sage-600">
-                        {CONFIDENCE_WORD[s.confidence]} · {s.evidence_count}/{s.opportunity_count || answered}
+                        {t(`parent.insights.level.${s.confidence}`)} · {s.evidence_count}/{s.opportunity_count || answered}
                       </span>
                     </div>
                     <div className="mt-2">
@@ -91,12 +88,11 @@ export function ParentInsightsPage() {
                 ))}
               </ul>
               <p className="mt-5 rounded-xl bg-cream-50 px-4 py-3 text-xs leading-relaxed text-sage-600">
-                A score is the share of chances where your child picked that interest. Mission evidence is recorded
-                separately and never changes these numbers.
+                {t("parent.insights.scoreNote")}
               </p>
             </div>
             <div className="card">
-              <CardTitle icon={<DocIcon className="h-4 w-4" />} title="Evidence behind it: activities" />
+              <CardTitle icon={<DocIcon className="h-4 w-4" />} title={t("parent.insights.evidenceActivities")} />
               {data.recent_activity && data.recent_activity.length > 0 ? (
                 <>
                   <ul className="mt-4 space-y-3">
@@ -105,12 +101,12 @@ export function ParentInsightsPage() {
                         <p className="font-medium text-forest-700">{a.title}</p>
                         <p className="text-xs text-sage-600">
                           {a.source_label} ·{" "}
-                          {new Date(a.created_at).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}
+                          {formatDate(a.created_at, i18n.resolvedLanguage)}
                         </p>
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-5 text-xs font-medium uppercase tracking-wider text-sage-600">Explored so far</p>
+                  <p className="mt-5 text-xs font-medium uppercase tracking-wider text-sage-600">{t("passport.log.explored")}</p>
                   <ul className="mt-2 divide-y divide-cream-200">
                     {(data.explored_dimensions ?? []).map((d) => (
                       <li key={d.key} className="flex items-center justify-between gap-3 py-2 text-sm">
@@ -122,8 +118,7 @@ export function ParentInsightsPage() {
                 </>
               ) : (
                 <p className="mt-4 rounded-xl bg-cream-50 px-4 py-3 text-sm leading-relaxed text-forest-700">
-                  No hands-on activities yet — so far the picture comes only from the assessment. A first mission will
-                  add evidence from real choices.
+                  {t("parent.insights.noActivities")}
                 </p>
               )}
             </div>
@@ -131,8 +126,8 @@ export function ParentInsightsPage() {
 
           {data.other_signals && data.other_signals.length > 0 && (
             <section>
-              <h2 className="text-xl">Beyond interests</h2>
-              <p className="mt-0.5 text-sm text-sage-600">Early reasoning, work style, values and experience — kept separate from interests.</p>
+              <h2 className="text-xl">{t("result.beyond")}</h2>
+              <p className="mt-0.5 text-sm text-sage-600">{t("parent.insights.beyondNote")}</p>
               <div className="mt-4">
                 <SignalGroups signals={data.other_signals} voice="they" />
               </div>
@@ -141,12 +136,12 @@ export function ParentInsightsPage() {
 
           {/* 3. Uncertainty */}
           <section className="card">
-            <CardTitle icon={<CompassIcon className="h-4 w-4" />} title="What is still uncertain" />
+            <CardTitle icon={<CompassIcon className="h-4 w-4" />} title={t("parent.insights.uncertain")} />
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               {/* The parent insight already reflects evidence limits; fall back to the Passport's gaps only without it. */}
-              {(insight?.content.what_is_still_unclear ?? data.areas_to_explore ?? []).map((t) => (
-                <p key={t} className="rounded-xl bg-cream-50 px-4 py-3 text-sm leading-relaxed text-forest-700">
-                  {t}
+              {(insight?.content.what_is_still_unclear ?? data.areas_to_explore ?? []).map((item) => (
+                <p key={item} className="rounded-xl bg-cream-50 px-4 py-3 text-sm leading-relaxed text-forest-700">
+                  {item}
                 </p>
               ))}
             </div>
@@ -166,7 +161,7 @@ export function ParentInsightsPage() {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <PrivacyNote text={data.privacy_note} />
             <span className="inline-flex items-center gap-1.5 text-xs text-sage-600">
-              <SparkIcon className="h-3.5 w-3.5" /> Updates when {name} adds new evidence.
+              <SparkIcon className="h-3.5 w-3.5" /> {t("parent.insights.updates", { name })}
             </span>
           </div>
         </div>

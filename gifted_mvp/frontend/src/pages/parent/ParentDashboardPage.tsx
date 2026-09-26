@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import heroImage from "../../assets/parent/parent_hero_sunrise.webp";
 import {
   CurrentPicture,
@@ -16,13 +17,9 @@ import { NoChildConnected, ParentPageState } from "../../features/parent/ParentS
 import { useParentOverview } from "../../features/parent/useParentOverview";
 import { JourneyProgress } from "../../features/passport/PassportSections";
 
-const JOURNEY_NOTE = {
-  EMERGING: "Discover is complete. The next stage begins when they try a hands-on mission.",
-  GROWING: "They've moved from discovering to exploring. Validate opens as more varied evidence builds up.",
-} as const;
-
 /** /parent — summary. The deeper explanation lives on /parent/insights. */
 export function ParentDashboardPage() {
+  const { t } = useTranslation();
   const { loading, error, noChild, data, insight, insightLoading } = useParentOverview();
 
   if (loading || error) return <ParentPageState error={error} />;
@@ -31,11 +28,9 @@ export function ParentDashboardPage() {
   const name = data.learner.first_name;
   return (
     <div className="mx-auto max-w-6xl">
-      <PhotoHero image={heroImage} eyebrow="Parent overview" title="Understand their journey, not just their scores.">
+      <PhotoHero image={heroImage} eyebrow={t("parent.dashboard.eyebrow")} title={t("parent.dashboard.title")}>
         <p className="mt-3 max-w-xl leading-relaxed text-forest-700/85">
-          {data.has_evidence
-            ? `A calm view of what ${name} is exploring, how much evidence there is, and how you can support them.`
-            : `${name}'s Gifted Passport will appear here once they start discovering.`}
+          {data.has_evidence ? t("parent.dashboard.intro", { name }) : t("parent.dashboard.introEmpty", { name })}
         </p>
         <p className="mt-5 font-serif text-2xl text-forest-700">{data.learner.display_name}</p>
         <LearnerChips data={data} />
@@ -47,7 +42,11 @@ export function ParentDashboardPage() {
         <div className="mt-6 space-y-5">
           <div className="grid gap-5 lg:grid-cols-[1fr_1.15fr]">
             <CurrentPicture data={data} />
-            <JourneyProgress title="Their journey" stages={data.journey} note={JOURNEY_NOTE[data.status as keyof typeof JOURNEY_NOTE]} />
+            <JourneyProgress
+              title={t("parent.dashboard.theirJourney")}
+              stages={data.journey}
+              note={data.status === "EMERGING" || data.status === "GROWING" ? t(`parent.dashboard.journeyNote.${data.status}`) : undefined}
+            />
           </div>
 
           <div className="grid gap-5 lg:grid-cols-[1.6fr_1fr]">

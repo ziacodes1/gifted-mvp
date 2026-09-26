@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { ProfileInsight } from "../../types/ai";
 import type { SignalResult } from "../../types/assessment";
 import { iconForSignal } from "../../utils/signalIcons";
 
-const LOADING_STEPS = [
-  "Connecting your signals…",
-  "Looking for patterns in your current evidence…",
-  "Preparing your emerging profile…",
-];
+const LOADING_STEPS = ["insight.loading.connecting", "insight.loading.patterns", "insight.loading.preparing"];
 
 /** Lightweight generation state: rotating copy + skeleton, no fake percentages. */
 export function InsightLoading() {
+  const { t } = useTranslation();
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setStep((s) => Math.min(s + 1, LOADING_STEPS.length - 1)), 2200);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setStep((s) => Math.min(s + 1, LOADING_STEPS.length - 1)), 2200);
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -25,7 +23,7 @@ export function InsightLoading() {
           <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold-500" />
         </span>
         <p key={step} className="animate-fade-in text-sm font-medium text-forest-700">
-          {LOADING_STEPS[step]}
+          {t(LOADING_STEPS[step])}
         </p>
       </div>
       <div className="mt-5 grid gap-6 md:grid-cols-[1.4fr_1fr]">
@@ -46,22 +44,20 @@ export function InsightLoading() {
 }
 
 function AiBadge({ source }: { source: ProfileInsight["source"] }) {
+  const { t } = useTranslation();
   return (
     <span
       className="inline-flex items-center gap-1 rounded-full border border-cream-200 bg-cream-50 px-2.5 py-0.5 text-[11px] font-medium text-sage-600"
-      title={
-        source === "AI"
-          ? "Written with AI from your assessment signals — it explains them and never changes them."
-          : "Written from your assessment signals."
-      }
+      title={source === "AI" ? t("insight.badge.aiTitle") : t("insight.badge.signalTitle")}
     >
-      <span aria-hidden>✦</span> {source === "AI" ? "AI-assisted insight" : "Signal-based insight"}
+      <span aria-hidden>✦</span> {source === "AI" ? t("insight.badge.ai") : t("insight.badge.signal")}
     </span>
   );
 }
 
 /** Overall insight + Next step (reference layout: two-column hero card). */
 export function InsightHero({ insight, signals }: { insight: ProfileInsight; signals: SignalResult[] }) {
+  const { t } = useTranslation();
   const { profile, next_step } = insight;
   const labelFor = (key: string) => signals.find((s) => s.key === key)?.label ?? key;
 
@@ -69,7 +65,7 @@ export function InsightHero({ insight, signals }: { insight: ProfileInsight; sig
     <div className="card mt-6 grid gap-6 md:grid-cols-[1.4fr_1fr]">
       <div>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-xs font-medium uppercase tracking-widest text-sage-600">Overall insight</p>
+          <p className="text-xs font-medium uppercase tracking-widest text-sage-600">{t("insight.overall")}</p>
           <AiBadge source={insight.source} />
         </div>
         <h2 className="mt-2 text-xl leading-snug text-forest-800">{profile.headline}</h2>
@@ -86,15 +82,15 @@ export function InsightHero({ insight, signals }: { insight: ProfileInsight; sig
       </div>
 
       <div className="md:border-l md:border-cream-200 md:pl-6">
-        <p className="text-xs font-medium uppercase tracking-widest text-gold-600">Your next step</p>
+        <p className="text-xs font-medium uppercase tracking-widest text-gold-600">{t("dashboard.next.eyebrow")}</p>
         <h3 className="mt-2 text-lg leading-snug text-forest-800">{next_step.title}</h3>
         <span className="mt-1 inline-block rounded-full bg-gold-50 px-2 py-0.5 text-[11px] font-medium capitalize text-gold-600">
-          {next_step.activity_type}
+          {t(`activity.${next_step.activity_type}`, { defaultValue: next_step.activity_type })}
         </span>
         <p className="mt-3 text-sm leading-relaxed text-forest-700">{next_step.reason}</p>
         <dl className="mt-3 space-y-2 text-sm">
           <div>
-            <dt className="text-xs font-medium text-sage-600">Based on</dt>
+            <dt className="text-xs font-medium text-sage-600">{t("insight.basedOn")}</dt>
             <dd className="mt-1 flex flex-wrap gap-1.5">
               {next_step.signals_used.map((k) => (
                 <span key={k} className="rounded-full bg-forest-50 px-2 py-0.5 text-xs text-forest-700">
@@ -104,7 +100,7 @@ export function InsightHero({ insight, signals }: { insight: ProfileInsight; sig
             </dd>
           </div>
           <div>
-            <dt className="text-xs font-medium text-sage-600">What this helps clarify</dt>
+            <dt className="text-xs font-medium text-sage-600">{t("insight.helpsClarify")}</dt>
             <dd className="text-forest-700">{next_step.intended_validation}</dd>
           </div>
         </dl>
@@ -116,11 +112,12 @@ export function InsightHero({ insight, signals }: { insight: ProfileInsight; sig
 
 /** Emerging strengths + areas needing more evidence. */
 export function InsightDetails({ insight }: { insight: ProfileInsight }) {
+  const { t } = useTranslation();
   const { profile } = insight;
   return (
     <div className="mt-8 grid gap-4 md:grid-cols-2">
       <div className="card">
-        <h2 className="text-lg">Emerging strengths</h2>
+        <h2 className="text-lg">{t("insight.strengths")}</h2>
         <ul className="mt-3 space-y-3">
           {profile.emerging_strengths.map((s) => (
             <li key={s.title}>
@@ -131,8 +128,8 @@ export function InsightDetails({ insight }: { insight: ProfileInsight }) {
         </ul>
       </div>
       <div className="card">
-        <h2 className="text-lg">Worth exploring further</h2>
-        <p className="text-sm text-sage-600">Areas where there isn't enough evidence yet.</p>
+        <h2 className="text-lg">{t("insight.exploreFurther")}</h2>
+        <p className="text-sm text-sage-600">{t("insight.exploreFurtherNote")}</p>
         {profile.exposure_gaps.length > 0 && (
           <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-forest-700">
             {profile.exposure_gaps.map((g) => (

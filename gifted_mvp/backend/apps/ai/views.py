@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.assessments.models import AssessmentSession, SessionStatus
+from common.i18n import current_language
 from common.permissions.roles import IsStudent
 
 from .services.profile_synthesis import get_or_create_profile_insight
@@ -19,6 +20,8 @@ class ProfileSynthesisView(APIView):
 
     Idempotent — repeated calls return the persisted insight. Scores are never
     accepted from the client; the backend re-derives them from stored responses.
+    The output language comes from Accept-Language (normalized en|uz|ru); each
+    language is generated once and then reused.
     """
 
     permission_classes = [IsStudent]
@@ -40,10 +43,12 @@ class ProfileSynthesisView(APIView):
             if session is None:
                 raise NotFound("No completed assessment yet.")
 
-        insight = get_or_create_profile_insight(session)
+        language = current_language()
+        insight = get_or_create_profile_insight(session, language)
         return Response(
             {
                 "session_id": session.id,
+                "language": insight.language,
                 "source": insight.source,
                 "profile": insight.result["profile"],
                 "next_step": insight.result["next_step"],

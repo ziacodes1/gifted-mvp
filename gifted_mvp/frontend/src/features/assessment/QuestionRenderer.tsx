@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import type { PuzzleStimulus, Question, QuestionOption } from "../../types/assessment";
 import { CheckIcon } from "../passport/icons";
 import { assessmentImage } from "./assessmentAssets";
@@ -6,18 +7,10 @@ import { OptionCard } from "./OptionCard";
 
 type Props = { question: Question; selected: number[]; onSelect: (optionId: number) => void };
 
-const EYEBROW: Record<Question["type"], string> = {
-  SINGLE_CHOICE: "Your interests",
-  VISUAL_CHOICE: "Pick an activity",
-  STORY_CHOICE: "A moment at school",
-  SCENARIO_CHOICE: "A real situation",
-  VALUE_TRADEOFF: "What matters to you",
-  MULTI_SELECT: "Your experience so far",
-  PATTERN_CHOICE: "Quick puzzle",
-};
-
-/** Dispatches on `question.type`: new types only need a layout here, not a new page. */
+/** Dispatches on `question.type`: new types only need a layout here, not a new page.
+ * Question text comes localized from the server; only the eyebrow is a UI string. */
 export function QuestionRenderer(props: Props) {
+  const { t } = useTranslation();
   const { question } = props;
   const body = (() => {
     switch (question.type) {
@@ -45,7 +38,7 @@ export function QuestionRenderer(props: Props) {
 
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-widest text-sage-600">{EYEBROW[question.type]}</p>
+      <p className="text-xs font-medium uppercase tracking-widest text-sage-600">{t(`assessment.eyebrow.${question.type}`)}</p>
       {question.content.scenario && (
         <div className="mt-3 rounded-2xl border border-gold-400/30 bg-gold-50 px-5 py-4 font-serif text-lg leading-snug text-forest-700">
           {question.content.scenario}
@@ -146,6 +139,7 @@ function TextChoice({ question, selected, onSelect }: Props) {
 
 /** Two contrasting choices with an "or" between them. */
 function Tradeoff({ question, selected, onSelect }: Props) {
+  const { t } = useTranslation();
   const [a, b] = question.options;
   const card = (o: QuestionOption) => {
     const on = selected.includes(o.id);
@@ -168,7 +162,7 @@ function Tradeoff({ question, selected, onSelect }: Props) {
   return (
     <div role="radiogroup" className="grid items-center gap-3 md:grid-cols-[1fr_auto_1fr]">
       {a && card(a)}
-      <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-gold-50 font-serif italic text-gold-600">or</span>
+      <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-gold-50 font-serif italic text-gold-600">{t("assessment.or")}</span>
       {b && card(b)}
     </div>
   );
@@ -250,6 +244,7 @@ function Stimulus({ stimulus }: { stimulus: PuzzleStimulus }): ReactNode {
 
 /** Centered puzzle with answer tiles below. Correct answers live only on the server. */
 function Puzzle({ question, selected, onSelect }: Props) {
+  const { t } = useTranslation();
   const stimulus = question.content.stimulus;
   return (
     <div>
@@ -267,7 +262,7 @@ function Puzzle({ question, selected, onSelect }: Props) {
               type="button"
               role="radio"
               aria-checked={on}
-              aria-label={`Option ${o.label}`}
+              aria-label={t("assessment.optionLabel", { label: o.label })}
               onClick={() => onSelect(o.id)}
               className={`flex aspect-square flex-col items-center justify-center rounded-2xl border p-3 transition ${selectableClass(on)}`}
             >

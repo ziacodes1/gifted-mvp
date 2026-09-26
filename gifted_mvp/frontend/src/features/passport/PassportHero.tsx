@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import passportBook from "../../assets/passport/gifted_passport_book.webp";
 import waveBanner from "../../assets/passport/passport_wave_banner.webp";
 import type { Passport } from "../../types/passport";
+import { formatDate } from "../../utils/date";
 import { SparkIcon } from "./icons";
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
-}
 
 /** Cream wave surface shared by the hero and the empty state. */
 export function WaveSurface({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -21,10 +19,11 @@ export function WaveSurface({ children, className = "" }: { children: ReactNode;
 }
 
 export function PassportBook({ className = "" }: { className?: string }) {
+  const { t } = useTranslation();
   return (
     <img
       src={passportBook}
-      alt="Gifted Passport"
+      alt={t("landing.passport.title")}
       className={`select-none drop-shadow-[0_18px_24px_rgba(22,51,38,0.25)] ${className}`}
       draggable={false}
     />
@@ -32,14 +31,16 @@ export function PassportBook({ className = "" }: { className?: string }) {
 }
 
 const STATUS_LABEL: Record<Passport["status"], string> = {
-  EMPTY: "Not started",
-  EMERGING: "Emerging Passport",
-  GROWING: "Growing Passport",
+  EMPTY: "passport.status.empty",
+  EMERGING: "passport.status.emerging",
+  GROWING: "passport.status.growing",
 };
 
 /** A. Passport identity: book object, learner, status, saved headline, passport facts. */
 export function PassportHero({ passport }: { passport: Passport }) {
-  const currentStage = [...passport.journey].reverse().find((s) => s.done)?.label ?? "Not started";
+  const { t, i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage;
+  const currentStage = [...passport.journey].reverse().find((s) => s.done)?.label ?? t("passport.status.empty");
 
   return (
     <WaveSurface>
@@ -48,14 +49,14 @@ export function PassportHero({ passport }: { passport: Passport }) {
 
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold-600">
-            Discover <span className="mx-1.5 text-gold-400">•</span> Explore{" "}
-            <span className="mx-1.5 text-gold-400">•</span> Become
+            {t("passport.hero.discover")} <span className="mx-1.5 text-gold-400">•</span> {t("passport.hero.explore")}{" "}
+            <span className="mx-1.5 text-gold-400">•</span> {t("passport.hero.become")}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <h2 className="text-2xl md:text-3xl">{passport.learner.display_name}</h2>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-forest-700 px-3 py-1 text-xs font-medium text-cream-50">
               <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-              {STATUS_LABEL[passport.status]}
+              {t(STATUS_LABEL[passport.status])}
             </span>
           </div>
           {passport.headline && (
@@ -66,18 +67,18 @@ export function PassportHero({ passport }: { passport: Passport }) {
               <div className="mt-3 h-0.5 w-12 rounded-full bg-gold-500" />
               <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-sage-600">
                 <SparkIcon className="h-3.5 w-3.5 text-gold-500" />
-                {passport.insight_source === "AI" ? "AI-assisted headline" : "Signal-based headline"} · evolves
-                with new evidence
+                {passport.insight_source === "AI" ? t("passport.hero.aiHeadline") : t("passport.hero.signalHeadline")} ·{" "}
+                {t("passport.hero.evolves")}
               </p>
             </>
           )}
         </div>
 
         <dl className="grid grid-cols-2 gap-x-6 gap-y-3 border-cream-200 text-sm md:col-span-2 lg:col-span-1 lg:grid-cols-1 lg:border-l lg:pl-8">
-          <Fact label="Passport no." value={passport.passport_number} />
-          <Fact label="Member since" value={formatDate(passport.learner.member_since)} />
-          <Fact label="Last updated" value={formatDate(passport.updated_at)} />
-          <Fact label="Journey stage" value={currentStage} />
+          <Fact label={t("passport.hero.number")} value={passport.passport_number} />
+          <Fact label={t("passport.hero.memberSince")} value={formatDate(passport.learner.member_since, lang)} />
+          <Fact label={t("passport.hero.lastUpdated")} value={formatDate(passport.updated_at, lang)} />
+          <Fact label={t("passport.hero.stage")} value={currentStage} />
         </dl>
       </div>
     </WaveSurface>

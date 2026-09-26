@@ -23,6 +23,7 @@ from django.utils import timezone
 from apps.evidence.models import EvidenceKind, EvidenceSource
 from apps.evidence.services import Contribution, record_evidence
 from apps.signals.models import Confidence, LearnerSignal, ResponseSignalMap, SignalCategory
+from common.i18n import tr
 
 from ..models import AssessmentSession, SessionStatus
 
@@ -87,7 +88,7 @@ def score_session(session: AssessmentSession) -> list[SignalResult]:
         results.append(
             SignalResult(
                 key=signal.key,
-                label=signal.label,
+                label=tr(signal, "label"),  # display only; scores never depend on language
                 category=signal.category,
                 score=score,
                 confidence=confidence_for(signal.category, score, evidence[signal_id]),

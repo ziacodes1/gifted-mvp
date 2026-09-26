@@ -7,6 +7,8 @@ class Assessment(models.Model):
     slug = models.SlugField(max_length=150, unique=True)
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "assessments_assessment"
@@ -20,6 +22,8 @@ class AssessmentSection(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150)
     order = models.PositiveIntegerField(default=0)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "assessments_section"

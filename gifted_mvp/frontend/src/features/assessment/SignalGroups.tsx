@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import type { PassportSignal } from "../../types/passport";
 import { CheckIcon, CompassIcon, LeafIcon, SparkIcon } from "../passport/icons";
 
@@ -32,6 +33,7 @@ function Chip({ children, muted = false }: { children: ReactNode; muted?: boolea
 /** Non-interest signals, grouped by type. Only groups with real evidence render;
  * exposure also lists what hasn't been tried yet (an open door, not a gap in ability). */
 export function SignalGroups({ signals, voice = "you" }: { signals: Signal[]; voice?: "you" | "they" }) {
+  const { t } = useTranslation();
   const by = (cat: string, withEvidence = true) =>
     signals.filter((s) => s.category === cat && (withEvidence ? s.evidence_count > 0 : s.evidence_count === 0));
   const reasoning = by("APTITUDE");
@@ -42,39 +44,38 @@ export function SignalGroups({ signals, voice = "you" }: { signals: Signal[]; vo
   const hasExposureQuestion = tried.length + notTried.length > 0;
 
   if (!reasoning.length && !style.length && !values.length && !hasExposureQuestion) return null;
-  const you = voice === "you" ? "you" : "they";
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {reasoning.length > 0 && (
         <Group
           icon={<SparkIcon className="h-4 w-4" />}
-          title="Reasoning"
-          note="From one or two quick puzzles — early evidence, not a measure of ability."
+          title={t("signals.groups.reasoning.title")}
+          note={t("signals.groups.reasoning.note")}
         >
           <div className="flex flex-wrap gap-2">
             {reasoning.map((s) => (
               <Chip key={s.key}>
-                <CheckIcon className="h-3.5 w-3.5" /> {s.label}: early evidence
+                <CheckIcon className="h-3.5 w-3.5" /> {t("signals.groups.reasoning.chip", { label: s.label })}
               </Chip>
             ))}
           </div>
         </Group>
       )}
       {style.length > 0 && (
-        <Group icon={<CompassIcon className="h-4 w-4" />} title="Work style" note={`How ${you} tend to approach things, from the situations in the assessment.`}>
+        <Group icon={<CompassIcon className="h-4 w-4" />} title={t("signals.groups.style.title")} note={t(`signals.groups.style.note_${voice}`)}>
           <ul className="space-y-1.5">
             {style.map((s) => (
               <li key={s.key} className="flex items-center justify-between gap-3 text-sm text-forest-700">
                 {s.label}
-                <span className="text-xs text-sage-600">{s.confidence === "MEDIUM" ? "clear leaning" : "a first hint"}</span>
+                <span className="text-xs text-sage-600">{s.confidence === "MEDIUM" ? t("signals.groups.style.clear") : t("signals.groups.style.hint")}</span>
               </li>
             ))}
           </ul>
         </Group>
       )}
       {values.length > 0 && (
-        <Group icon={<LeafIcon className="h-4 w-4" />} title="What matters" note="From the trade-off questions — neither side is better.">
+        <Group icon={<LeafIcon className="h-4 w-4" />} title={t("signals.groups.values.title")} note={t("signals.groups.values.note")}>
           <div className="flex flex-wrap gap-2">
             {values.map((s) => (
               <Chip key={s.key}>{s.label}</Chip>
@@ -89,8 +90,8 @@ export function SignalGroups({ signals, voice = "you" }: { signals: Signal[]; vo
               <path d="M4 19h16M6 15l4-4 3 3 5-6" />
             </svg>
           }
-          title="Experience so far"
-          note="What has been tried — experience, not skill. Untried areas are open doors."
+          title={t("signals.groups.exposure.title")}
+          note={t("signals.groups.exposure.note")}
         >
           {tried.length > 0 && (
             <div className="flex flex-wrap gap-2">
@@ -105,7 +106,7 @@ export function SignalGroups({ signals, voice = "you" }: { signals: Signal[]; vo
             <div className={`flex flex-wrap gap-2 ${tried.length ? "mt-2" : ""}`}>
               {notTried.map((s) => (
                 <Chip key={s.key} muted>
-                  Not tried yet: {s.label}
+                  {t("signals.groups.exposure.notTried", { label: s.label })}
                 </Chip>
               ))}
             </div>

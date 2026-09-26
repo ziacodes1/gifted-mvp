@@ -83,3 +83,28 @@ limited evidence in...", "Trying a short activity may help clarify...".
 - Never say a child "is definitely", "should become", is "weak at" or "bad at", has "no \
 potential", or that the parent should enrol them in something immediately. No job titles \
 as recommendations, no comparisons with other children, no diagnoses."""
+
+
+# --- Output language ------------------------------------------------------------
+# The language is a normalized code chosen by the backend (common.i18n.SUPPORTED),
+# never free text from the client. English keeps the prompts above unchanged, so
+# existing English insights stay valid; other languages append this rule.
+LANGUAGE_NAMES = {
+    "uz": "Uzbek (modern Uzbek in Latin script; simple, warm, student-friendly wording, no academic jargon)",
+    "ru": "Russian (natural, friendly Russian a teenager or parent would use; no bureaucratic wording)",
+}
+
+LANGUAGE_RULE = """
+
+Output language (strict): write EVERY user-facing string value in {name}.
+- JSON keys stay exactly as specified in English.
+- `signals_used` keeps the signal keys from the input exactly (e.g. "investigative").
+- `activity_type` keeps one of the English values listed above.
+- Signal and dimension labels in the input are already in the output language; reuse them.
+- All the rules above (no scores invented, no evidence invented, evidence sources kept \
+separate, no career verdicts, no banned phrases) apply equally in this language."""
+
+
+def with_language(system: str, language: str) -> str:
+    name = LANGUAGE_NAMES.get(language)
+    return system + LANGUAGE_RULE.format(name=name) if name else system

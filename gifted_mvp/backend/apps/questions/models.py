@@ -30,6 +30,8 @@ class Question(models.Model):
     content = models.JSONField(default=dict, blank=True)
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "questions_question"
@@ -48,6 +50,8 @@ class QuestionOption(models.Model):
     content = models.JSONField(default=dict, blank=True)  # e.g. puzzle glyph spec, {"exclusive": true}
     value = models.SlugField(max_length=50)
     order = models.PositiveIntegerField(default=0)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "questions_option"

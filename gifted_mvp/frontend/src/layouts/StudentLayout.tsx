@@ -3,10 +3,10 @@ import { ChartIcon, CompassIcon, DocIcon, HomeIcon } from "../features/passport/
 
 // Only finished, demo-ready sections are linked (journey/opportunities/profile are placeholders).
 const items: NavItem[] = [
-  { to: "/app", label: "Home", end: true, icon: <HomeIcon /> },
-  { to: "/app/assessment", label: "Assessments", icon: <ChartIcon /> },
-  { to: "/app/passport", label: "My Passport", icon: <DocIcon /> },
-  { to: "/app/missions", label: "Missions", icon: <CompassIcon /> },
+  { to: "/app", label: "nav.home", end: true, icon: <HomeIcon /> },
+  { to: "/app/assessment", label: "nav.assessments", icon: <ChartIcon /> },
+  { to: "/app/passport", label: "nav.passport", icon: <DocIcon /> },
+  { to: "/app/missions", label: "nav.missions", icon: <CompassIcon /> },
 ];
 
 export function StudentLayout() {

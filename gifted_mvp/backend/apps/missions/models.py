@@ -26,6 +26,8 @@ class Mission(models.Model):
     order = models.PositiveSmallIntegerField(default=0)
     # Presentation + matching hints: focus_areas, activity_label, time_label, match_keywords.
     metadata = models.JSONField(default=dict, blank=True)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "missions_mission"
@@ -51,6 +53,8 @@ class MissionStep(models.Model):
     prompt = models.TextField(blank=True)
     content = models.JSONField(default=dict, blank=True)
     order = models.PositiveSmallIntegerField(default=0)
+    # {"uz": {...}, "ru": {...}} — localized overrides of the English fields (see common.i18n).
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         db_table = "missions_step"

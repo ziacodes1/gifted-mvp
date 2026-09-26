@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from apps.evidence.models import EvidenceKind
+from apps.evidence.models import EvidenceSource
+from common.i18n import label, tr
 
 from .models import Mission, MissionAttempt, MissionStep
 
@@ -10,18 +11,24 @@ class MissionStepSerializer(serializers.ModelSerializer):
         model = MissionStep
         fields = ("id", "key", "type", "title", "prompt", "content", "order")
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        for f in ("title", "prompt", "content"):
+            data[f] = tr(instance, f)
+        return data
+
 
 def mission_summary(mission: Mission) -> dict:
-    meta = mission.metadata
+    meta = tr(mission, "metadata")
     return {
         "id": mission.id,
         "slug": mission.slug,
-        "title": mission.title,
-        "short_description": mission.short_description,
+        "title": tr(mission, "title"),
+        "short_description": tr(mission, "short_description"),
         "difficulty": mission.difficulty,
         "estimated_minutes": mission.estimated_minutes,
         "time_label": meta.get("time_label", f"{mission.estimated_minutes} min"),
-        "activity_label": meta.get("activity_label", "Mission"),
+        "activity_label": meta.get("activity_label", label("text", "mission_fallback")),
         "focus_areas": meta.get("focus_areas", []),
     }
 
@@ -37,19 +44,29 @@ class MissionDetailSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data.update({k: v for k, v in mission_summary(instance).items() if k not in data})
-        data["intro_steps"] = instance.metadata.get("intro_steps", [])
+        summary = mission_summary(instance)
+        data.update({k: v for k, v in summary.items() if k not in data})
+        data.update(title=summary["title"], short_description=summary["short_description"], context=tr(instance, "context"))
+        data["intro_steps"] = tr(instance, "metadata").get("intro_steps", [])
         return data
 
 
+def evidence_title(evidence) -> str:
+    """Evidence stores the English title at creation; show mission evidence in the request language."""
+    if evidence.source_type == EvidenceSource.MISSION:
+        mission = Mission.objects.filter(slug=(evidence.metadata or {}).get("mission")).first()
+        if mission:
+            return tr(mission, "title")
+    return evidence.title
+
+
 def evidence_result(evidence) -> dict:
-    kinds = dict(EvidenceKind.choices)
     return {
         "id": evidence.id,
-        "title": evidence.title,
+        "title": evidence_title(evidence),
         "created_at": evidence.created_at,
         "dimensions": [
-            {"key": c.signal.key, "label": c.signal.label, "kind": c.kind, "kind_label": kinds[c.kind]}
+            {"key": c.signal.key, "label": tr(c.signal, "label"), "kind": c.kind, "kind_label": label("evidence_kind", c.kind)}
             for c in evidence.contributions.select_related("signal").order_by("-weight", "signal__label")
         ],
     }

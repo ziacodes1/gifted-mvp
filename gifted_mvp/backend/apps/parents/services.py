@@ -14,10 +14,9 @@ from apps.ai.services.parent_insight import get_or_create_parent_insight, get_sa
 from apps.assessments.models import AssessmentSession, SessionStatus
 from apps.passports.services import build_passport
 from apps.signals.models import Signal, SignalCategory
+from common.i18n import current_language, label, tr
 
 from .models import LearnerConnectionCode, ParentChild
-
-PRIVACY_NOTE = "Gifted shares growth signals with parents, not every private response."
 
 
 def connected_learners(parent):
@@ -49,16 +48,17 @@ def _latest_session(learner):
     )
 
 
-def parent_insight_input(passport: dict) -> dict:
-    """Compact, trusted input for the Parent Insight model — no names, answers or reflections."""
+def parent_insight_input(passport: dict, language: str = "en") -> dict:
+    """Compact, trusted input for the Parent Insight model — no names, answers or reflections.
+    Labels come from `passport` (built in `language`); keys and numbers are language-independent."""
     evidence = passport["evidence_summary"]
     have = {s["key"] for s in passport["signals"]}
-    limited = list(
-        Signal.objects.filter(is_active=True, category=SignalCategory.INTEREST)
+    limited = [
+        tr(s, "label", language)
+        for s in Signal.objects.filter(is_active=True, category=SignalCategory.INTEREST)
         .exclude(key__in=have)
         .order_by("label")
-        .values_list("label", flat=True)
-    )
+    ]
     return {
         "passport_status": passport["status"],
         "journey_stages_reached": [s["label"] for s in passport["journey"] if s["done"]],
@@ -102,9 +102,10 @@ def _insight_payload(insight) -> dict | None:
     return {"source": insight.source, "content": insight.result, "generated_at": insight.updated_at}
 
 
-def build_parent_overview(learner) -> dict:
+def build_parent_overview(learner, language: str | None = None) -> dict:
     """Single aggregate for the parent dashboard + insights page. Never calls a model."""
-    passport = build_passport(learner)
+    language = language or current_language()
+    passport = build_passport(learner, language)
     stage = next((s["label"] for s in reversed(passport["journey"]) if s["done"]), None)
     base = {
         "learner": {
@@ -117,14 +118,14 @@ def build_parent_overview(learner) -> dict:
         },
         "status": passport["status"],
         "journey": passport["journey"],
-        "privacy_note": PRIVACY_NOTE,
+        "privacy_note": label("text", "privacy", language),
         "updated_at": passport["updated_at"],
     }
     if passport["status"] == "EMPTY":
         return {**base, "has_evidence": False, "parent_insight": None, "parent_insight_state": "NOT_AVAILABLE"}
 
     session = _latest_session(learner)
-    saved = get_saved_parent_insight(session, passport["version"])
+    saved = get_saved_parent_insight(session, passport["version"], language)
     mission = passport["recommended_mission"]
     return {
         **base,
@@ -166,11 +167,14 @@ def build_parent_overview(learner) -> dict:
     }
 
 
-def ensure_parent_insight(learner) -> dict | None:
-    """Get-or-generate the Parent Insight for the learner's current Passport version.
-    Idempotent and locked; at most one model call per evidence state."""
-    passport = build_passport(learner)
+def ensure_parent_insight(learner, language: str | None = None) -> dict | None:
+    """Get-or-generate the Parent Insight for the learner's current Passport version in the
+    request language. Idempotent and locked; at most one model call per evidence state and language."""
+    language = language or current_language()
+    passport = build_passport(learner, language)
     if passport["status"] == "EMPTY":
         return None
-    insight = get_or_create_parent_insight(_latest_session(learner), passport["version"], parent_insight_input(passport))
+    insight = get_or_create_parent_insight(
+        _latest_session(learner), passport["version"], parent_insight_input(passport, language), language
+    )
     return _insight_payload(insight)

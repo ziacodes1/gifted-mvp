@@ -3,6 +3,8 @@
 Steps are upserted by key (IDs stay stable, so in-progress responses survive a
 re-seed). Evidence rules are replaced wholesale — they are pure configuration.
 Weights are deliberately small: one mission adds evidence, it does not conclude.
+English here is canonical; Uzbek/Russian live in each row's `translations`
+(`_mission_i18n`). Rules below never depend on language.
 """
 from decimal import Decimal
 
@@ -11,7 +13,10 @@ from django.db import transaction
 
 from apps.evidence.models import EvidenceKind as K
 from apps.missions.models import Difficulty, Mission, MissionSignalMap, MissionStep, StepType
+from apps.assessments.management.commands._assessment_i18n import signal_translations
 from apps.signals.models import Signal, SignalCategory
+
+from . import _mission_i18n as i18n
 
 # Non-interest dimensions a mission can add evidence to (assessment never scores these).
 MISSION_SIGNALS = [
@@ -44,7 +49,11 @@ MISSION = {
             {"title": "Reflect", "text": "Explain your thinking in a few sentences."},
         ],
         "match_signals": ["artistic", "realistic"],
-        "match_keywords": ["design", "build", "prototype", "creative", "making", "engineer", "invent", "construct"],
+        "match_keywords": [
+            "design", "build", "prototype", "creative", "making", "engineer", "invent", "construct",
+            # Uzbek / Russian stems, so a localized next step still matches (recommendation label only).
+            "dizayn", "prototip", "yasa", "qurish", "дизайн", "прототип", "конструир", "мастер",
+        ],
     },
 }
 
@@ -160,15 +169,30 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         for key, label, category in MISSION_SIGNALS:
-            Signal.objects.update_or_create(key=key, defaults={"label": label, "category": category, "is_active": True})
+            Signal.objects.update_or_create(
+                key=key,
+                defaults={
+                    "label": label,
+                    "category": category,
+                    "is_active": True,
+                    "translations": signal_translations(key),
+                },
+            )
 
         mission, _ = Mission.objects.update_or_create(
-            slug=MISSION["slug"], defaults={k: v for k, v in MISSION.items() if k != "slug"}
+            slug=MISSION["slug"],
+            defaults={**{k: v for k, v in MISSION.items() if k != "slug"}, "translations": i18n.MISSION},
         )
         steps = {}
         for order, spec in enumerate(STEPS, start=1):
             step, _ = MissionStep.objects.update_or_create(
-                mission=mission, key=spec["key"], defaults={**{k: v for k, v in spec.items() if k != "key"}, "order": order}
+                mission=mission,
+                key=spec["key"],
+                defaults={
+                    **{k: v for k, v in spec.items() if k != "key"},
+                    "order": order,
+                    "translations": i18n.STEPS.get(spec["key"], {}),
+                },
             )
             steps[spec["key"]] = step
         MissionStep.objects.filter(mission=mission).exclude(key__in=steps).delete()

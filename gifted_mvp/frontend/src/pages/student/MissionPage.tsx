@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiErrorMessage, missionsApi } from "../../api/missions";
 import { StepRenderer } from "../../features/missions/MissionSteps";
@@ -8,10 +9,9 @@ import { ArrowIcon, BackIcon, CheckIcon, ClockIcon, CompassIcon, LeafIcon, Spark
 import { PassportBook, WaveSurface } from "../../features/passport/PassportHero";
 import type { MissionAttempt, MissionDetail, StepResponse } from "../../types/mission";
 
-const DIFFICULTY = { BEGINNER: "Beginner", INTERMEDIATE: "Intermediate" } as const;
-
 /** /app/missions/:slug — intro → steps (server-persisted, refresh-safe) → evidence result. */
 export function MissionPage() {
+  const { t } = useTranslation();
   const { slug = "" } = useParams();
   const queryClient = useQueryClient();
 
@@ -35,14 +35,14 @@ export function MissionPage() {
   });
 
   if (detailQuery.isLoading || (attemptId && attemptQuery.isLoading)) {
-    return <div className="grid h-64 place-items-center text-sage-600">Opening your mission…</div>;
+    return <div className="grid h-64 place-items-center text-sage-600">{t("mission.opening")}</div>;
   }
   if (detailQuery.isError || !detailQuery.data) {
     return (
       <div className="card mx-auto max-w-lg text-center">
-        <p className="text-forest-700">This mission isn't available right now.</p>
+        <p className="text-forest-700">{t("mission.unavailable")}</p>
         <Link to="/app/missions" className="btn-ghost mt-4">
-          Back to missions
+          {t("mission.backToMissions")}
         </Link>
       </div>
     );
@@ -54,7 +54,7 @@ export function MissionPage() {
   return (
     <div className="mx-auto max-w-5xl">
       <Link to="/app/missions" className="inline-flex items-center gap-2 text-sm text-sage-600 hover:text-forest-700">
-        <BackIcon /> All missions
+        <BackIcon /> {t("mission.allMissions")}
       </Link>
       <div className="mt-4">
         {!attempt ? (
@@ -70,12 +70,13 @@ export function MissionPage() {
 }
 
 function MissionIntro({ mission, starting, onStart }: { mission: MissionDetail; starting: boolean; onStart: () => void }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
       <WaveSurface>
         <div className="p-7 md:p-10">
           <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold-600">
-            {mission.match === "RECOMMENDED" ? "Recommended for you" : "Suggested exploration"}
+            {mission.match === "RECOMMENDED" ? t("dashboard.recommended") : t("mission.suggested")}
           </p>
           <h1 className="mt-3 max-w-2xl text-4xl leading-tight md:text-5xl">{mission.title}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-forest-700/85">{mission.short_description}</p>
@@ -87,18 +88,18 @@ function MissionIntro({ mission, starting, onStart }: { mission: MissionDetail; 
               <CompassIcon className="h-4 w-4 text-gold-500" /> {mission.activity_label}
             </span>
             <span className="inline-flex items-center gap-2">
-              <SparkIcon className="h-4 w-4 text-gold-500" /> {DIFFICULTY[mission.difficulty]}
+              <SparkIcon className="h-4 w-4 text-gold-500" /> {t(`missions.difficulty.${mission.difficulty}`)}
             </span>
           </div>
           <button className="btn-primary mt-8 gap-2 px-7 py-3 text-base" onClick={onStart} disabled={starting}>
-            {starting ? "Starting…" : "Start challenge"} <ArrowIcon />
+            {starting ? t("mission.starting") : t("mission.start")} <ArrowIcon />
           </button>
         </div>
       </WaveSurface>
 
       <div className="grid gap-5 md:grid-cols-[1fr_1.2fr]">
         <div className="card">
-          <h2 className="text-lg">What this explores</h2>
+          <h2 className="text-lg">{t("mission.explores")}</h2>
           <ul className="mt-4 space-y-3">
             {mission.focus_areas.map((f) => (
               <li key={f} className="flex items-center gap-3 text-forest-700">
@@ -109,16 +110,13 @@ function MissionIntro({ mission, starting, onStart }: { mission: MissionDetail; 
               </li>
             ))}
           </ul>
-          <p className="mt-5 rounded-xl bg-cream-50 px-4 py-3 text-sm leading-relaxed text-sage-600">
-            There are no right or wrong answers. Your choices add evidence to your Passport — they are not a test
-            score.
-          </p>
+          <p className="mt-5 rounded-xl bg-cream-50 px-4 py-3 text-sm leading-relaxed text-sage-600">{t("mission.noRightAnswers")}</p>
         </div>
         <div className="card">
-          <h2 className="text-lg">What you'll do</h2>
+          <h2 className="text-lg">{t("mission.whatYoullDo")}</h2>
           <ol className="mt-4 space-y-4">
             {mission.intro_steps.map((s, i) => (
-              <li key={s.title} className="flex gap-4">
+              <li key={i} className="flex gap-4">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-forest-700/20 text-sm font-semibold text-forest-700">
                   {i + 1}
                 </span>
@@ -136,6 +134,7 @@ function MissionIntro({ mission, starting, onStart }: { mission: MissionDetail; 
 }
 
 function MissionRunner({ attempt }: { attempt: MissionAttempt }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const steps = attempt.mission.steps;
   const [index, setIndex] = useState(Math.min(attempt.next_step_index, steps.length - 1));
@@ -166,16 +165,14 @@ function MissionRunner({ attempt }: { attempt: MissionAttempt }) {
         setIndex((i) => i + 1);
       }
     },
-    onError: (err) => setError(apiErrorMessage(err)),
+    onError: (err) => setError(apiErrorMessage(err, t("mission.saveError"))),
   });
 
   return (
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <p className="font-serif text-lg text-forest-700">{attempt.mission.title}</p>
-        <p className="text-sm text-sage-600">
-          Step {index + 1} of {steps.length}
-        </p>
+        <p className="text-sm text-sage-600">{t("mission.stepOf", { current: index + 1, total: steps.length })}</p>
       </div>
       <ol className="mt-3 grid gap-2" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
         {steps.map((s, i) => (
@@ -200,16 +197,22 @@ function MissionRunner({ attempt }: { attempt: MissionAttempt }) {
 
       <div className="mt-6 flex items-center justify-between gap-3">
         <button className="btn-ghost" onClick={() => setIndex((i) => i - 1)} disabled={index === 0 || save.isPending}>
-          Back
+          {t("common.back")}
         </button>
         <div className="flex items-center gap-4">
-          <span className="hidden text-xs text-sage-600 sm:inline">Your progress is saved as you go.</span>
+          <span className="hidden text-xs text-sage-600 sm:inline">{t("mission.saved")}</span>
           <button
             className="btn-primary gap-2 px-6"
             onClick={() => save.mutate()}
             disabled={!isStepComplete(step, value) || save.isPending}
           >
-            {save.isPending ? "Saving…" : isLast ? "Complete mission" : step.type === "CONTEXT" ? "Let's begin" : "Continue"}
+            {save.isPending
+              ? t("mission.saving")
+              : isLast
+                ? t("mission.complete")
+                : step.type === "CONTEXT"
+                  ? t("mission.letsBegin")
+                  : t("common.continue")}
             {!save.isPending && <ArrowIcon />}
           </button>
         </div>
@@ -219,6 +222,7 @@ function MissionRunner({ attempt }: { attempt: MissionAttempt }) {
 }
 
 function MissionComplete({ attempt }: { attempt: MissionAttempt }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const result = attempt.result;
   return (
@@ -227,19 +231,16 @@ function MissionComplete({ attempt }: { attempt: MissionAttempt }) {
         <div className="grid items-center gap-8 p-7 md:grid-cols-[1fr_auto] md:p-10">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-forest-700 px-3 py-1 text-xs font-medium text-cream-50">
-              <CheckIcon className="h-3.5 w-3.5" /> Mission complete
+              <CheckIcon className="h-3.5 w-3.5" /> {t("mission.done.badge")}
             </span>
-            <h1 className="mt-4 max-w-xl text-3xl leading-tight md:text-4xl">New evidence added to your Gifted Passport.</h1>
-            <p className="mt-3 max-w-xl leading-relaxed text-forest-700/85">
-              This doesn't prove what you're good at — it adds one more piece of evidence about what you explored and how
-              you made decisions. Your Passport becomes more informed, not final.
-            </p>
+            <h1 className="mt-4 max-w-xl text-3xl leading-tight md:text-4xl">{t("mission.done.title")}</h1>
+            <p className="mt-3 max-w-xl leading-relaxed text-forest-700/85">{t("mission.done.text")}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <button className="btn-primary gap-2 px-6 py-3" onClick={() => navigate("/app/passport")}>
-                View Updated Passport <ArrowIcon />
+                {t("dashboard.viewUpdatedPassport")} <ArrowIcon />
               </button>
               <Link to="/app/missions" className="btn-ghost px-6 py-3">
-                Back to missions
+                {t("mission.backToMissions")}
               </Link>
             </div>
           </div>
@@ -249,7 +250,7 @@ function MissionComplete({ attempt }: { attempt: MissionAttempt }) {
 
       <div className="grid gap-5 md:grid-cols-2">
         <div className="card">
-          <h2 className="text-lg">What this activity explored</h2>
+          <h2 className="text-lg">{t("mission.done.explored")}</h2>
           <ul className="mt-4 space-y-3">
             {attempt.mission.focus_areas.map((f) => (
               <li key={f} className="flex items-center gap-3 text-forest-700">
@@ -262,9 +263,9 @@ function MissionComplete({ attempt }: { attempt: MissionAttempt }) {
           </ul>
         </div>
         <div className="card">
-          <h2 className="text-lg">Evidence added</h2>
+          <h2 className="text-lg">{t("mission.done.added")}</h2>
           <p className="mt-3 flex items-center justify-between rounded-xl bg-forest-50 px-4 py-3 text-sm font-medium text-forest-700">
-            Exploration missions <span className="font-serif text-lg">+1</span>
+            {t("passport.evidence.missions")} <span className="font-serif text-lg">+1</span>
           </p>
           {result && (
             <ul className="mt-3 divide-y divide-cream-200">
@@ -278,9 +279,7 @@ function MissionComplete({ attempt }: { attempt: MissionAttempt }) {
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs text-sage-600">
-            Recorded from the choices you made in this mission.
-          </p>
+          <p className="mt-3 text-xs text-sage-600">{t("mission.done.recorded")}</p>
         </div>
       </div>
     </div>

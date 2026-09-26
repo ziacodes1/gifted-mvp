@@ -4,7 +4,8 @@
 concrete activities/situations — category labels live in the hidden
 `ResponseSignalMap` rows below. Puzzle answers are likewise only in the mappings.
 Content is original. The v1 "Interests Discovery" set (if present) is deactivated,
-never duplicated.
+never duplicated. English here is canonical; Uzbek/Russian come from `_assessment_i18n`
+and are stored in each row's `translations` (presentation only — mappings are shared).
 """
 from decimal import Decimal
 
@@ -14,6 +15,8 @@ from django.db import transaction
 from apps.assessments.models import Assessment, AssessmentSection
 from apps.questions.models import Question, QuestionOption, QuestionType as T
 from apps.signals.models import ResponseSignalMap, Signal, SignalCategory as C
+
+from . import _assessment_i18n as i18n
 
 SLUG = "gifted-discovery"
 LEGACY_SLUGS = ["interests-discovery"]
@@ -207,7 +210,13 @@ class Command(BaseCommand):
         signals = {}
         for key, (label, category) in SIGNALS.items():
             signals[key], _ = Signal.objects.update_or_create(
-                key=key, defaults={"label": label, "category": category, "is_active": True}
+                key=key,
+                defaults={
+                    "label": label,
+                    "category": category,
+                    "is_active": True,
+                    "translations": i18n.signal_translations(key),
+                },
             )
 
         Assessment.objects.filter(slug__in=LEGACY_SLUGS).update(is_active=False)
@@ -217,10 +226,13 @@ class Command(BaseCommand):
                 "title": "Discovery Assessment",
                 "description": "Ten short moments about what you enjoy, how you think and what you've tried.",
                 "is_active": True,
+                "translations": i18n.ASSESSMENT,
             },
         )
         section, _ = AssessmentSection.objects.update_or_create(
-            assessment=assessment, slug="discovery", defaults={"title": "Discovery", "order": 0}
+            assessment=assessment,
+            slug="discovery",
+            defaults={"title": "Discovery", "order": 0, "translations": i18n.SECTION},
         )
 
         for order, spec in enumerate(QUESTIONS):
@@ -233,6 +245,7 @@ class Command(BaseCommand):
                     "helper_text": spec["helper_text"],
                     "content": spec.get("content", {}),
                     "is_active": True,
+                    "translations": i18n.question_translations(order),
                 },
             )
             keep = []
@@ -247,6 +260,7 @@ class Command(BaseCommand):
                         "content": o["content"],
                         "icon": "",
                         "order": o_order,
+                        "translations": i18n.option_translations(order, o["value"]),
                     },
                 )
                 keep.append(option.id)

@@ -1,0 +1,458 @@
+{
+  "language": { "label": "Til" },
+  "common": {
+    "comingSoon": "Bu sahifa Gifted MVP qismi va tez orada ishga tushadi.",
+    "loading": "Yuklanmoqda…",
+    "tryAgain": "Qayta urinib ko‘ring",
+    "retry": "Qayta urinish",
+    "back": "Orqaga",
+    "continue": "Davom etish",
+    "minutes_one": "{{count}} daqiqa",
+    "minutes_other": "{{count}} daqiqa",
+    "and": "va"
+  },
+  "roles": { "student": "O‘quvchi", "parent": "Ota-ona", "admin": "Administrator" },
+  "auth": { "email": "Email", "password": "Parol", "fullName": "To‘liq ism" },
+  "nav": {
+    "home": "Bosh sahifa",
+    "assessments": "Testlar",
+    "passport": "Mening pasportim",
+    "missions": "Missiyalar",
+    "myChild": "Farzandim",
+    "parentInsights": "Ota-onalar uchun tahlil",
+    "overview": "Umumiy ko‘rinish",
+    "motto": "Yorqin kelajak sizdan boshlanadi.",
+    "signOut": "Chiqish"
+  },
+  "public": {
+    "logIn": "Kirish",
+    "getStarted": "Boshlash",
+    "footer": "© Gifted — salohiyatingizni kashf eting, sinab ko‘ring va rivojlantiring.",
+    "tagline": "Yoshlar. Yorqin kelajak.",
+    "heroTitle": "Kim bo‘lishingiz mumkinligini <accent>kashf eting.</accent>"
+  },
+  "landing": {
+    "intro": "Gifted yoshlarga o‘z salohiyatini kashf qilish, sinab ko‘rish va rivojlantirishga yordam beradi — qisqa testlar, hayotiy missiyalar va siz bilan birga o‘sadigan Pasport orqali.",
+    "imParent": "Men ota-onaman",
+    "trust": {
+      "learners": "12–17 yoshli qiziquvchan o‘quvchilar uchun",
+      "evidence": "Haqiqiy dalillarga asoslangan",
+      "noLabels": "Qat’iy yorliqlarsiz"
+    },
+    "pillars": {
+      "discover": { "title": "Kashf qiling", "text": "Qisqa test birinchi qiziqish va belgilaringizni ko‘rsatadi." },
+      "explore": { "title": "Izlaning", "text": "Hayotiy missiyalar bu belgilarni amalda sinaydi." },
+      "grow": { "title": "O‘sing", "text": "Har bir mashg‘ulot yangi dalil qo‘shadi — hech qachon qat’iy yorliq emas." }
+    },
+    "passport": { "title": "Gifted pasporti", "text": "Sizning yo‘lingiz. Sizning hikoyangiz. Sizning dalillaringiz." }
+  },
+  "login": {
+    "title": "Qaytganingizdan xursandmiz",
+    "subtitle": "Gifted bilan yo‘lingizni davom ettirish uchun kiring.",
+    "error": "Email yoki parol noto‘g‘ri. Iltimos, qayta urinib ko‘ring.",
+    "signIn": "Kirish",
+    "signingIn": "Kirilmoqda…",
+    "newHere": "Gifted’da yangimisiz?",
+    "createAccount": "Hisob yaratish"
+  },
+  "register": {
+    "title": "Hisobingizni yarating",
+    "subtitle": "Gifted yo‘lingizni boshlang.",
+    "error": "Hisob yaratilmadi. Boshqa email yoki kuchliroq parol bilan urinib ko‘ring.",
+    "submit": "Hisob yaratish",
+    "creating": "Yaratilmoqda…",
+    "haveAccount": "Hisobingiz bormi?"
+  },
+  "dashboard": {
+    "there": "do‘stim",
+    "greeting": { "morning": "Xayrli tong", "afternoon": "Xayrli kun", "evening": "Xayrli kech" },
+    "welcomeEyebrow": "Gifted’ga xush kelibsiz",
+    "welcomeStarted": "Kashfiyot testining {{progress}}% qismini bajardingiz — to‘xtagan joyingizdan davom eting.",
+    "welcomeNew": "Birinchi qadamni qo‘yish uchun ajoyib kun. Bu mashg‘ulot sizga nimani yoqtirishingiz va qanday fikrlashingizni bilishga yordam beradi.",
+    "features": {
+      "discover": { "a": "Kashf qiling", "b": "qiziqishlaringizni" },
+      "build": { "a": "To‘plang", "b": "haqiqiy dalillarni" },
+      "grow": { "a": "O‘stiring", "b": "Pasportingizni" }
+    },
+    "recommended": "Siz uchun tavsiya",
+    "startJourney": "Yo‘limni boshlash",
+    "continueJourney": "Yo‘limni davom ettirish",
+    "pickUp": "To‘xtagan joyingizdan davom eting.",
+    "beginWith": "Sizga nima yoqishi haqidagi o‘nta qisqa vaziyatdan boshlang.",
+    "stepOf": "5 bosqichdan 1-bosqichdasiz · Kashf qilish",
+    "assessmentCard": {
+      "title": "Kashfiyot testi",
+      "text": "Mashg‘ulotlar, vaziyatlar, ikkita qisqa jumboq va hozirgacha nimalarni sinab ko‘rganingiz.",
+      "take": "Testni boshlash",
+      "continue": "Testni davom ettirish",
+      "time": "Taxminan 5 daqiqa",
+      "done": "{{progress}}% bajarildi"
+    },
+    "passportCard": {
+      "title": "Sizning Gifted pasportingiz",
+      "text": "Testdan so‘ng birinchi belgilaringiz bilan ochiladi.",
+      "preview": "Pasportimni ko‘rish",
+      "grows": "Har bir mashg‘ulot bilan o‘sadi"
+    },
+    "session": {
+      "title": "Bugungi mashg‘ulotingiz",
+      "subtitle": "Birinchi Pasportingiz sari bir necha qadam.",
+      "completed": "{{total}} tadan {{done}} tasi bajarildi",
+      "discover": { "title": "Qiziqishlaringizni kashf eting", "text": "Kashfiyot testini yakunlang." },
+      "mission": { "title": "Birinchi missiyangizni sinab ko‘ring", "text": "5–8 daqiqalik amaliy vazifa." },
+      "passport": { "title": "Pasportingizni oching", "text": "Birinchi belgilaringiz qanday jamlanishini ko‘ring." }
+    },
+    "discoverStage": "Kashf qilish",
+    "stats": {
+      "interests": { "title": "Qiziqishlar", "sub": "Dalil bilan", "unit_one": "yo‘nalish", "unit_other": "yo‘nalish" },
+      "reasoning": { "title": "Mulohaza", "sub": "Faqat dastlabki dalil", "unit_one": "qisqa jumboq", "unit_other": "qisqa jumboq" },
+      "experience": { "title": "Tajriba", "sub": "Sinab ko‘rganlaringiz", "unit": "{{total}} ta sohadan" },
+      "explorations": { "title": "Izlanishlar", "sub": "Bajarilgan", "unit_one": "missiya", "unit_other": "missiya" }
+    },
+    "welcomeBack": "Xush kelibsiz,",
+    "growing": "Pasportingiz o‘smoqda — yangi dalillar qo‘shildi.",
+    "profileReady": "Shakllanayotgan profilingiz tayyor. Yo‘lingizni davom ettiring.",
+    "journeyProgress": "Yo‘l bo‘ylab harakat",
+    "stagesOf": "5 tadan {{done}} tasi · {{stage}}",
+    "builtFrom": "Testdagi {{responses}} ta javob asosida tuzilgan.",
+    "builtFromWithMissions_one": "Testdagi {{responses}} ta javob va {{count}} ta izlanish missiyasi asosida tuzilgan.",
+    "builtFromWithMissions_other": "Testdagi {{responses}} ta javob va {{count}} ta izlanish missiyasi asosida tuzilgan.",
+    "viewPassport": "Pasportimni ko‘rish",
+    "viewUpdatedPassport": "Yangilangan Pasportni ko‘rish",
+    "mission": {
+      "yourExploration": "Sizning izlanishingiz",
+      "recommended": "Keyingi tavsiya etilgan missiya",
+      "suggested": "Taklif etilgan missiya",
+      "completedView": "Bajarildi · Nimalar qo‘shilganini ko‘rish"
+    },
+    "profile": {
+      "title": "Shakllanayotgan profilingiz",
+      "text": "Kashfiyot testidan olingan birinchi qiziqishlaringiz, fikrlash uslubingiz va sinab ko‘rganlaringiz.",
+      "cta": "Shakllanayotgan profilni ko‘rish"
+    },
+    "yourJourney": "Sizning yo‘lingiz",
+    "next": {
+      "eyebrow": "Keyingi qadamingiz",
+      "continueTitle": "Missiyangizni davom ettiring",
+      "firstTitle": "Birinchi missiyangizni sinab ko‘ring",
+      "missionText": "{{title}} — Pasportingizga yangi dalil qo‘shadigan qisqa amaliy vazifa.",
+      "grewTitle": "Pasportingiz qanday o‘sganini ko‘ring",
+      "grewText": "Missiyadagi dalillaringiz endi test belgilaringiz yonida turibdi. Tez orada yangi missiyalar qo‘shiladi."
+    }
+  },
+  "missions": {
+    "beginnerFriendly": "Boshlovchilar uchun",
+    "startMission": "Missiyani boshlash",
+    "continueMission": "Missiyani davom ettirish",
+    "eyebrow": "Izlaning · Sinab ko‘ring · Fikr yuriting",
+    "title": "Izlanish missiyalari",
+    "intro": "Shakllanayotgan belgilaringizni amalda sinab ko‘rishga yordam beradigan qisqa hayotiy vazifalar. Har bir missiya Pasportingizga dalil qo‘shadi — hech qachon baho emas.",
+    "more": "Yangi missiyalar va virtual laboratoriyalar tayyorlanmoqda. Ularning har biri boshqa yo‘nalishni o‘rganadi, shunda Pasportingiz turli xil dalillarga tayanadi.",
+    "startMissionLower": "Missiyani boshlash",
+    "status": { "completed": "Bajarildi", "inProgress": "Jarayonda" },
+    "difficulty": { "BEGINNER": "Boshlang‘ich", "INTERMEDIATE": "O‘rta" }
+  },
+  "passport": {
+    "status": { "growing": "O‘sayotgan Pasport", "emerging": "Shakllanayotgan Pasport", "empty": "Boshlanmagan" },
+    "page": {
+      "error": "Hozir Pasportingizni ochib bo‘lmadi.",
+      "titleName": "{{name}} pasporti",
+      "intro": "Qiziqishlaringiz, dalillaringiz va o‘sishingizning jonli qaydi — hozirgacha o‘rganganlaringiz asosida.",
+      "currentSignals": "Hozirgi belgilar",
+      "currentSignalsNote": "Test javoblaringizdan olingan — quyidagi tahlil ularni tushuntiradi, lekin hech qachon o‘zgartirmaydi.",
+      "explorationEvidence": "Izlanishlaringizdan olingan dalillar",
+      "explorationEvidenceNote": "Missiyalarda qilgan ishlaringizdan qayd etilgan. Ular test belgilaringiz yonida turadi — ularni o‘zgartirmaydi.",
+      "suggests": "Dalillaringiz nimani ko‘rsatmoqda",
+      "suggestsNote": "Yuqoridagi belgilarning talqini. U ularni tushuntiradi — hech qachon o‘zgartirmaydi.",
+      "notCovered": "Bu talqin testingiz asosida yozilgan. Missiyadagi dalillaringiz yuqorida ko‘rsatilgan va talqin keyingi safar yangilanganda hisobga olinadi.",
+      "cantTell": "Dalillar hali nimani ayta olmaydi",
+      "worthExploring": "O‘rganishga arziydi",
+      "worthExploringNote": "Keyingi tajribalaringiz javob bera oladigan ochiq savollar.",
+      "ideas": "Sinab ko‘rish uchun g‘oyalar:",
+      "opening": "Pasportingiz ochilmoqda"
+    },
+    "empty": {
+      "badge": "Pasport hali boshlanmagan",
+      "title": "Gifted pasportingiz kashfiyotdan boshlanadi.",
+      "text": "Kashfiyot testini yakunlang — taxminan 5 daqiqa — va Pasportingiz birinchi belgilaringiz bilan ochiladi.",
+      "upcoming": {
+        "signals": { "title": "Hozirgi belgilar", "text": "O‘z javoblaringiz asosida hisoblangan qiziqish belgilari." },
+        "strengths": { "title": "Shakllanayotgan kuchli tomonlar", "text": "Hozircha dalillaringiz nimani ko‘rsatayotgani — hech qachon qat’iy yorliq emas." },
+        "next": { "title": "Keyingi izlanish", "text": "Belgilaringiz asosida tanlangan bitta aniq mashg‘ulot." }
+      }
+    },
+    "hero": {
+      "discover": "Kashf qiling",
+      "explore": "Izlaning",
+      "become": "Rivojlaning",
+      "aiHeadline": "AI yordamida yozilgan sarlavha",
+      "signalHeadline": "Belgilarga asoslangan sarlavha",
+      "evolves": "yangi dalillar bilan o‘zgaradi",
+      "number": "Pasport raqami",
+      "memberSince": "A’zo bo‘lgan sana",
+      "lastUpdated": "Oxirgi yangilanish",
+      "stage": "Yo‘l bosqichi"
+    },
+    "tags": { "recorded": "Qayd etilgan dalil", "calculated": "Test belgilari" },
+    "signalLevel": { "HIGH": "Barqaror belgi", "MEDIUM": "Shakllanayotgan belgi", "LOW": "Dastlabki belgi" },
+    "journey": {
+      "count": "{{total}} tadan {{done}} tasi",
+      "two": "<b>Kashf qilish va izlanish davom etmoqda.</b> Turli dalillar — ko‘proq missiyalar va hayotiy tajribalar — to‘plangan sari Tasdiqlash bosqichi ochiladi.",
+      "one": "<b>Kashf qilish bosqichi yakunlandi.</b> Izlanish birinchi missiyangiz bilan ochiladi — keyingi izlanishingizni quyida ko‘ring.",
+      "none": "Yo‘lingiz Kashfiyot testidan boshlanadi."
+    },
+    "evidence": {
+      "title": "Hozirgacha to‘plangan dalillar",
+      "assessment": "Test javoblari",
+      "missions": "Izlanish missiyalari",
+      "experiences": "Hayotiy tajribalar",
+      "includes": "Profilingiz endi {{assessments}} va {{missions}} dalillarini o‘z ichiga oladi.",
+      "assessmentCount_one": "{{count}} ta test",
+      "assessmentCount_other": "{{count}} ta test",
+      "missionCount_one": "{{count}} ta izlanish missiyasi",
+      "missionCount_other": "{{count}} ta izlanish missiyasi",
+      "early": "Pasportingiz hali boshlang‘ich bosqichda — har bir yangi mashg‘ulot dalil qo‘shadi."
+    },
+    "log": {
+      "title": "Dalillar jurnali",
+      "explored": "Hozirgacha o‘rganilgan",
+      "exploredNote": "Mashg‘ulotlaringiz nimalarga dalil berdi.",
+      "singlePoint": "Bitta mashg‘ulot — bitta ma’lumot nuqtasi: u yakuniy xulosa emas, qo‘shimcha kontekst beradi."
+    },
+    "next": {
+      "eyebrow": "Keyingi izlanishingiz",
+      "aiNote": "Hozirgi belgilaringiz asosida AI yordamida taklif qilingan.",
+      "completed": "Izlanish yakunlandi",
+      "startWith": "Shu missiyadan boshlang",
+      "useful": "Foydali keyingi izlanish",
+      "added": "Pasportingiz dalillariga qo‘shildi",
+      "viewAdded": "Nimalar qo‘shilganini ko‘rish",
+      "continue": "Missiyani davom ettirish",
+      "exploreNext": "Keyingi shuni o‘rganing",
+      "try": "Bu missiyani sinab ko‘ring",
+      "general": "Boshqa turdagi dalil qo‘shadigan umumiy izlanish — chapdagi taklifga maxsus moslashtirilmagan."
+    }
+  },
+  "assessment": {
+    "eyebrow": {
+      "SINGLE_CHOICE": "Qiziqishlaringiz",
+      "VISUAL_CHOICE": "Mashg‘ulot tanlang",
+      "STORY_CHOICE": "Maktabdagi bir lahza",
+      "SCENARIO_CHOICE": "Hayotiy vaziyat",
+      "VALUE_TRADEOFF": "Siz uchun nima muhim",
+      "MULTI_SELECT": "Hozirgacha tajribangiz",
+      "PATTERN_CHOICE": "Qisqa jumboq"
+    },
+    "or": "yoki",
+    "optionLabel": "{{label}} varianti",
+    "loading": "Testingiz yuklanmoqda…",
+    "unavailable": "Bu test hozir mavjud emas.",
+    "tryLater": "Birozdan so‘ng qayta urinib ko‘ring.",
+    "eyebrowTop": "Kashfiyot",
+    "title": "Sizga nima yoqadi, qanday fikrlaysiz",
+    "intro": "O‘nta qisqa vaziyat — mashg‘ulotlar, holatlar va bir-ikkita qisqa jumboq. Taxminan 5 daqiqa.",
+    "questionOf": "{{total}} ta savoldan {{current}}-savol",
+    "completing": "Yakunlanmoqda…",
+    "complete": "Testni yakunlash",
+    "next": "Keyingi savol",
+    "puzzleNote": "Bu shunchaki qisqa jumboq — kichik bir dalil, hech qachon yakuniy baho emas.",
+    "noRightAnswers": "To‘g‘ri yoki noto‘g‘ri javob yo‘q — hozir sizga eng yaqin bo‘lganini tanlang.",
+    "completed": {
+      "title": "Siz bu testni yakunladingiz",
+      "text": "Javoblaringiz allaqachon shakllanayotgan profilingiz va Gifted pasportingizning bir qismi.",
+      "openPassport": "Pasportimni ochish",
+      "retakeQuestion": "Javoblaringiz qanday o‘zgarishini ko‘rmoqchimisiz?",
+      "retake": "Testni qayta topshirish"
+    }
+  },
+  "confidence": {
+    "LOW": "Dastlabki belgi — ko‘proq izlanish buni aniqlashtirishga yordam beradi.",
+    "MEDIUM": "Ancha barqaror dastlabki belgi.",
+    "HIGH": "Javoblaringizda kuchli va barqaror belgi."
+  },
+  "activity": {
+    "challenge": "vazifa",
+    "project": "loyiha",
+    "experiment": "tajriba",
+    "observation": "kuzatuv",
+    "conversation": "suhbat",
+    "reflection": "fikr yuritish"
+  },
+  "result": {
+    "exposureNote": "Bu testlaringizdan olingan dastlabki belgilar. Hayotda sinab ko‘rish ularni tasdiqlash va aniqlashtirishga yordam beradi.",
+    "loading": "Profilingiz yuklanmoqda…",
+    "empty": {
+      "title": "Hali belgilar yo‘q.",
+      "text": "Shakllanayotgan profilingizni ko‘rish uchun testni yakunlang.",
+      "cta": "Testni boshlash"
+    },
+    "eyebrow": "Salohiyatingiz diqqat markazida",
+    "title": "Shakllanayotgan profilingiz",
+    "intro": "Bu testingizdan hozirgacha bilib olganlarimiz xulosasi. Bu qat’iy xulosa emas, dastlabki belgilar — siz izlangan sari u o‘zgarib boradi.",
+    "offlineOne": "Hozirgi javoblaringiz <b>{{a}}</b> yo‘nalishiga qiziqish kuchliroq ekanini ko‘rsatmoqda. Bu qat’iy yorliq emas, shakllanayotgan belgi.",
+    "offlineTwo": "Hozirgi javoblaringiz <b>{{a}}</b> va <b>{{b}}</b> yo‘nalishlariga qiziqish kuchliroq ekanini ko‘rsatmoqda. Bu qat’iy yorliq emas, shakllanayotgan belgi.",
+    "currentInterests": "Hozirgi qiziqishlar",
+    "currentInterestsNote": "Javoblaringizdan olingan test belgilari — tahlilda nima deyilishidan qat’i nazar ular o‘zgarmaydi.",
+    "beyond": "Qiziqishlardan tashqari",
+    "beyondNote": "Mulohaza, ish uslubi, qadriyatlar va tajriba — ataylab alohida ko‘rsatilgan.",
+    "moreExploration": "Hayotda ko‘proq izlanish vaqt o‘tishi bilan bu belgilarni aniqlashtirishga va o‘stirishga yordam beradi.",
+    "buildPassport": "Gifted pasportimni yaratish"
+  },
+  "insight": {
+    "loading": {
+      "connecting": "Belgilaringiz bog‘lanmoqda…",
+      "patterns": "Hozirgi dalillaringizdagi qonuniyatlar izlanmoqda…",
+      "preparing": "Shakllanayotgan profilingiz tayyorlanmoqda…"
+    },
+    "badge": {
+      "ai": "AI yordamidagi tahlil",
+      "signal": "Belgilarga asoslangan tahlil",
+      "aiTitle": "Test belgilaringiz asosida AI yordamida yozilgan — u belgilarni tushuntiradi, hech qachon o‘zgartirmaydi.",
+      "signalTitle": "Test belgilaringiz asosida yozilgan."
+    },
+    "overall": "Umumiy xulosa",
+    "basedOn": "Asoslangan",
+    "helpsClarify": "Bu nimani aniqlashtirishga yordam beradi",
+    "strengths": "Shakllanayotgan kuchli tomonlar",
+    "exploreFurther": "Yana o‘rganishga arziydi",
+    "exploreFurtherNote": "Hali yetarli dalil bo‘lmagan sohalar."
+  },
+  "signals": {
+    "pickedOf": "{{total}} imkoniyatdan {{picked}} marta tanlangan",
+    "groups": {
+      "reasoning": {
+        "title": "Mulohaza",
+        "note": "Bir-ikkita qisqa jumboqdan olingan — bu qobiliyat o‘lchovi emas, dastlabki dalil.",
+        "chip": "{{label}}: dastlabki dalil"
+      },
+      "style": {
+        "title": "Ish uslubi",
+        "note_you": "Testdagi vaziyatlarga ko‘ra, ishga odatda qanday yondashishingiz.",
+        "note_they": "Testdagi vaziyatlarga ko‘ra, farzandingiz ishga odatda qanday yondashishi.",
+        "clear": "aniq moyillik",
+        "hint": "birinchi ishora"
+      },
+      "values": { "title": "Nima muhim", "note": "Tanlov savollaridan olingan — hech bir tomon yaxshiroq emas." },
+      "exposure": {
+        "title": "Hozirgacha tajriba",
+        "note": "Nimalar sinab ko‘rilgan — bu mahorat emas, tajriba. Sinab ko‘rilmagan sohalar — ochiq eshiklar.",
+        "notTried": "Hali sinab ko‘rilmagan: {{label}}"
+      }
+    }
+  },
+  "mission": {
+    "opening": "Missiyangiz ochilmoqda…",
+    "unavailable": "Bu missiya hozir mavjud emas.",
+    "backToMissions": "Missiyalarga qaytish",
+    "allMissions": "Barcha missiyalar",
+    "suggested": "Taklif etilgan izlanish",
+    "starting": "Boshlanmoqda…",
+    "start": "Vazifani boshlash",
+    "explores": "Bu nimani o‘rganadi",
+    "noRightAnswers": "To‘g‘ri yoki noto‘g‘ri javob yo‘q. Tanlovlaringiz Pasportingizga dalil qo‘shadi — bu test bahosi emas.",
+    "whatYoullDo": "Nima qilasiz",
+    "saveError": "Nimadir xato ketdi. Iltimos, qayta urinib ko‘ring.",
+    "stepOf": "{{total}} ta bosqichdan {{current}}-bosqich",
+    "saved": "Natijalaringiz avtomatik saqlanadi.",
+    "saving": "Saqlanmoqda…",
+    "complete": "Missiyani yakunlash",
+    "letsBegin": "Boshladik",
+    "done": {
+      "badge": "Missiya yakunlandi",
+      "title": "Gifted pasportingizga yangi dalil qo‘shildi.",
+      "text": "Bu nimada kuchli ekaningizni isbotlamaydi — faqat nimani o‘rganganingiz va qanday qaror qabul qilganingiz haqida yana bitta dalil qo‘shadi. Pasportingiz yakuniy emas, balki boyroq bo‘ladi.",
+      "explored": "Bu mashg‘ulot nimani o‘rgandi",
+      "added": "Qo‘shilgan dalillar",
+      "recorded": "Bu missiyadagi tanlovlaringiz asosida qayd etildi."
+    },
+    "steps": {
+      "voices": "O‘quvchilar bizga nima deyishdi",
+      "chosen": "{{max}} tadan {{count}} tasi tanlandi",
+      "budgetUsed": "Sarflangan byudjet",
+      "points_one": "{{count}} ball",
+      "points_other": "{{count}} ball",
+      "left_one": "{{count}} ball qoldi — hammasini sarflash shart emas.",
+      "left_other": "{{count}} ball qoldi — hammasini sarflash shart emas.",
+      "fullyUsed": "Byudjet to‘liq sarflandi.",
+      "pts_one": "{{count}} ball",
+      "pts_other": "{{count}} ball",
+      "notEnough": "Ball yetmaydi — boshqa narsani almashtiring.",
+      "tradeoff": "Murosasi: {{text}}",
+      "required": "Majburiy",
+      "optional": "Ixtiyoriy",
+      "atLeast": "Kamida {{count}} ta belgi"
+    }
+  },
+  "parent": {
+    "chips": { "stage": "Yo‘l bosqichi: {{stage}}" },
+    "signalGuidance": "Belgilarga asoslangan tavsiya",
+    "picture": {
+      "title": "Hozirgi manzara",
+      "picked": "{{total}} imkoniyatdan {{picked}} marta tanlangan",
+      "note": "Kashfiyot testidan olingan qiziqish belgilari — qobiliyat yoki kasb yorlig‘i emas."
+    },
+    "evidence": {
+      "realWorld": "Hayotiy tajriba va imkoniyatlar",
+      "varied": "Dalillar endi bir nechta turdagi mashg‘ulotlardan olinmoqda.",
+      "oneAssessment": "Hozircha manzara bitta testga tayanadi."
+    },
+    "preparing": "Farzandingizning hozirgi dalillari asosida tavsiyalar tayyorlanmoqda…",
+    "learning": "Nimalarni bilib olyapmiz",
+    "readFull": "To‘liq tahlilni o‘qish",
+    "unclear": "Hali nimalar noaniq",
+    "support": "Uyda qanday qo‘llab-quvvatlash mumkin",
+    "next": {
+      "eyebrow": "Keyingi izlanish",
+      "connected": "Bog‘liq: {{signals}}",
+      "note": "Belgini hayotiy tajribada sinab ko‘rish uchun kichik mashg‘ulot — bu majburiyat ham, kasb tanlovi ham emas.",
+      "completed": "Missiya yakunlangan",
+      "inProgress": "Missiya jarayonda",
+      "available": "Missiya mavjud",
+      "explores": "o‘rganadi: {{areas}}",
+      "added": "Farzandingiz Pasportiga dalil sifatida qo‘shildi"
+    },
+    "starter": "Suhbatni boshlash uchun savol",
+    "notStarted": {
+      "title": "Kashfiyot hali boshlanmagan.",
+      "text": "{{name}} hali Kashfiyot testini yakunlamagan, shuning uchun biror narsani tasvirlash uchun yetarli dalil yo‘q — va biz taxmin qilmaymiz. Boshlagach, siz quyidagilarni ko‘rasiz:",
+      "later": {
+        "signals": "Eng kuchli hozirgi qiziqish belgilari va ularni qancha dalil qo‘llab-quvvatlashi.",
+        "explored": "Nimalar o‘rganilgani — va qaysi sohalarda tajriba hali kam.",
+        "ideas": "Uyda qo‘llab-quvvatlash uchun sokin va amaliy g‘oyalar."
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Ota-onalar uchun umumiy ko‘rinish",
+      "title": "Faqat natijalarni emas, farzandingiz yo‘lini tushuning.",
+      "intro": "{{name}} nimalarni o‘rganayotgani, qancha dalil borligi va uni qanday qo‘llab-quvvatlashingiz mumkinligi haqida sokin ko‘rinish.",
+      "introEmpty": "{{name}} kashfiyotni boshlagach, uning Gifted pasporti shu yerda paydo bo‘ladi.",
+      "theirJourney": "Farzandingiz yo‘li",
+      "journeyNote": {
+        "EMERGING": "Kashf qilish bosqichi yakunlandi. Keyingi bosqich amaliy missiyani sinab ko‘rganda boshlanadi.",
+        "GROWING": "Farzandingiz kashf qilishdan izlanishga o‘tdi. Turli dalillar to‘plangan sari Tasdiqlash bosqichi ochiladi."
+      }
+    },
+    "states": {
+      "error": "Hozir bu sahifani yuklab bo‘lmadi.",
+      "noChild": "Hali farzand ulanmagan",
+      "noChildText": "Rivojlanish belgilarini shu yerda ko‘rish uchun farzandingizdan Gifted ulanish kodini so‘rang (u <code>GFT-48291</code> ko‘rinishida bo‘ladi)."
+    },
+    "insights": {
+      "title": "{{name}}ning hozirgi manzarasi va uning izohi",
+      "intro": "Biz nimani ko‘ryapmiz, buning ortida qanday dalillar bor, nimalar hali noaniq — va erta qaror qabul qilmasdan qanday yordam berish mumkin.",
+      "seeing": "Biz nimani ko‘ryapmiz",
+      "aiNote": "AI yordamida: quyidagi belgilar va mashg‘ulotlar asosida yozilgan. U ularni tushuntiradi — farzandingizga hech qachon baho qo‘ymaydi.",
+      "signalNote": "Quyidagi belgilar va mashg‘ulotlar asosida yozilgan.",
+      "evidenceSignals": "Asosidagi dalillar: belgilar",
+      "fromAnswers_one": "Testdagi {{count}} ta javob asosida.",
+      "fromAnswers_other": "Testdagi {{count}} ta javob asosida.",
+      "level": { "HIGH": "Barqaror", "MEDIUM": "Shakllanmoqda", "LOW": "Dastlabki" },
+      "scoreNote": "Ball — farzandingiz shu qiziqishni tanlagan imkoniyatlar ulushi. Missiya dalillari alohida qayd etiladi va bu raqamlarni hech qachon o‘zgartirmaydi.",
+      "evidenceActivities": "Asosidagi dalillar: mashg‘ulotlar",
+      "noActivities": "Hali amaliy mashg‘ulotlar yo‘q — hozircha manzara faqat testdan olingan. Birinchi missiya haqiqiy tanlovlardan dalil qo‘shadi.",
+      "beyondNote": "Dastlabki mulohaza, ish uslubi, qadriyatlar va tajriba — qiziqishlardan alohida ko‘rsatilgan.",
+      "uncertain": "Hali nimalar noaniq",
+      "updates": "{{name}} yangi dalil qo‘shganda yangilanadi."
+    }
+  }
+}

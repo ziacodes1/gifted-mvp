@@ -1,9 +1,12 @@
+import { Trans, useTranslation } from "react-i18next";
+
 export function ParentPageState({ error }: { error: boolean }) {
+  const { t } = useTranslation();
   if (error) {
     return (
       <div className="card mx-auto max-w-lg text-center">
-        <p className="text-forest-700">We couldn't load this page right now.</p>
-        <p className="mt-2 text-sm text-sage-600">Please try again in a moment.</p>
+        <p className="text-forest-700">{t("parent.states.error")}</p>
+        <p className="mt-2 text-sm text-sage-600">{t("assessment.tryLater")}</p>
       </div>
     );
   }
@@ -19,12 +22,12 @@ export function ParentPageState({ error }: { error: boolean }) {
 }
 
 export function NoChildConnected() {
+  const { t } = useTranslation();
   return (
     <div className="card mx-auto max-w-xl md:p-10">
-      <h1 className="text-3xl">No child connected yet</h1>
+      <h1 className="text-3xl">{t("parent.states.noChild")}</h1>
       <p className="mt-3 leading-relaxed text-sage-600">
-        Ask your child for their Gifted connection code (it looks like <span className="font-medium text-forest-700">GFT-48291</span>)
-        to see their growth signals here.
+        <Trans i18nKey="parent.states.noChildText" components={{ code: <span className="font-medium text-forest-700" /> }} />
       </p>
     </div>
   );
