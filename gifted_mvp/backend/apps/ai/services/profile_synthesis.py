@@ -20,7 +20,7 @@ from common.i18n import tr
 
 from ..models import AIInsight, GenerationType
 from ..prompts import PROFILE_SYNTHESIS_SYSTEM, PROMPT_VERSION, with_language
-from ..schemas import PROFILE_SYNTHESIS_JSON_SCHEMA, ProfileInsight
+from ..schemas import PROFILE_LIST_LIMITS, PROFILE_SYNTHESIS_JSON_SCHEMA, ProfileInsight, keep_first
 from .generation import Generated, check_language, get_or_generate, run_structured, saved_insight
 from .provider import get_provider
 
@@ -99,7 +99,7 @@ def build_signal_input(session: AssessmentSession, language: str = "en") -> dict
 def validate_ai_output(raw: dict, known_keys: set[str]) -> dict:
     """Schema + product-language validation. Raises ValueError if unusable."""
     try:
-        parsed = ProfileInsight.model_validate(raw)
+        parsed = ProfileInsight.model_validate(keep_first(raw, {}, PROFILE_LIST_LIMITS))
     except ValidationError as exc:
         raise ValueError(f"schema: {exc.error_count()} errors") from exc
     data = parsed.model_dump()

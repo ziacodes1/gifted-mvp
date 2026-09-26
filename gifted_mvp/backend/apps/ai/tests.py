@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from rest_framework.test import APIClient
 
 from apps.assessments.models import Assessment
@@ -407,3 +407,50 @@ class GroqProviderTests(SessionFixtureMixin, TestCase):
         with self.assertRaises(ProviderError):
             FailoverProvider(primary, secondary).generate_structured(system="s", prompt="p", schema={})
         self.assertEqual(secondary.calls, 0)  # bad key is not transient → deterministic fallback
+
+
+class ExtraListItemsTests(SimpleTestCase):
+    """Models sometimes return more list items than the prompt asks for; keep the first N
+    instead of throwing away an otherwise valid answer (everything else stays strict)."""
+
+    def test_parent_insight_keeps_first_three(self):
+        from apps.ai.services.parent_insight import validate_parent_output
+
+        item = {"title": "Interest in design", "explanation": "Chosen in most assessment answers."}
+        raw = {
+            "summary": "The current evidence suggests an early interest in design.",
+            "what_we_are_seeing": [item] * 5,
+            "what_is_still_unclear": ["a", "b", "c", "d"],
+            "support_at_home": [{"title": "Ask", "action": "Ask what felt interesting."}] * 4,
+            "conversation_starter": "What did you enjoy?",
+            "caution": "Exploration matters more than an early decision.",
+        }
+        data = validate_parent_output(raw)
+        self.assertEqual((len(data["what_we_are_seeing"]), len(data["what_is_still_unclear"]), len(data["support_at_home"])), (3, 3, 3))
+
+    def test_profile_keeps_first_items_but_stays_strict(self):
+        from apps.ai.services.profile_synthesis import validate_ai_output
+
+        raw = {
+            "profile": {
+                "headline": "Early signals toward building",
+                "summary": "Your current evidence suggests an interest in building.",
+                "emerging_strengths": [{"title": "Building", "reason": "Picked often; developing signal."}] * 6,
+                "exposure_gaps": ["a"] * 7,
+                "uncertainty_notes": ["n"] * 6,
+                "suggested_explorations": ["x"] * 6,
+            },
+            "next_step": {
+                "title": "Try a build challenge",
+                "activity_type": "challenge",
+                "reason": "Interest in building.",
+                "signals_used": ["realistic"] * 7,
+                "intended_validation": "Hands-on interest.",
+                "confidence_note": "Early.",
+            },
+        }
+        data = validate_ai_output(raw, {"realistic"})
+        self.assertEqual(len(data["profile"]["suggested_explorations"]), 4)
+        raw["profile"]["headline"] = "You should become an engineer"
+        with self.assertRaises(ValueError):
+            validate_ai_output(raw, {"realistic"})

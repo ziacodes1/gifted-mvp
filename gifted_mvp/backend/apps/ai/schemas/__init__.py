@@ -41,6 +41,28 @@ class ProfileInsight(_Strict):
     next_step: NextStepRecommendation
 
 
+def keep_first(raw, limits: dict[str, int], nested: dict[str, dict[str, int]] | None = None):
+    """Models sometimes return more list items than asked for (e.g. 5 where the prompt says 1-3).
+    Keep the first N instead of discarding an otherwise valid answer; everything else is still
+    validated strictly (types, lengths, banned phrases, grounding)."""
+    if not isinstance(raw, dict):
+        return raw
+    out = dict(raw)
+    for key, limit in limits.items():
+        if isinstance(out.get(key), list):
+            out[key] = out[key][:limit]
+    for key, sub in (nested or {}).items():
+        out[key] = keep_first(out.get(key), sub)
+    return out
+
+
+PARENT_LIST_LIMITS = {"what_we_are_seeing": 3, "what_is_still_unclear": 3, "support_at_home": 3}
+PROFILE_LIST_LIMITS = {
+    "profile": {"emerging_strengths": 4, "exposure_gaps": 5, "uncertainty_notes": 4, "suggested_explorations": 4},
+    "next_step": {"signals_used": 5},
+}
+
+
 def _obj(props: dict, required: list[str] | None = None) -> dict:
     return {
         "type": "object",

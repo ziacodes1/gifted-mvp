@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { todayApi } from "../../api/today";
 import type { Nudge, Today } from "../../types/today";
 import { formatDate } from "../../utils/date";
@@ -11,7 +11,12 @@ import { TODAY_KEY } from "./sparkText";
 export function NudgeBell() {
   const { t, i18n } = useTranslation();
   const qc = useQueryClient();
-  const { data } = useQuery({ queryKey: TODAY_KEY, queryFn: todayApi.get, staleTime: 60_000 });
+  const { data, refetch, dataUpdatedAt } = useQuery({ queryKey: TODAY_KEY, queryFn: todayApi.get, staleTime: 60_000 });
+  // The bell lives in the layout (it never remounts), so refresh it on navigation when stale.
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (dataUpdatedAt && Date.now() - dataUpdatedAt > 30_000) void refetch();
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

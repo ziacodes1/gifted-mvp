@@ -15,7 +15,7 @@ from apps.assessments.models import AssessmentSession
 
 from ..models import AIInsight, GenerationType
 from ..prompts import PARENT_INSIGHT_SYSTEM, PARENT_PROMPT_VERSION, with_language
-from ..schemas import PARENT_INSIGHT_JSON_SCHEMA, ParentInsightOutput
+from ..schemas import PARENT_INSIGHT_JSON_SCHEMA, PARENT_LIST_LIMITS, ParentInsightOutput, keep_first
 from .generation import FALLBACK_RETRY_AFTER, check_language, get_or_generate, run_structured, saved_insight
 from .provider import get_provider
 
@@ -40,7 +40,7 @@ def input_version(passport_version: int) -> str:
 
 def validate_parent_output(raw: dict, data_in: dict | None = None) -> dict:
     try:
-        data = ParentInsightOutput.model_validate(raw).model_dump()
+        data = ParentInsightOutput.model_validate(keep_first(raw, PARENT_LIST_LIMITS)).model_dump()
     except ValidationError as exc:
         raise ValueError(f"schema: {exc.error_count()} errors") from exc
     check_language(data, _FORBIDDEN)

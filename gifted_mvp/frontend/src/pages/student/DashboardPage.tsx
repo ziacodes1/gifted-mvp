@@ -54,7 +54,7 @@ function HeroFrame({ image, position, children }: { image: string; position: str
     <section className="relative overflow-hidden rounded-3xl border border-cream-200/80 bg-cream-50 shadow-card">
       <div className="absolute inset-y-0 right-0 hidden w-[58%] md:block">
         <img src={image} alt="" className={`h-full w-full object-cover ${position}`} />
-        <div className="absolute inset-y-0 left-0 w-2/5 bg-gradient-to-r from-cream-50 to-transparent" />
+        <div className="absolute inset-y-0 -left-px w-2/5 bg-gradient-to-r from-cream-50 from-10% to-transparent" />
       </div>
       <div className="relative p-7 md:p-10">{children}</div>
     </section>

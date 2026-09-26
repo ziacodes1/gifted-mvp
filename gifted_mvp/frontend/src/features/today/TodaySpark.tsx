@@ -11,7 +11,8 @@ import { TODAY_KEY, sparkHref, sparkTitle } from "./sparkText";
 export function TodaySpark() {
   const { t } = useTranslation();
   const qc = useQueryClient();
-  const { data, isLoading } = useQuery({ queryKey: TODAY_KEY, queryFn: todayApi.get, staleTime: 60_000 });
+  // Always fresh on Home: the card may have just been resolved by an action on another page.
+  const { data, isLoading } = useQuery({ queryKey: TODAY_KEY, queryFn: todayApi.get, staleTime: 0 });
   const act = useMutation({
     mutationFn: (action: "complete" | "dismiss" | "restore") => todayApi.act(data!.spark.key, action),
     onSuccess: (next, action) => {

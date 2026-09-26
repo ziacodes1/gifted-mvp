@@ -15,6 +15,7 @@ from __future__ import annotations
 from collections import OrderedDict
 
 from django.db import transaction
+from django.utils import translation
 from django.db.models import Count
 
 from apps.ai.models import InsightSource
@@ -164,7 +165,15 @@ def passport_snapshot(learner) -> dict:
 
 
 def build_passport(learner, language: str | None = None) -> dict:
+    """The Passport read model in `language`. Nested helpers (evidence titles, dimension labels)
+    read the active language, so it is activated here — callers outside a request (AI inputs,
+    commands) get consistent labels too."""
     language = language or current_language()
+    with translation.override(language):
+        return _build_passport(learner, language)
+
+
+def _build_passport(learner, language: str) -> dict:
     session = _latest_completed_session(learner)
     passport = sync_passport(learner, session)
     overview = _evidence_overview(learner) if session else None

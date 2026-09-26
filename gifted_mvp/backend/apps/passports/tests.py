@@ -122,3 +122,37 @@ class PassportTests(TestCase):
         # Worst case (no saved insight → fallback derived on the fly); constant, no N+1.
         with self.assertNumQueries(16):
             c.get(URL)
+
+
+class PassportLanguageTests(TestCase):
+    """build_passport(learner, lang) must label everything in `lang`, even outside a request."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("seed_demo_assessment", verbosity=0)
+        call_command("seed_demo_mission", verbosity=0)
+        cls.student = get_user_model().objects.create_user("lang@test.dev", "pw12345!")
+
+    def test_explicit_language_reaches_nested_labels(self):
+        from apps.missions.tests import ANSWERS, SLUG
+        from rest_framework.test import APIClient
+
+        from apps.assessments.models import Assessment
+        from apps.passports.services import build_passport
+
+        c = APIClient()
+        c.force_authenticate(self.student)
+        s = c.post(f"/api/v1/assessments/{Assessment.objects.get().id}/start/").json()
+        for q in s["questions"]:
+            c.post(f"/api/v1/assessment-sessions/{s['id']}/answer/", {"question_id": q["id"], "option_id": q["options"][0]["id"]}, format="json")
+        c.post(f"/api/v1/assessment-sessions/{s['id']}/complete/")
+        a = c.post(f"/api/v1/missions/{SLUG}/start/").json()
+        steps = {x["key"]: x["id"] for x in a["mission"]["steps"]}
+        for key, data in ANSWERS.items():
+            c.post(f"/api/v1/mission-attempts/{a['id']}/answer/", {"step_id": steps[key], "response": data}, format="json")
+        c.post(f"/api/v1/mission-attempts/{a['id']}/complete/")
+
+        en, ru = build_passport(self.student, "en"), build_passport(self.student, "ru")
+        self.assertNotEqual(en["explored_dimensions"][0]["label"], ru["explored_dimensions"][0]["label"])
+        self.assertNotEqual(en["recent_evidence"][0]["title"], ru["recent_evidence"][0]["title"])
+        self.assertTrue(any("Ѐ" <= ch <= "ӿ" for ch in ru["explored_dimensions"][0]["label"]))

@@ -115,7 +115,8 @@ COMPANION_PROMPT_VERSION = "c6"
 
 COMPANION_LANGUAGE_NAMES = {
     "en": "English",
-    "uz": LANGUAGE_NAMES["uz"] + "; address the learner politely and consistently with “siz”",
+    "uz": LANGUAGE_NAMES["uz"]
+    + "; use the polite “siz” verb forms consistently, in a warm, friendly tone — no formal openings such as “Hurmatli”",
     "ru": LANGUAGE_NAMES["ru"] + "; address the learner consistently with “ты”",
 }
 
